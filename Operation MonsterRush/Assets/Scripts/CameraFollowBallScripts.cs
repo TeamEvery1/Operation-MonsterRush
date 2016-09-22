@@ -7,8 +7,8 @@ public class CameraFollowBallScripts : MonoBehaviour
 
 	private Vector3 offset;
 
-	private float distance = 5.0f;
-	private float yOffset = 3.5f;
+	private float distance = 4.0f;
+	private float yOffset = 3.0f;
 
 	private void Start()
 	{

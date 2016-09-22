@@ -9,10 +9,13 @@ public class BallMovementScripts : MonoBehaviour
 	public float terminalRotationSpeed = 25.0f;
 	public VirtualJoyStickScripts moveJoyStick;
 
+	private Player.Movement playerMovement;
 	private Rigidbody controller;
+	private bool jump;
 
 	private void Start()
 	{
+		playerMovement = GetComponent <Player.Movement> ();
 		controller = GetComponent<Rigidbody>();
 		controller.maxAngularVelocity = terminalRotationSpeed;
 		controller.drag = drag;
@@ -37,7 +40,7 @@ public class BallMovementScripts : MonoBehaviour
 			direction = moveJoyStick.InputDirection;
 		}
 
-		controller.AddForce(direction * moveSpeed);
+		playerMovement.Player_Movement(direction, jump);
 
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
