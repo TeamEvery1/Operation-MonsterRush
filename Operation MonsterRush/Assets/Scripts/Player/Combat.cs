@@ -110,6 +110,7 @@ namespace Player
 		IEnumerator attackDelayTimer (float t)
 		{
 			isDelayed = false;
+			GameManager.
 			yield return new WaitForSeconds (t);
 			isDelayed = true;
 		}
