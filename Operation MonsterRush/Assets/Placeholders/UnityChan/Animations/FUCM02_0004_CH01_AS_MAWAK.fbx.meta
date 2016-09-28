@@ -404,15 +404,15 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: Combo3End
+        functionName: Combo1Start
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 4202476fc4fcb934e91f0e881854955f,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0
-        functionName: Combo1Start
+      - time: 0.37977096
+        functionName: Combo1End
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 4202476fc4fcb934e91f0e881854955f,
           type: 3}

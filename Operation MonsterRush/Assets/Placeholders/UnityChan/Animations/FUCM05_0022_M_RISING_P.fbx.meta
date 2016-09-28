@@ -402,16 +402,16 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
-        functionName: Combo2End
+      - time: 0.014285704
+        functionName: Combo3Start
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 4202476fc4fcb934e91f0e881854955f,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.16666666
-        functionName: Combo3Start
+      - time: 0.3999782
+        functionName: Combo3End
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 4202476fc4fcb934e91f0e881854955f,
           type: 3}

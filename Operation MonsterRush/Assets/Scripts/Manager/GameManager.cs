@@ -20,12 +20,13 @@ public class GameManager : MonoBehaviour
 
 	private GameObject player;
 	public Player.Movement playerMovementScript;
+	public Player.Controller playerControllerScript;
 
 	void Awake()
 	{
-
 		player = GameObject.FindGameObjectWithTag("Player");
 		playerMovementScript = player.GetComponent <Player.Movement>(); 
+		playerControllerScript = player.GetComponent <Player.Controller>();
 	}
 
 	void Update()

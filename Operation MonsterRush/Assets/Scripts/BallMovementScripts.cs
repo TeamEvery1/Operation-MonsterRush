@@ -12,6 +12,7 @@ public class BallMovementScripts : MonoBehaviour
 	private Player.Movement playerMovement;
 	private Rigidbody controller;
 	private bool jump;
+	public bool canMove;
 
 	private void Start()
 	{
@@ -40,7 +41,10 @@ public class BallMovementScripts : MonoBehaviour
 			direction = moveJoyStick.InputDirection;
 		}
 
-		playerMovement.Player_Movement(direction, jump);
+		if(canMove)
+		{
+			playerMovement.Player_Movement(direction, jump);
+		}
 
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
