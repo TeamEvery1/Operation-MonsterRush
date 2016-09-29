@@ -16,12 +16,12 @@ namespace PlayerBullet
 			player = GameObject.FindGameObjectWithTag ("Player");
 			playerCombatScript = player.GetComponent <Player.Combat>();
 			myRB = GetComponent <Rigidbody>();
-			rechargeTime = playerCombatScript.bulletStatistics.RechargeTime;
+			//rechargeTime = playerCombatScript.bulletStatistics.RechargeTime;
 		}
 
 		void Update()
 		{
-			myRB.velocity = transform.TransformDirection (new Vector3 ( 0f, 0f, playerCombatScript.bulletStatistics.MovementSpeed)); 
+			//myRB.velocity = transform.TransformDirection (new Vector3 ( 0f, 0f, playerCombatScript.bulletStatistics.MovementSpeed)); 
 		}
 
 	}

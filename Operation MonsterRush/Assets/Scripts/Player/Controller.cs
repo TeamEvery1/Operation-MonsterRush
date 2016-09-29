@@ -54,6 +54,7 @@ namespace Player
 			//! Animation
 			myAnim.SetInteger("attackCounter", playerCombatScript.gauntlet.AttackCounter);
 			myAnim.SetBool ("onCombat", playerCombatScript.onCombat);
+			myAnim.SetBool ("onCatch", playerCombatScript.onCatch);
 		
 			//! perform attack
 			if(playerCombatScript.isDelayed)
@@ -65,7 +66,7 @@ namespace Player
 			}
 
 			//! switch weapon during runtime
-			if(! playerCombatScript.onCombat)
+			if(playerCombatScript.isDelayed)
 			{
 				if(Input.GetKeyDown (primaryWeaponKey))
 				{

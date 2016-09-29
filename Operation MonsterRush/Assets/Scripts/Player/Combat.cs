@@ -5,16 +5,17 @@ namespace Player
 {
 	public class Combat : MonoBehaviour
 	{
-		public PlayerBullet.Statistic bulletStatistics;
+		//public PlayerBullet.Statistic bulletStatistics;
 		public Equipment gauntlet, gauntlet02, radar;
 		EquipmentInfo gaunletInfo, gaunlet02Info, radarInfo;
 		private Effect effectScript;
-		public PlayerBullet.Movement bulletMovementScript;
+		//public PlayerBullet.Movement bulletMovementScript;
 		public Player.Controller playerControllerScript;
 		
 		public bool onCombat;
 		[HideInInspector]public bool isDelayed;
-		private bool isShoot;
+		//private bool isShoot;
+		public bool onCatch;
 
 		GameObject Equipment;
 		//public GameObject bulletPrefab;
@@ -27,7 +28,7 @@ namespace Player
 	
 		void Awake()
 		{
-			bulletStatistics = new PlayerBullet.Statistic (10, 20, 3, 0, "Catcher", "Shooting a projectile towards enemy and catch them while they're exhausted.");
+			//bulletStatistics = new PlayerBullet.Statistic (10, 20, 3, 0, "Catcher", "Shooting a projectile towards enemy and catch them while they're exhausted.");
 			gauntlet = new Equipment ("Gaunlet", 0, 3); 
 			gaunletInfo = new EquipmentInfo ("Ifrit", "Flame Gauntlet", "My name is Ifrit. The fool who awakens me shall pay dearly with fires of hell.", 10);
 			gauntlet02 = new Equipment ("Gauntlet_02", 0, 0);
@@ -53,17 +54,19 @@ namespace Player
 
 		private void Update()
 		{
-			if(isShoot)
+			if(onCatch)
 			{
-				if( rechargeTime > bulletStatistics.RechargeTime )
+				if( rechargeTime > 1f )
 				{
 					rechargeTime = 0f;
 					isDelayed = true;
-					isShoot = false;
+					onCatch = false;
+					playerControllerScript.isMovable = true;
 				}
 				else
 				{
 					rechargeTime += Time.deltaTime;
+					playerControllerScript.isMovable = false;
 				}
 			}
 		}
@@ -71,12 +74,12 @@ namespace Player
 		public void Perform()
 		{
 			isDelayed = false;
-			onCombat = true;
-
 			if(Gauntlet.gameObject.activeSelf)
 			{
 				if(gauntlet.AttackCounter < gauntlet.TotalAttackCounter)
 				{
+					onCombat = true;
+
 					gauntlet.AttackCounter ++;
 					if(gauntlet.AttackCounter == 1)
 					{
@@ -109,12 +112,32 @@ namespace Player
 			else if(Gauntlet_02.gameObject.activeSelf)
 			{
 				//Instantiate (bulletPrefab, new Vector3 (this.transform.position.x, this.transform.position.y + 0.8f, this.transform.position.z), this.transform.rotation);
-				isShoot = true;
+				onCatch = true;
 			}
 			else if(Radar.gameObject.activeSelf)
 			{
 				GameObject[] nearestEnemies = GameObject.FindGameObjectsWithTag ("Enemy");
+				GameObject closest = null;
+				float closestDist = 5000; 
 
+				foreach (GameObject nearestEnemy in nearestEnemies)
+				{
+					if(nearestEnemy == null)
+					{
+						closest = nearestEnemy;
+						closestDist = (nearestEnemy.transform.position - this.transform.position).magnitude;
+					}
+					else
+					{
+						float distance = (nearestEnemy.transform.position - this.transform.position).magnitude;
+
+						if(distance < closestDist)
+						{
+							closest = nearestEnemy;
+							closestDist = distance;
+						}
+					}
+				}
 			}
 		}
 
@@ -135,6 +158,7 @@ namespace Player
 			{
 				if(Gauntlet.gameObject.activeSelf || Radar.gameObject.activeSelf)
 				{
+					isDelayed = true;
 					Gauntlet.gameObject.SetActive(false);
 					Gauntlet_02.gameObject.SetActive(true);
 					Radar.gameObject.SetActive(false);
@@ -144,6 +168,7 @@ namespace Player
 			{
 				if(Gauntlet.gameObject.activeSelf || Gauntlet_02.gameObject.activeSelf)
 				{
+					isDelayed = true;
 					Gauntlet.gameObject.SetActive(false);
 					Gauntlet_02.gameObject.SetActive(false);
 					Radar.gameObject.SetActive(true);
@@ -158,6 +183,9 @@ namespace Player
 			yield return new WaitForSeconds (t);
 			isDelayed = true;
 			playerControllerScript.isMovable = true;
+			effectScript.Combo1End();
+			effectScript.Combo2End();
+			effectScript.Combo3End();
 		}
 
 		IEnumerator revertTimer (float t)
@@ -165,9 +193,6 @@ namespace Player
 			yield return new WaitForSeconds (t);
 			gauntlet.AttackCounter = 0;
 			onCombat = false;
-			effectScript.Combo1End();
-			effectScript.Combo2End();
-			effectScript.Combo3End();
 		}
 	}
 }
