@@ -9,6 +9,7 @@ public class EnemyMovementScript : MonoBehaviour {
 	public float DetectDist;
 	NavMeshAgent GPS;
 
+	public float enemyHealth = 30;
 
 	// Use this for initialization
 	void Start () {

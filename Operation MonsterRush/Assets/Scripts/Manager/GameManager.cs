@@ -29,6 +29,11 @@ public class GameManager : MonoBehaviour
 		playerControllerScript = player.GetComponent <Player.Controller>();
 	}
 
+	void Start()
+	{
+		SoundManagerScript.Instance.PlayLoopingBGM (AudioClipID.BGM_MAIN_MENU);
+	}
+
 	void Update()
 	{
 		
