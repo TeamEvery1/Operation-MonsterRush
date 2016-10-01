@@ -11,7 +11,7 @@ public class CaptureScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		
+		enemyHealthInfo = 0;
 	
 	}
 	

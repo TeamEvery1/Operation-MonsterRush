@@ -51,7 +51,7 @@ public class GUIManagerScript : MonoBehaviour
 	void Awake () 
 	{
 
-		captureScript = GameObject.FindGameObjectWithTag("Player").GetComponent<CaptureScript>();
+		captureScript = GameObject.FindObjectOfType <CaptureScript>();
 	}
 	// Use this for initialization
 	void Start ()

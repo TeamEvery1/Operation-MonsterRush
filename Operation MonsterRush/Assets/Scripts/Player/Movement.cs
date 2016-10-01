@@ -18,7 +18,9 @@ namespace Player
 		[Range (0f, 2f)][SerializeField] private float gravityMultiplier = 1f;
 		[SerializeField] private float groundCheckDistance = 10f;
 
+		public LayerMask ground;
 		private bool onGround;
+		public bool canJump;
 
 		private float turnSpeed;
 		private float turnRatio;
@@ -31,6 +33,8 @@ namespace Player
 		CapsuleCollider myCollider;
 
 		Vector3 groundNormal;
+		public Vector3 jumpMovement;
+		public Vector3 v;
 
 		private void Start()
 		{
@@ -39,6 +43,13 @@ namespace Player
 			myCollider = GetComponent<CapsuleCollider>();
 			myRB.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 			defGroundCheckDistance = groundCheckDistance;
+		}
+
+		private void FixedUpdate()
+		{
+			Jump();
+			/*if(canJump)
+				myRB.velocity = transform.TransformDirection(v);*/
 		}
 
 		public void Player_Movement(Vector3 movement, bool jump)
@@ -59,17 +70,16 @@ namespace Player
 
 			ApplyExtraRotation();
 
-			if(onGround)
+			/*if(onGround)
 			{
 				GroundedMovement(jump);
 			}
 			else
 			{
 				AirborneMovement();
-			}
+			}*/
 
 			UpdateAnimator(movement);
-			CheckGroundStatus();
 		}
 
 		private void ApplyExtraRotation()
@@ -78,7 +88,7 @@ namespace Player
 			transform.Rotate( 0, turnRatio * turnSpeed * Time.deltaTime, 0);
 		}
 
-		private void GroundedMovement(bool jump)
+		/*private void GroundedMovement(bool jump)
 		{
 			if(jump && myAnim.GetCurrentAnimatorStateInfo(0).IsName("Grounded"))
 			{
@@ -94,7 +104,7 @@ namespace Player
 			Vector3 extraGravityForce = (Physics.gravity * gravityMultiplier) - Physics.gravity;
 			myRB.AddForce (extraGravityForce);
 			groundCheckDistance = myRB.velocity.y < 0 ? defGroundCheckDistance : 0.01f;
-		}
+		}*/
 
 		private void UpdateAnimator(Vector3 movement)
 		{
@@ -107,7 +117,7 @@ namespace Player
 
 			if(!onGround)
 			{
-				myAnim.SetFloat("jumpHeight", myRB.velocity.y);
+				myAnim.SetFloat("jumpHeight", jumpMovement.y , 0.2f, Time.deltaTime);
 			}
 			else
 			{
@@ -129,33 +139,47 @@ namespace Player
 			if(onGround && Time.deltaTime > 0)
 			{
 				Vector3 moveForward = transform.forward * myAnim.GetFloat("motionZ") * Time.deltaTime;
-				Vector3 v = ((myAnim.deltaPosition + moveForward) * movementSpeedMultiplier / Time.deltaTime);
-
-				v.y = myRB.velocity.y;
+				v = ((myAnim.deltaPosition + moveForward) * movementSpeedMultiplier / Time.deltaTime);
+				 
 				myRB.velocity = v;
 			}
 		}
 
-		private void CheckGroundStatus()
+		bool Grounded()
 		{
-			RaycastHit hitInfo;
+			return Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, ground);
+		}
 
-			if(Physics.Raycast (transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, groundCheckDistance))
+		void Jump()
+		{
+			//Jump
+			if(Grounded() && onGround)
 			{
-				if(!hitInfo.collider.isTrigger)
+				if(canJump)
 				{
-					groundNormal = hitInfo.normal;
-					onGround = true;
-					//myAnim.applyRootMotion = true;
+					canJump = false;
+					onGround = false;
+					myRB.velocity = new Vector3 (0, jumpForce, 0);
 				}
 				else
-				{
-					groundNormal = Vector3.up;
-					onGround = false;
-					//myAnim.applyRootMotion = true;
-				}
+					onGround = true;
 			}
+			else if(!Grounded())
+			{
+				//Gravity Down
+				Vector3 extraGravityForce = new Vector3 (0, -jumpForce * 12 , 0);
+				myRB.AddForce (extraGravityForce);
+			}
+			else
+			{
+				onGround = true;
+				v.y = 0;
+			}
+		}
 
+		public void JumpButtonClicked()
+		{
+			canJump = true;
 		}
 	}
 }

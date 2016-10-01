@@ -15,6 +15,8 @@ namespace Player
 		private string name;
 		public bool isMovable;
 		public bool isMoving;
+		private Transform mainCam;
+		private Vector3 cameraForward;
 
 		public Player.Combat playerCombatScript;
 
@@ -39,6 +41,7 @@ namespace Player
 			myAnim = GetComponent<Animator>();
 			myRB = GetComponent<Rigidbody>();
 			myCollider = GetComponent<CapsuleCollider>();
+			mainCam = GameObject.FindGameObjectWithTag ("MainCamera").transform;
 		}
 
 		private void Start()
@@ -96,6 +99,8 @@ namespace Player
 				isMoving = false;
 
 			//Phone Input
+
+			//cameraForward = Vector3.Scale (mainCam.forward, new Vector3(1, 0, 1).normalized);
 			if(moveJoyStick.InputDirection != Vector3.zero)
 			{
 				direction = moveJoyStick.InputDirection;

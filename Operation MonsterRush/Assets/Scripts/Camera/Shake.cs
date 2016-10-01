@@ -17,14 +17,14 @@ public class Shake : MonoBehaviour
 			shakeSpeed = 1.0f;
 			magnitude = 0.06f;
 			Time.timeScale = 1f;
-			PlayShake ();
+			//PlayShake ();
 		}
 		else if (Input.GetKeyDown (KeyCode.Alpha2))
 		{
 			shakeDuration = 2f;
 			shakeSpeed = 2.0f;
 			magnitude = 0.1f;
-			PlayShake ();
+			//PlayShake ();
 		}
 		else if(Input.GetKeyDown (KeyCode.Alpha3))
 		{
@@ -32,7 +32,7 @@ public class Shake : MonoBehaviour
 			shakeSpeed = 1.0f;
 			magnitude = 0.06f;
 			Time.timeScale = 0.3f;
-			PlayShake ();
+			//PlayShake ();
 		}
 			
 
