@@ -45,7 +45,7 @@ public class CaptureScript : MonoBehaviour {
 		if (other.tag == "Enemy") 
 		{
 			enemyCollided = true;
-			enemyHealthInfo = other.GetComponent<EnemyMovementScript>().enemyHealth;
+			enemyHealthInfo = other.GetComponent<EnemyScript>().enemyHealth;
 			timeLimitModifier = (100 - enemyHealthInfo)/10;
 			timeLimit = timeLimit + timeLimitModifier;
 		}
