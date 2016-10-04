@@ -32,7 +32,7 @@ namespace Player
 		Rigidbody myRB;
 		CapsuleCollider myCollider;
 
-		Vector3 groundNormal;
+		//Vector3 groundNormal;
 		public Vector3 jumpMovement;
 		public Vector3 v;
 
@@ -63,7 +63,7 @@ namespace Player
 			//Changed to local space to make everything literally rotates and moves around character
 			movement = transform.InverseTransformDirection (movement);
 
-			movement = Vector3.ProjectOnPlane (movement, groundNormal);
+			//movement = Vector3.ProjectOnPlane (movement, groundNormal);
 
 			turnRatio = Mathf.Atan2 (movement.x, movement.z);
 			forwardRatio = movement.z * 2;

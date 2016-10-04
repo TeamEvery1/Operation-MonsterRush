@@ -17,11 +17,14 @@ namespace Player
 		//private bool isShoot;
 		public bool onCatch;
 
-		GameObject Equipment;
+		//GameObject Equipment;
 		//public GameObject bulletPrefab;
+		public GameObject closest;
+
 		public Transform Gauntlet;
 		public Transform Gauntlet_02;
 		public Transform Radar;
+		private Transform radarIndicator;
 
 		public float rechargeTime;
 
@@ -35,6 +38,7 @@ namespace Player
 			gaunlet02Info = new EquipmentInfo ("Death Saucer", "Gauntlet", "Energy that able to compress monster and capture them.", 0);
 			radar = new Equipment ("Radar", 0, 0);
 			radarInfo = new EquipmentInfo ("Radar", "Radar", "Capable to sense the monster that within certain range." , 0);
+			radarIndicator = transform.FindChild ("Indicator");
 
 			isDelayed = true;
 			rechargeTime = 0;
@@ -42,7 +46,7 @@ namespace Player
 
 		void Start()
 		{
-			Equipment = GameObject.FindGameObjectWithTag("Equipment");
+			//Equipment = GameObject.FindGameObjectWithTag("Equipment");
 			//bulletPrefab = (GameObject) Resources.Load ("Prefabs/Bullets");
 
 			effectScript = GetComponent<Effect>();
@@ -117,7 +121,7 @@ namespace Player
 			else if(Radar.gameObject.activeSelf)
 			{
 				GameObject[] nearestEnemies = GameObject.FindGameObjectsWithTag ("Enemy");
-				GameObject closest = null;
+				closest = null;
 				float closestDist = 5000; 
 
 				foreach (GameObject nearestEnemy in nearestEnemies)
@@ -138,6 +142,8 @@ namespace Player
 						}
 					}
 				}
+				radarIndicator.gameObject.SetActive (true);
+
 			}
 		}
 

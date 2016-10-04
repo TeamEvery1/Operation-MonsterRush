@@ -6,7 +6,7 @@ namespace PlayerBullet
 	[RequireComponent (typeof (Rigidbody))]
 	public class Movement : MonoBehaviour 
 	{
-		GameObject player;
+		/*GameObject player;
 		Player.Combat playerCombatScript;
 		Rigidbody myRB;
 		public float rechargeTime;
@@ -22,7 +22,7 @@ namespace PlayerBullet
 		void Update()
 		{
 			//myRB.velocity = transform.TransformDirection (new Vector3 ( 0f, 0f, playerCombatScript.bulletStatistics.MovementSpeed)); 
-		}
+		}*/
 
 	}
 }

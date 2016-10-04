@@ -12,7 +12,7 @@ namespace Player
 		[SerializeField] private float movementSpeed = 20f;
 		[SerializeField] private float drag = 0.5f;
 		[SerializeField] private float terminalRotationSpeed = 25.0f;
-		private string name;
+		//private string name;
 		public bool isMovable;
 		public bool isMoving;
 		private Transform mainCam;
