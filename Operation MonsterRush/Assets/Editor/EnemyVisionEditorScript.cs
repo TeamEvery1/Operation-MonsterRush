@@ -7,7 +7,7 @@ public class NewBehaviourScript : Editor {
 
 	void OnSceneGUI()
 	{
-		Enemies.Pathfinding enemy = (Enemies.Pathfinding)target;
+		Enemies.Pathfinding enemy = (Enemies.Pathfinding) target;
 		Handles.color = Color.black;
 		Handles.DrawWireArc(enemy.transform.position, Vector3.up, Vector3.forward, 360, enemy.viewRadius);
 		Vector3 ViewAngleA = enemy.dirFromAngle(-enemy.viewAngle /2, false);
@@ -17,6 +17,7 @@ public class NewBehaviourScript : Editor {
 		Handles.DrawLine(enemy.transform.position, enemy.transform.position + ViewAngleB * enemy.viewRadius);
 
 		Handles.color = Color.red;
+
 		if(enemy.VisibleTarget != null)
 		{
 		 	Handles.DrawLine(enemy.transform.position, enemy.VisibleTarget.position);

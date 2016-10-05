@@ -69,8 +69,7 @@ namespace Player
 				this.transform.position = originalPosition;
 					
 				myAnim.Play ("LOSE00");
-
-				health = maxHealth;
+				StartCoroutine ("reviveTimer", 1.5f);
 			}
 
 
@@ -117,11 +116,13 @@ namespace Player
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
 
-		/*IEnumerator reviveTimer(float t)
+		IEnumerator reviveTimer(float t)
 		{
 			yield return new WaitForSeconds (t);
+			health = maxHealth;
 
+			myAnim.Play ("Grounded Movement");
 
-		}*/
+		}
 	}
 }	

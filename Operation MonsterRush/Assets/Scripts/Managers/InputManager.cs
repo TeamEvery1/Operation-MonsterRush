@@ -42,10 +42,12 @@ public class InputManager : MonoBehaviour
 
 	void Update()
 	{
+		#if UNITY_EDITOR
 		if(UnityEditor.EditorApplication.isRemoteConnected)	
 		{
 			Debug.Log ("Remote Connected");
 		}
+		#endif
 
 		#if ((UNITY_ANDROID || UNITY_IPHONE))
 		{

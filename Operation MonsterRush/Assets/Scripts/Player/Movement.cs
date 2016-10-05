@@ -13,6 +13,7 @@ namespace Player
 		[SerializeField] private float movingTurnRate = 360f; 
 		[SerializeField] private float stationaryTurnRate = 180f;
 		[SerializeField] private float jumpForce = 10f;
+		[Range (0f, 10f)][SerializeField] private float fallingMultiplier = 1f;
 		[SerializeField] private float movementSpeedMultiplier = 1f; 
 		[SerializeField] private float animationSpeedMultiplier = 1f;
 		[Range (0f, 2f)][SerializeField] private float gravityMultiplier = 1f;
@@ -27,6 +28,8 @@ namespace Player
 		private float forwardRatio;
 		private float defGroundCheckDistance;
 		private float runCycleLegOffset;
+
+		private VirtualJoyStickScripts moveJoyStick;
 
 		Animator myAnim;
 		Rigidbody myRB;
@@ -159,20 +162,22 @@ namespace Player
 				{
 					canJump = false;
 					onGround = false;
-					myRB.velocity = new Vector3 (0, jumpForce, 0);
+					myRB.velocity = new Vector3 (v.y, jumpForce,v.z);
 				}
 				else
+				{
 					onGround = true;
+				}
 			}
 			else if(!Grounded() && myAnim.GetCurrentAnimatorStateInfo(0).IsName("Grounded Movement"))
 			{
-				Vector3 extraGravityForce = new Vector3 (0, -jumpForce * 12 * gravityMultiplier , 0);
+				Vector3 extraGravityForce = new Vector3 (0, -jumpForce * fallingMultiplier * gravityMultiplier , 0);
 				myRB.AddForce (extraGravityForce);
 			}
 			else if(!Grounded() && myAnim.GetCurrentAnimatorStateInfo(0).IsName ("Jump"))
 			{
 				//Gravity Down
-				Vector3 extraGravityForce = new Vector3 (0, -jumpForce * 12  , 0);
+				Vector3 extraGravityForce = new Vector3 (0, -jumpForce * fallingMultiplier  , 0);
 				myRB.AddForce (extraGravityForce);
 			}
 			else

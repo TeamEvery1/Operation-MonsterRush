@@ -7,6 +7,10 @@ namespace Enemies
 
 		NavMeshAgent GPS;
 
+		public Transform target;
+
+		private Vector3 rotation;
+
 		Enemies.Character penguin, slime, bird, bean, disgustingThing;
 		Selection monsterSelection;
 
@@ -51,11 +55,11 @@ namespace Enemies
 			// mS = movement Speed
 
 			// monster Type					  eA   mE    h   mH    s  rR  mS
-			penguin = new Enemies.Character (100, 100, 100, 100, 100, 10, 1);
-			slime = new Enemies.Character (100, 100, 100, 100, 100, 10, 1);
-			bird = new Enemies.Character (100, 100, 100, 100, 100, 10, 1);
-			bean = new Enemies.Character (100, 100, 100, 100, 100, 10, 1);
-			disgustingThing = new Enemies.Character (100, 100, 100, 100, 100, 10, 1);
+			penguin = new Enemies.Character (enemyExhaustion, enemyMaxExhaustion, enemyHealth, enemyMaxHealth, stamina, staminaRcvrSpeed, 1);
+			slime = new Enemies.Character (enemyExhaustion, enemyMaxExhaustion, enemyHealth, enemyMaxHealth, stamina, staminaRcvrSpeed, 1);
+			bird = new Enemies.Character (enemyExhaustion, enemyMaxExhaustion, enemyHealth, enemyMaxHealth, stamina, staminaRcvrSpeed, 1);
+			bean = new Enemies.Character (enemyExhaustion, enemyMaxExhaustion, enemyHealth, enemyMaxHealth, stamina, staminaRcvrSpeed, 1);
+			disgustingThing = new Enemies.Character (enemyExhaustion, enemyMaxExhaustion, enemyHealth, enemyMaxHealth, stamina, staminaRcvrSpeed, 1);
 
 			monsterSelection = GetComponent <Selection> ();
 		}
@@ -140,7 +144,7 @@ namespace Enemies
 
 			for(int i = 0; i< TargetInVisibleRadius.Length; i++)
 			{
-				Transform target = TargetInVisibleRadius[i].transform;
+				target = TargetInVisibleRadius[i].transform;
 				Vector3 dirToTarget = (target.position - transform.position).normalized;
 				if(Vector3.Angle (transform.forward, dirToTarget) < viewAngle / 2)
 				{
@@ -170,14 +174,16 @@ namespace Enemies
 				if(turn == 0)
 				{
 					//Debug.Log("ss");
-					GPS.SetDestination(new Vector3(wanderPoint[0].position.x, wanderPoint[0].position.y, wanderPoint[0].position.z));
+					rotation = new Vector3(wanderPoint[0].position.x, wanderPoint[0].position.y , wanderPoint[0].position.z);
+					GPS.SetDestination(rotation);
 					turn = 1;
 				}
 				else if(turn == 1)
 				{
 					//Debug.Log("s2s");
 					//GPS.destination = PatrolToPos.position;
-					GPS.SetDestination(new Vector3(startX, startY, startZ));
+					rotation = new Vector3(startX, startY, startZ);
+					GPS.SetDestination(rotation);
 					turn = 0;
 				}
 			}
@@ -188,11 +194,13 @@ namespace Enemies
 
 				if(RandomDes == wanderPoint.Length)
 				{
-					GPS.SetDestination(new Vector3(startX, startY, startZ));
+					rotation = new Vector3(startX, startY, startZ);
+					GPS.SetDestination(rotation);
 				}
 				else
 				{
-					GPS.SetDestination(new Vector3(wanderPoint[RandomDes].position.x , wanderPoint[RandomDes].position.y, wanderPoint[RandomDes].position.z));
+					rotation = new Vector3(wanderPoint[RandomDes].position.x , wanderPoint[RandomDes].position.y , wanderPoint[RandomDes].position.z);
+					GPS.SetDestination(rotation);
 				}
 			}
 		}
@@ -200,6 +208,11 @@ namespace Enemies
 		// Update is called once per frame
 		void Update () {
 			Debug.Log(GPS.speed);
+
+			rotation.y = this.transform.position.y;
+
+			transform.LookAt (rotation);
+
 			if(VisibleTarget != null && sawPlayer == false)
 			{
 				sawPlayer = true;
