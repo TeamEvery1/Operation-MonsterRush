@@ -5,7 +5,7 @@ namespace Enemies
 {
 	public class Pathfinding : MonoBehaviour {
 
-		NavMeshAgent GPS;
+		public NavMeshAgent GPS;
 
 		public Transform target;
 

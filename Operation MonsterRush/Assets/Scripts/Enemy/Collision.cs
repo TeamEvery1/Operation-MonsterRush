@@ -6,14 +6,16 @@ namespace Enemies
 	public class Collision : MonoBehaviour 
 	{
 		Pathfinding enemyPathfindingScript;
+		Player.Controller playerControllerScript;
 		CaptureCollider captureScript;
 		GUIManagerScript guiScript;
 
-		[HideInInspector] public bool isCollided;
+		public bool isCollided;
 
 		void Awake()
 		{
 			enemyPathfindingScript = GetComponent <Enemies.Pathfinding>();
+			playerControllerScript = FindObjectOfType <Player.Controller>();
 			captureScript = FindObjectOfType <CaptureCollider>();
 			guiScript = FindObjectOfType <GUIManagerScript>();
 		}
@@ -22,7 +24,7 @@ namespace Enemies
 		{
 			if (other.CompareTag ("PlayerDamageCollider"))
 			{
-				enemyPathfindingScript.enemyExhaustion -= 10;
+				enemyPathfindingScript.enemyExhaustion -= playerControllerScript.damage;
 
 				if(enemyPathfindingScript.enemyExhaustion <= 0)
 				{

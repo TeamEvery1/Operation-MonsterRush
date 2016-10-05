@@ -17,6 +17,7 @@ namespace Player
 		public bool catchDelayed;
 		//private bool isShoot;
 		public bool onCatch;
+		private bool onScan;
 
 		//GameObject Equipment;
 		//public GameObject bulletPrefab;
@@ -42,7 +43,7 @@ namespace Player
 			radar = new Equipment ("Radar", 0, 0);
 			radarInfo = new EquipmentInfo ("Radar", "Radar", "Capable to sense the monster that within certain range." , 0);
 
-			radarIndicator = transform.FindChild ("Indicator");
+			radarIndicator = GameObject.Find ("MultipurposeCameraRig/Pivot/MainCamera/Indicator").transform;
 
 			damageCollider = transform.Find ("Gauntlet_DamageCollider/Combo 1").gameObject;
 			damageCollider2 = transform.Find ("Gauntlet_DamageCollider/Combo 2").gameObject;
@@ -85,6 +86,32 @@ namespace Player
 				{
 					rechargeTime += Time.deltaTime;
 					playerControllerScript.isMovable = false;
+				}
+			}
+
+			if (onScan)
+			{
+				GameObject[] nearestEnemies = GameObject.FindGameObjectsWithTag ("Enemy");
+				closest = null;
+				float closestDist = 5000; 
+
+				foreach (GameObject nearestEnemy in nearestEnemies)
+				{
+					if(nearestEnemy == null)
+					{
+						closest = nearestEnemy;
+						closestDist = (nearestEnemy.transform.position - this.transform.position).magnitude;
+					}
+					else
+					{
+						float distance = (nearestEnemy.transform.position - this.transform.position).magnitude;
+
+						if(distance < closestDist)
+						{
+							closest = nearestEnemy;
+							closestDist = distance;
+						}
+					}
 				}
 			}
 		}
@@ -130,7 +157,7 @@ namespace Player
 						StartCoroutine ("attackDelayTimer", 0.4f);
 
 						StopCoroutine ("revertTimer");
-						StartCoroutine ("revertTimer" , 0.7f);
+						StartCoroutine ("revertTimer" , 0.4f);
 
 						StopCoroutine ("enableDamageCollider");
 						StartCoroutine ("enableDamageCollider", 0.12f);
@@ -160,28 +187,8 @@ namespace Player
 			else if(Radar.gameObject.activeSelf)
 			{
 				isDelayed = false;
-				GameObject[] nearestEnemies = GameObject.FindGameObjectsWithTag ("Enemy");
-				closest = null;
-				float closestDist = 5000; 
+				onScan = true;
 
-				foreach (GameObject nearestEnemy in nearestEnemies)
-				{
-					if(nearestEnemy == null)
-					{
-						closest = nearestEnemy;
-						closestDist = (nearestEnemy.transform.position - this.transform.position).magnitude;
-					}
-					else
-					{
-						float distance = (nearestEnemy.transform.position - this.transform.position).magnitude;
-
-						if(distance < closestDist)
-						{
-							closest = nearestEnemy;
-							closestDist = distance;
-						}
-					}
-				}
 				radarIndicator.gameObject.SetActive (true);
 
 			}

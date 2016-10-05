@@ -31,6 +31,8 @@ namespace Player
 
 		private VirtualJoyStickScripts moveJoyStick;
 
+		private Player.Controller playerControllerScript;
+
 		Animator myAnim;
 		Rigidbody myRB;
 		CapsuleCollider myCollider;
@@ -46,6 +48,8 @@ namespace Player
 			myCollider = GetComponent<CapsuleCollider>();
 			myRB.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 			defGroundCheckDistance = groundCheckDistance;
+
+			playerControllerScript = GetComponent <Player.Controller>();
 		}
 
 		private void FixedUpdate()
@@ -120,7 +124,7 @@ namespace Player
 
 			if(!onGround)
 			{
-				myAnim.SetFloat("jumpHeight", jumpMovement.y , 0.2f, Time.deltaTime);
+				myAnim.SetFloat("jumpHeight", myRB.velocity.y);
 			}
 			else
 			{
@@ -148,7 +152,7 @@ namespace Player
 			}
 		}
 
-		bool Grounded()
+		public bool Grounded()
 		{
 			return Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, ground);
 		}
@@ -162,24 +166,22 @@ namespace Player
 				{
 					canJump = false;
 					onGround = false;
-					myRB.velocity = new Vector3 (v.y, jumpForce,v.z);
+					myRB.velocity = new Vector3 (0, jumpForce, 0);
 				}
 				else
 				{
 					onGround = true;
 				}
 			}
-			else if(!Grounded() && myAnim.GetCurrentAnimatorStateInfo(0).IsName("Grounded Movement"))
+			else if(!Grounded())
 			{
 				Vector3 extraGravityForce = new Vector3 (0, -jumpForce * fallingMultiplier * gravityMultiplier , 0);
+
+				myRB.velocity = new Vector3 (playerControllerScript.direction.x * jumpForce / 1.5f, myRB.velocity.y , playerControllerScript.direction.z * jumpForce / 1.5f);
+
 				myRB.AddForce (extraGravityForce);
 			}
-			else if(!Grounded() && myAnim.GetCurrentAnimatorStateInfo(0).IsName ("Jump"))
-			{
-				//Gravity Down
-				Vector3 extraGravityForce = new Vector3 (0, -jumpForce * fallingMultiplier  , 0);
-				myRB.AddForce (extraGravityForce);
-			}
+
 			else
 			{
 				onGround = true;

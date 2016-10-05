@@ -12,16 +12,19 @@ namespace Player
 		[SerializeField] private float movementSpeed = 20f;
 		[SerializeField] private float drag = 0.5f;
 		[SerializeField] private float terminalRotationSpeed = 25.0f;
+
 		public float health;
+		public int damage;
 		private float maxHealth;
 		//private string name;
 		public bool isMovable;
 		public bool isMoving;
 
-		private Transform mainCam;
+		public Transform mainCam;
 
 		private Vector3 cameraForward;
 		private Vector3 originalPosition;
+		public Vector3 direction;
 
 		public Player.Combat playerCombatScript;
 
@@ -38,7 +41,7 @@ namespace Player
 
 		void Awake()
 		{
-			Player.Character playerCharacter = new Player.Character ( movementSpeed, health, name);
+			Player.Character playerCharacter = new Player.Character ( movementSpeed, health, damage, name);
 			playerCombatScript = GetComponent <Player.Combat>(); 
 
 			isMovable = true;
@@ -78,7 +81,7 @@ namespace Player
 			myAnim.SetBool ("onCatch", playerCombatScript.onCatch);
 		
 			myAnim.applyRootMotion = false;
-			Vector3 direction = Vector3.zero;
+		    direction = Vector3.zero;
 
 			direction.x = Input.GetAxis("Horizontal");
 			direction.z = Input.GetAxis("Vertical");

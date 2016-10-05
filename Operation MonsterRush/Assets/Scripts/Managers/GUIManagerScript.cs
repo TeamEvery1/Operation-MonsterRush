@@ -69,6 +69,11 @@ public class GUIManagerScript : MonoBehaviour
 	void Update () 
 	{
 		CaptureUI ();
+
+		if(Input.GetKeyDown (KeyCode.J))
+		{
+			JumpButton();
+		}
 	}
 		
 	void CaptureUI()
@@ -145,6 +150,7 @@ public class GUIManagerScript : MonoBehaviour
 
 	public void JumpButton()
 	{
+		if(!playerMovementScript.canJump && playerMovementScript.Grounded())
 		playerMovementScript.canJump = true;
 	}
 
