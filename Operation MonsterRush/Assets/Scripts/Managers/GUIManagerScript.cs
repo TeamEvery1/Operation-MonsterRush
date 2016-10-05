@@ -40,17 +40,20 @@ public class GUIManagerScript : MonoBehaviour
 
 	public Image captureBarContent;
 	public Image captureBarBack;
+	public Image winConImage;
+	public Image loseConImage;
 	public Image victoryImage;
 	public Image loseImage;
 	public float fillUpMetre;
 	public const float fillUpMetreMax = 45;
-	public float enemyHealth;
+	public float enemyHealth = 30;
 
 	public float faintCounter = 10;
+	public float closeImageCounter = 2;
 
 	float oneSecond = 1f;
 	public float nextTime = 0;
-
+	public bool enemyCollided;
 
 	void Awake () 
 	{
@@ -69,18 +72,75 @@ public class GUIManagerScript : MonoBehaviour
 	void Update () 
 	{
 		CaptureUI ();
+		if (victoryImage.enabled == true) 
+		{
+			closeImageCounter -= Time.deltaTime;
+			if (closeImageCounter <= 0) 
+			{
+				victoryImage.enabled = false;
+				Reset();
+			}
+		}
+		if (loseImage.enabled == true) 
+		{
+			closeImageCounter -= Time.deltaTime;
+			if (closeImageCounter <= 0) 
+			{
+				loseImage.enabled = false;
+				Reset();
+
+			}
+		}
 
 		if(Input.GetKeyDown (KeyCode.J))
 		{
 			JumpButton();
 		}
+			
+		if (GameManager.Instance.winCondition) 
+		{
+			winConImage.enabled = true;
+		}
+		if (winConImage.enabled == true) 
+		{
+			closeImageCounter -= Time.deltaTime;
+			if (closeImageCounter <= 0) 
+			{
+				winConImage.enabled = false;
+				closeImageCounter = 2;
+			}
+		}
+		if (GameManager.Instance.loseCondition) 
+		{
+			loseConImage.enabled = true;
+		}
+		if (winConImage.enabled == true) 
+		{
+			closeImageCounter -= Time.deltaTime;
+			if (closeImageCounter <= 0) 
+			{
+				winConImage.enabled = false;
+				closeImageCounter = 2;
+				SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
+			}
+		}
+	}
+
+	void Reset()
+	{
+		faintCounter = 10;
+		captureScript.timeLimit = 10;
+		captureScript.fillUpMode = false;
+		closeImageCounter = 2;
+		enemyCollided = false;
+		//enemyDestroyed = false;
 	}
 		
 	void CaptureUI()
 	{
-		if(enemyCollisionScript.isCollided)
+		if(enemyCollided)
 		{
-			enemyHealth = captureScript.enemyHealthInfo;
+			//enemyHealth = captureScript.enemyExhaustInfo;
 			captureBarContent.fillAmount = fillUpMetre / fillUpMetreMax;
 			if (captureScript.fillUpMode) 
 			{
@@ -90,7 +150,7 @@ public class GUIManagerScript : MonoBehaviour
 				{
 					victoryImage.enabled = true;
 					Debug.Log ("Captured");
-					fillUpMetre = 0;
+
 
 				}
 				captureScript.timeLimit -= Time.deltaTime;
@@ -98,9 +158,9 @@ public class GUIManagerScript : MonoBehaviour
 				{
 					loseImage.enabled= true;
 					captureScript.timeLimit = 0;
-					captureScript.fillUpMode = false;
+
 					Debug.Log ("You Lose");
-					fillUpMetre = 0;
+
 
 				}
 				//fillUpLove.enabled = true;
@@ -146,6 +206,7 @@ public class GUIManagerScript : MonoBehaviour
 		{
 			playerCombatScript.Perform();
 		}
+		fillUpMetre+=1;
 	}
 
 	public void JumpButton()

@@ -19,6 +19,15 @@ namespace Enemies
 			captureScript = FindObjectOfType <CaptureCollider>();
 			guiScript = FindObjectOfType <GUIManagerScript>();
 		}
+
+		void Update()
+		{
+			if (isCollided == true) 
+			{
+				guiScript.enemyCollided = true;
+			}
+		}
+
 	
 		void OnTriggerEnter (Collider other)
 		{
@@ -37,6 +46,7 @@ namespace Enemies
 				if(enemyPathfindingScript.enemyExhaustion <= 0)
 				{
 					isCollided = true;
+					enemyPathfindingScript.GPS.speed = 0;
 					guiScript.fillUpMetre += 1;
 				}
 				else

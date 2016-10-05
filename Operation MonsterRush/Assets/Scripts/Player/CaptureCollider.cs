@@ -5,13 +5,13 @@ public class CaptureCollider : MonoBehaviour
 {
 	public bool enemyCollided = false;
 	public bool fillUpMode = false;
-	public float enemyHealthInfo;
+	public float enemyExhaustInfo;
 	public float timeLimit = 10;
 	public float timeLimitModifier;
 	// Use this for initialization
 	void Start () 
 	{
-		enemyHealthInfo = 0;
+		enemyExhaustInfo = 0;
 	}
 	
 	// Update is called once per frame
@@ -24,12 +24,10 @@ public class CaptureCollider : MonoBehaviour
 	{
 		if (enemyCollided) 
 		{
-			Debug.Log ("Wake Me Up");
-
+			
 		} 
 		else 
 		{
-			Debug.Log ("Wake Me Up Inside");
 
 		}
 	}*/
@@ -40,9 +38,13 @@ public class CaptureCollider : MonoBehaviour
 		if (other.tag == "Enemy") 
 		{
 			fillUpMode = true;
-			enemyHealthInfo = other.GetComponent<Enemies.Pathfinding>().enemyHealth;
-			timeLimitModifier = (100 - enemyHealthInfo)/10;
+			enemyExhaustInfo = other.GetComponent<Enemies.Pathfinding>().enemyExhaustion;
+			timeLimitModifier = (100 - enemyExhaustInfo)/10;
 			timeLimit = timeLimit + timeLimitModifier;
+			if (timeLimit>20)
+			{
+				timeLimit = 20;
+			}
 		}
 	}
 	/*void OnTriggerExit(Collider other)

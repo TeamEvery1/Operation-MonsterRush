@@ -276,3 +276,4 @@ C:\Users\0114571\Desktop\Operation MonsterRush\Temp\bin\Debug\UnityEngine.Analyt
 C:\Users\0114571\Desktop\Operation MonsterRush\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 C:\Users\0114571\Desktop\Operation MonsterRush\obj\Debug\Assembly-CSharp.dll
 C:\Users\0114571\Desktop\Operation MonsterRush\obj\Debug\Assembly-CSharp.pdb
+C:\Users\tyran\Desktop\Operation-MonsterRush\Operation MonsterRush\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb

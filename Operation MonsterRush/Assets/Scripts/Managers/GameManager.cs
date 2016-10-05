@@ -21,7 +21,10 @@ public class GameManager : MonoBehaviour
 	private GameObject player;
 	public Player.Movement playerMovementScript;
 	public Player.Controller playerControllerScript;
-
+	public GameObject[] enemies;
+	public bool winCondition;
+	public bool loseCondition;
+	public float timeMax = 900;
 	void Awake()
 	{
 		player = GameObject.FindGameObjectWithTag("Player");
@@ -32,11 +35,23 @@ public class GameManager : MonoBehaviour
 	void Start()
 	{
 		SoundManagerScript.Instance.PlayLoopingBGM (AudioClipID.BGM_MAIN_MENU);
+		if (enemies == null) 
+		{
+			enemies = GameObject.FindGameObjectsWithTag ("Enemy");
+		}
 	}
 
 	void Update()
 	{
-		
+		timeMax -= Time.deltaTime;
+		if (enemies.Length == 0) 
+		{
+			winCondition = true;
+		}
+		if (timeMax <= 0) 
+		{
+			loseCondition = true;
+		}
 	}
 
 }
