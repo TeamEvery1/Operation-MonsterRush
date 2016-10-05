@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraScripts : MonoBehaviour 
+public class ThirdPersonCamera : MonoBehaviour 
 {
 	/*public float distanceAway;
 	public float distanceUp;
@@ -75,7 +75,7 @@ public class CameraScripts : MonoBehaviour
 	}
 	*/
 
-	[SerializeField]
+	/*[SerializeField]
 	private Transform target;
 
 	[SerializeField]
@@ -120,6 +120,9 @@ public class CameraScripts : MonoBehaviour
 		{
 			transform.rotation = target.rotation;
 		}
-	}
+	}*/
+
+
+
 }
 

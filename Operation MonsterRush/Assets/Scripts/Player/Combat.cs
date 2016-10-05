@@ -13,13 +13,16 @@ namespace Player
 		public Player.Controller playerControllerScript;
 		
 		public bool onCombat;
-		[HideInInspector]public bool isDelayed;
+		[HideInInspector] public bool isDelayed;
+		public bool catchDelayed;
 		//private bool isShoot;
 		public bool onCatch;
 
 		//GameObject Equipment;
 		//public GameObject bulletPrefab;
 		public GameObject closest;
+		private GameObject damageCollider, damageCollider2, damageCollider3;
+		private GameObject catchCollider;
 
 		public Transform Gauntlet;
 		public Transform Gauntlet_02;
@@ -38,9 +41,16 @@ namespace Player
 			gaunlet02Info = new EquipmentInfo ("Death Saucer", "Gauntlet", "Energy that able to compress monster and capture them.", 0);
 			radar = new Equipment ("Radar", 0, 0);
 			radarInfo = new EquipmentInfo ("Radar", "Radar", "Capable to sense the monster that within certain range." , 0);
+
 			radarIndicator = transform.FindChild ("Indicator");
 
+			damageCollider = transform.Find ("Gauntlet_DamageCollider/Combo 1").gameObject;
+			damageCollider2 = transform.Find ("Gauntlet_DamageCollider/Combo 2").gameObject;
+			damageCollider3 = transform.Find ("Gauntlet_DamageCollider/Combo 3").gameObject;
+			catchCollider = transform.Find ("Gauntlet_DamageCollider/Catch Collider").gameObject;
+
 			isDelayed = true;
+			catchDelayed = true;
 			rechargeTime = 0;
 		}
 
@@ -58,14 +68,18 @@ namespace Player
 
 		private void Update()
 		{
-			if(onCatch)
+			if(!catchDelayed)
 			{
-				if( rechargeTime > 1f )
+				if(rechargeTime > 0.7f)
 				{
-					rechargeTime = 0f;
-					isDelayed = true;
 					onCatch = false;
 					playerControllerScript.isMovable = true;
+				}
+	
+				if( rechargeTime > 1.5f )
+				{
+					catchDelayed = true;
+					rechargeTime = 0f;
 				}
 				else
 				{
@@ -77,9 +91,9 @@ namespace Player
 
 		public void Perform()
 		{
-			isDelayed = false;
 			if(Gauntlet.gameObject.activeSelf)
 			{
+				isDelayed = false;
 				if(gauntlet.AttackCounter < gauntlet.TotalAttackCounter)
 				{
 					onCombat = true;
@@ -91,6 +105,12 @@ namespace Player
 
 						StopCoroutine ("revertTimer");
 						StartCoroutine ("revertTimer" , 0.5f);
+
+						StopCoroutine ("enableDamageCollider");
+						StartCoroutine ("enableDamageCollider", 0.0f);
+
+						StopCoroutine ("disableDamageCollider");
+						StartCoroutine ("disableDamageCollider", 0.3f);
 					}
 					else if(gauntlet.AttackCounter == 2 )
 					{
@@ -98,6 +118,12 @@ namespace Player
 
 						StopCoroutine ("revertTimer");
 						StartCoroutine ("revertTimer" , 0.5f);
+
+						StopCoroutine ("enableDamageCollider");
+						StartCoroutine ("enableDamageCollider", 0.08f);
+
+						StopCoroutine ("disableDamageCollider");
+						StartCoroutine ("disableDamageCollider", 0.3f);
 					}
 					else if(gauntlet.AttackCounter == 3)
 					{
@@ -105,6 +131,12 @@ namespace Player
 
 						StopCoroutine ("revertTimer");
 						StartCoroutine ("revertTimer" , 0.7f);
+
+						StopCoroutine ("enableDamageCollider");
+						StartCoroutine ("enableDamageCollider", 0.12f);
+
+						StopCoroutine ("disableDamageCollider");
+						StartCoroutine ("disableDamageCollider", 0.3f);
 					}
 				}
 				else
@@ -117,9 +149,17 @@ namespace Player
 			{
 				//Instantiate (bulletPrefab, new Vector3 (this.transform.position.x, this.transform.position.y + 0.8f, this.transform.position.z), this.transform.rotation);
 				onCatch = true;
+				catchDelayed = false;
+
+				StopCoroutine ("enableCatchCollider");
+				StartCoroutine ("enableCatchCollider", 0.0f);
+
+				StopCoroutine ("disableCatchCollider");
+				StartCoroutine ("disableCatchCollider", 0.8f);
 			}
 			else if(Radar.gameObject.activeSelf)
 			{
+				isDelayed = false;
 				GameObject[] nearestEnemies = GameObject.FindGameObjectsWithTag ("Enemy");
 				closest = null;
 				float closestDist = 5000; 
@@ -147,7 +187,7 @@ namespace Player
 			}
 		}
 
-		public void SwitchWeapon (int weaponState)
+		/*public void SwitchWeapon (int weaponState)
 		{
 			if(weaponState == 0 )
 			{
@@ -180,13 +220,15 @@ namespace Player
 					Radar.gameObject.SetActive(true);
 				}
 			}
-		}
+		}*/
 
 		IEnumerator attackDelayTimer (float t)
 		{
 			isDelayed = false;
 			playerControllerScript.isMovable = false;
+
 			yield return new WaitForSeconds (t);
+
 			isDelayed = true;
 			playerControllerScript.isMovable = true;
 			effectScript.Combo1End();
@@ -197,8 +239,56 @@ namespace Player
 		IEnumerator revertTimer (float t)
 		{
 			yield return new WaitForSeconds (t);
+
 			gauntlet.AttackCounter = 0;
 			onCombat = false;
+		}
+
+		IEnumerator enableDamageCollider (float t)
+		{
+			yield return new WaitForSeconds (t);
+
+			if (gauntlet.AttackCounter == 1)
+			{
+				damageCollider.SetActive (true);
+				damageCollider2.SetActive (false);
+				damageCollider3.SetActive (false);
+			}
+			else if (gauntlet.AttackCounter == 2)
+			{
+				damageCollider.SetActive (false);
+				damageCollider2.SetActive (true);
+				damageCollider3.SetActive (false);
+			}
+			else if (gauntlet.AttackCounter == 3)
+			{
+				damageCollider.SetActive (false);
+				damageCollider2.SetActive (false);
+				damageCollider3.SetActive (true);
+			}
+		}
+
+		IEnumerator disableDamageCollider (float t)
+		{
+			yield return new WaitForSeconds (t);
+
+			damageCollider.SetActive (false);
+			damageCollider2.SetActive (false);
+			damageCollider3.SetActive (false);
+		}
+
+		IEnumerator enableCatchCollider (float t)
+		{
+			yield return new WaitForSeconds (t);
+
+			catchCollider.SetActive (true);
+		}
+
+		IEnumerator disableCatchCollider (float t)
+		{
+			yield return new WaitForSeconds (t);
+
+			catchCollider.SetActive (false);
 		}
 	}
 }

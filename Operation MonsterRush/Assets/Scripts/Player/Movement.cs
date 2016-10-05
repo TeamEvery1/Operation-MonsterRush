@@ -16,7 +16,7 @@ namespace Player
 		[SerializeField] private float movementSpeedMultiplier = 1f; 
 		[SerializeField] private float animationSpeedMultiplier = 1f;
 		[Range (0f, 2f)][SerializeField] private float gravityMultiplier = 1f;
-		[SerializeField] private float groundCheckDistance = 10f;
+		[SerializeField] private float groundCheckDistance = -0.1f;
 
 		public LayerMask ground;
 		private bool onGround;
@@ -164,10 +164,15 @@ namespace Player
 				else
 					onGround = true;
 			}
-			else if(!Grounded())
+			else if(!Grounded() && myAnim.GetCurrentAnimatorStateInfo(0).IsName("Grounded Movement"))
+			{
+				Vector3 extraGravityForce = new Vector3 (0, -jumpForce * 12 * gravityMultiplier , 0);
+				myRB.AddForce (extraGravityForce);
+			}
+			else if(!Grounded() && myAnim.GetCurrentAnimatorStateInfo(0).IsName ("Jump"))
 			{
 				//Gravity Down
-				Vector3 extraGravityForce = new Vector3 (0, -jumpForce * 12 , 0);
+				Vector3 extraGravityForce = new Vector3 (0, -jumpForce * 12  , 0);
 				myRB.AddForce (extraGravityForce);
 			}
 			else
@@ -175,11 +180,6 @@ namespace Player
 				onGround = true;
 				v.y = 0;
 			}
-		}
-
-		public void JumpButtonClicked()
-		{
-			canJump = true;
 		}
 	}
 }

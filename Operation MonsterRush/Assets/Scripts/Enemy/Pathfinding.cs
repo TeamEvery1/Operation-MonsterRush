@@ -17,6 +17,8 @@ namespace Enemies
 		int turn = 0;
 		public float enemyHealth;
 		public float enemyMaxHealth;
+		public float enemyExhaustion;
+		public float enemyMaxExhaustion;
 
 		public float safeToBackTimer;
 		public float staminaRcvrSpeed;
@@ -40,11 +42,20 @@ namespace Enemies
 
 		void Awake()
 		{
-			penguin = new Enemies.Character (100, 100, 100, 100, 10, 10);
-			slime = new Enemies.Character (100, 100, 100, 100, 10, 10);
-			bird = new Enemies.Character (100, 100, 100, 100, 10, 10);
-			bean = new Enemies.Character (100, 100, 100, 100, 10, 10);
-			disgustingThing = new Enemies.Character (100, 100, 100, 100, 10, 10);
+			// eA = exhaustion amount
+			// mE = maximum exhaustion amount
+			// h = health (catching mode)
+			// mH = maximum health (catching mode)
+			// s = stamina 
+			// rR = recovery rate - Stamina recovery rate after monster exhausted
+			// mS = movement Speed
+
+			// monster Type					  eA   mE    h   mH    s  rR  mS
+			penguin = new Enemies.Character (100, 100, 100, 100, 100, 10, 1);
+			slime = new Enemies.Character (100, 100, 100, 100, 100, 10, 1);
+			bird = new Enemies.Character (100, 100, 100, 100, 100, 10, 1);
+			bean = new Enemies.Character (100, 100, 100, 100, 100, 10, 1);
+			disgustingThing = new Enemies.Character (100, 100, 100, 100, 100, 10, 1);
 
 			monsterSelection = GetComponent <Selection> ();
 		}
@@ -61,6 +72,8 @@ namespace Enemies
 				stamina = penguin.Stamina;
 				enemyMaxHealth = penguin.MaxHealth;
 				enemyHealth = penguin.Health;
+				enemyMaxExhaustion = penguin.MaxExhaustion;
+				enemyExhaustion = penguin.ExhaustionAmount;
 			}
 			else if(monsterSelection.monsterType == "slime")
 			{
@@ -68,6 +81,8 @@ namespace Enemies
 				stamina = slime.Stamina;
 				enemyMaxHealth = slime.MaxHealth;
 				enemyHealth = slime.Health;
+				enemyMaxExhaustion = slime.MaxExhaustion;
+				enemyExhaustion = slime.ExhaustionAmount;
 			}
 			else if(monsterSelection.monsterType == "bird")
 			{
@@ -75,6 +90,8 @@ namespace Enemies
 				stamina = bird.Stamina;
 				enemyMaxHealth = bird.MaxHealth;
 				enemyHealth = bird.Health;
+				enemyMaxExhaustion = bird.MaxExhaustion;
+				enemyExhaustion = bird.ExhaustionAmount;
 			}
 			else if(monsterSelection.monsterType == "bean")
 			{
@@ -82,6 +99,8 @@ namespace Enemies
 				stamina = bean.Stamina;
 				enemyMaxHealth = bean.MaxHealth;
 				enemyHealth = bean.Health;
+				enemyMaxExhaustion = bean.MaxExhaustion;
+				enemyExhaustion = bean.ExhaustionAmount;
 			}
 			else if(monsterSelection.monsterType == "disgusting")
 			{
@@ -89,6 +108,8 @@ namespace Enemies
 				stamina = disgustingThing.Stamina;
 				enemyMaxHealth = disgustingThing.MaxHealth;
 				enemyHealth = disgustingThing.Health;
+				enemyMaxExhaustion = disgustingThing.MaxExhaustion;
+				enemyExhaustion = disgustingThing.ExhaustionAmount;
 			}
 				
 			startX = this.transform.position.x;
@@ -178,7 +199,7 @@ namespace Enemies
 		
 		// Update is called once per frame
 		void Update () {
-			
+			Debug.Log(GPS.speed);
 			if(VisibleTarget != null && sawPlayer == false)
 			{
 				sawPlayer = true;

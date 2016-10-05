@@ -12,11 +12,16 @@ namespace Player
 		[SerializeField] private float movementSpeed = 20f;
 		[SerializeField] private float drag = 0.5f;
 		[SerializeField] private float terminalRotationSpeed = 25.0f;
+		public float health;
+		private float maxHealth;
 		//private string name;
 		public bool isMovable;
 		public bool isMoving;
+
 		private Transform mainCam;
+
 		private Vector3 cameraForward;
+		private Vector3 originalPosition;
 
 		public Player.Combat playerCombatScript;
 
@@ -33,7 +38,7 @@ namespace Player
 
 		void Awake()
 		{
-			Player.Character playerCharacter = new Player.Character ( movementSpeed, name );
+			Player.Character playerCharacter = new Player.Character ( movementSpeed, health, name);
 			playerCombatScript = GetComponent <Player.Combat>(); 
 
 			isMovable = true;
@@ -48,6 +53,10 @@ namespace Player
 		{
 			playerMovement = GetComponent <Player.Movement> ();
 			controller = GetComponent<Rigidbody>();
+
+			originalPosition = this.transform.position;
+			maxHealth = health;
+
 			controller.maxAngularVelocity = terminalRotationSpeed;
 			controller.drag = drag;
 		}
@@ -55,41 +64,27 @@ namespace Player
 		private void Update()
 		{
 			//! Animation
+			if(health <= 0)
+			{
+				this.transform.position = originalPosition;
+					
+				myAnim.Play ("LOSE00");
+
+				health = maxHealth;
+			}
+
+
 			myAnim.SetInteger("attackCounter", playerCombatScript.gauntlet.AttackCounter);
 			myAnim.SetBool ("onCombat", playerCombatScript.onCombat);
 			myAnim.SetBool ("onCatch", playerCombatScript.onCatch);
 		
-			//! perform attack
-			if(playerCombatScript.isDelayed)
-			{
-				if(Input.GetKeyDown (attackKey))
-				{
-					playerCombatScript.Perform();
-				}
-			}
-
-			//! switch weapon during runtime
-			if(playerCombatScript.isDelayed)
-			{
-				if(Input.GetKeyDown (primaryWeaponKey))
-				{
-					playerCombatScript.SwitchWeapon(0);
-				}
-				if(Input.GetKeyDown (secondaryWeaponKey))
-				{
-					playerCombatScript.SwitchWeapon(1);
-				}
-				if(Input.GetKeyDown (tertiaryWeaponKey))
-				{
-					playerCombatScript.SwitchWeapon(2);
-				}
-			}
-
+			myAnim.applyRootMotion = false;
 			Vector3 direction = Vector3.zero;
 
 			direction.x = Input.GetAxis("Horizontal");
 			direction.z = Input.GetAxis("Vertical");
 
+			direction = direction.z * cameraForward + direction.x * mainCam.right;
 			if(direction.magnitude > 1)
 			{
 				direction.Normalize();
@@ -100,10 +95,10 @@ namespace Player
 
 			//Phone Input
 
-			//cameraForward = Vector3.Scale (mainCam.forward, new Vector3(1, 0, 1).normalized);
+			cameraForward = Vector3.Scale (mainCam.forward, new Vector3(1, 0, 1).normalized);
 			if(moveJoyStick.InputDirection != Vector3.zero)
 			{
-				direction = moveJoyStick.InputDirection;
+				direction = moveJoyStick.InputDirection.z * cameraForward + moveJoyStick.InputDirection.x * mainCam.right ;
 			}
 
 			if(isMovable)
@@ -121,5 +116,12 @@ namespace Player
 		{
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
+
+		/*IEnumerator reviveTimer(float t)
+		{
+			yield return new WaitForSeconds (t);
+
+
+		}*/
 	}
 }	

@@ -17,7 +17,7 @@ namespace Enemies
 
 		void Update()
 		{
-			health.fillAmount = enemyPathfindingScript.enemyHealth / enemyPathfindingScript.enemyMaxHealth;
+			health.fillAmount = enemyPathfindingScript.enemyExhaustion / enemyPathfindingScript.enemyMaxExhaustion;
 		}
 
 

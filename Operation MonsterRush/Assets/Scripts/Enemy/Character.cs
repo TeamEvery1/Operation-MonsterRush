@@ -2,16 +2,18 @@
 {
 	public class Character
 	{
-		private int exhaustionAmount;
+		private float exhaustionAmount;
+		private float maxExhaustion;
 		private float health;
 		private float maxHealth;
 		private float stamina;
 		private float recoveryRate;
 		private float movementSpeed;
 
-		public Character(int eA, float h, float mH, float s, float rR, float mS)
+		public Character(float eA, float mE, float h, float mH, float s, float rR, float mS)
 		{
 			exhaustionAmount = eA;
+			maxExhaustion = mE;
 			health = h;
 			maxHealth = mH;
 			stamina = s;
@@ -20,10 +22,15 @@
 		}
 
 		#region Basic Getters and Setters
-		public int ExhaustionAmount
+		public float ExhaustionAmount
 		{
 			get {return exhaustionAmount;}
 			set {exhaustionAmount = value;}
+		}
+		public float MaxExhaustion
+		{
+			get {return maxExhaustion;}
+			set {maxExhaustion = value;}
 		}
 		public float Health
 		{

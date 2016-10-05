@@ -3,12 +3,14 @@
 	public class Character
 	{
 		private float movementSpeed;
+		private float health;
 		private string name;
 
 		public Character() {}
-		public Character( float mS, string n )
+		public Character( float mS, float h, string n )
 		{
 			movementSpeed = mS;
+			health = h;
 			name = n;
 		}
 
@@ -18,7 +20,11 @@
 			get { return movementSpeed; }
 			set { movementSpeed = value; }
 		}
-
+		public float Health
+		{
+			get { return health; }
+			set { health = value; }
+		}
 		public string Name
 		{
 			get { return name; }
