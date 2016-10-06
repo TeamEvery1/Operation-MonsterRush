@@ -33,7 +33,7 @@ namespace Player
 
 		private Player.Controller playerControllerScript;
 
-		Animator myAnim;
+		public Animator myAnim;
 		Rigidbody myRB;
 		CapsuleCollider myCollider;
 

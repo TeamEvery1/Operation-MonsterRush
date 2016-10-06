@@ -31,7 +31,7 @@ namespace Player
 		public VirtualJoyStickScripts moveJoyStick;
 		public KeyCode attackKey, primaryWeaponKey, secondaryWeaponKey, tertiaryWeaponKey; 
 
-		Animator myAnim;
+		public Animator myAnim;
 		Rigidbody myRB;
 		CapsuleCollider myCollider;
 

@@ -28,7 +28,7 @@ namespace Player
 		public Transform Gauntlet;
 		public Transform Gauntlet_02;
 		public Transform Radar;
-		private Transform radarIndicator;
+		public Transform radarIndicator;
 
 		public float rechargeTime;
 
@@ -121,6 +121,7 @@ namespace Player
 			if(Gauntlet.gameObject.activeSelf)
 			{
 				isDelayed = false;
+			
 				if(gauntlet.AttackCounter < gauntlet.TotalAttackCounter)
 				{
 					onCombat = true;
@@ -175,6 +176,7 @@ namespace Player
 			else if(Gauntlet_02.gameObject.activeSelf)
 			{
 				//Instantiate (bulletPrefab, new Vector3 (this.transform.position.x, this.transform.position.y + 0.8f, this.transform.position.z), this.transform.rotation);
+		
 				onCatch = true;
 				catchDelayed = false;
 
@@ -189,7 +191,6 @@ namespace Player
 				isDelayed = false;
 				onScan = true;
 
-				radarIndicator.gameObject.SetActive (true);
 
 			}
 		}

@@ -37,6 +37,7 @@ public class GUIManagerScript : MonoBehaviour
 	public Player.Combat playerCombatScript;
 	public Player.Movement playerMovementScript;
 	public Enemies.Collision enemyCollisionScript;
+	GameManager gameManagerScript;
 
 	public Image captureBarContent;
 	public Image captureBarBack;
@@ -53,6 +54,7 @@ public class GUIManagerScript : MonoBehaviour
 
 	float oneSecond = 1f;
 	public float nextTime = 0;
+	public float maxTime = 10;
 	public bool enemyCollided;
 
 	void Awake () 
@@ -61,6 +63,7 @@ public class GUIManagerScript : MonoBehaviour
 		playerCombatScript = GameObject.FindObjectOfType <Player.Combat>();
 		playerMovementScript = GameObject.FindObjectOfType <Player.Movement>();
 		enemyCollisionScript = GameObject.FindObjectOfType <Enemies.Collision>();
+		gameManagerScript = FindObjectOfType <GameManager>();
 	}
 	// Use this for initialization
 	void Start ()
@@ -97,33 +100,28 @@ public class GUIManagerScript : MonoBehaviour
 			JumpButton();
 		}
 			
-		if (GameManager.Instance.winCondition) 
+		if (gameManagerScript.enemyCounter <= 0) 
 		{
-			winConImage.enabled = true;
+			winConImage.gameObject.SetActive(true);
 		}
-		if (winConImage.enabled == true) 
+			
+		if (maxTime <= 0.0f) 
 		{
-			closeImageCounter -= Time.deltaTime;
-			if (closeImageCounter <= 0) 
-			{
-				winConImage.enabled = false;
-				closeImageCounter = 2;
-			}
+			//loseConImage.gameObject.SetActive(true);
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 		}
-		if (GameManager.Instance.loseCondition) 
-		{
-			loseConImage.enabled = true;
-		}
-		if (winConImage.enabled == true) 
+
+		/*if (loseConImage.gameObject.activeSelf) 
 		{
 			closeImageCounter -= Time.deltaTime;
 			if (closeImageCounter <= 0) 
 			{
-				winConImage.enabled = false;
+				loseConImage.gameObject.SetActive(false);
 				closeImageCounter = 2;
-				SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
+				maxTime = 10.0f;
+
 			}
-		}
+		}*/
 	}
 
 	void Reset()
@@ -140,6 +138,7 @@ public class GUIManagerScript : MonoBehaviour
 	{
 		if(enemyCollided)
 		{
+			maxTime -= Time.deltaTime;
 			//enemyHealth = captureScript.enemyExhaustInfo;
 			captureBarContent.fillAmount = fillUpMetre / fillUpMetreMax;
 			if (captureScript.fillUpMode) 
@@ -196,6 +195,7 @@ public class GUIManagerScript : MonoBehaviour
 	{
 		if(! playerCombatScript.Gauntlet_02.gameObject.activeSelf)
 		{
+			playerCombatScript.radarIndicator.gameObject.SetActive (false);
 			playerCombatScript.Gauntlet_02.gameObject.SetActive (true);
 			playerCombatScript.Gauntlet.gameObject.SetActive (false);
 			playerCombatScript.Radar.gameObject.SetActive (false);
@@ -211,7 +211,7 @@ public class GUIManagerScript : MonoBehaviour
 
 	public void JumpButton()
 	{
-		if(!playerMovementScript.canJump && playerMovementScript.Grounded())
+		if(!playerMovementScript.canJump && playerMovementScript.Grounded() && playerMovementScript.myAnim.GetCurrentAnimatorStateInfo(0).IsName("Grounded Movement"))
 		playerMovementScript.canJump = true;
 	}
 
@@ -219,6 +219,7 @@ public class GUIManagerScript : MonoBehaviour
 	{
 		if(! playerCombatScript.Gauntlet.gameObject.activeSelf)
 		{
+			playerCombatScript.radarIndicator.gameObject.SetActive (false);
 			playerCombatScript.Gauntlet.gameObject.SetActive (true);
 			playerCombatScript.Gauntlet_02.gameObject.SetActive (false);
 			playerCombatScript.Radar.gameObject.SetActive (false);
@@ -235,6 +236,7 @@ public class GUIManagerScript : MonoBehaviour
 	{
 		if(! playerCombatScript.Radar.gameObject.activeSelf)
 		{
+			playerCombatScript.radarIndicator.gameObject.SetActive (true);
 			playerCombatScript.Radar.gameObject.SetActive (true);
 			playerCombatScript.Gauntlet.gameObject.SetActive (false);
 			playerCombatScript.Gauntlet_02.gameObject.SetActive (false);

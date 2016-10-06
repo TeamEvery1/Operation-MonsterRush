@@ -30,12 +30,16 @@ public class CatchManager : MonoBehaviour {
 	}
 
 	GUIManagerScript guiScript;
+	CaptureView captureViewScript;
 	public Canvas guiManager;
 	public Canvas catchManager;
+	public GameObject[] enemies;
+
 	void Awake()
 	{
 		guiScript = FindObjectOfType<GUIManagerScript> ();
-
+		captureViewScript = FindObjectOfType <CaptureView>();
+		enemies = GameObject.FindGameObjectsWithTag ("Enemy");
 	}
 	// Use this for initialization
 	void Start () 
@@ -50,11 +54,24 @@ public class CatchManager : MonoBehaviour {
 		{
 			catchManager.enabled = true;
 			guiManager.enabled = false;
+
+			foreach (GameObject enemy in enemies)
+			{
+				enemy.transform.Find ("Canvas").gameObject.SetActive (false);
+			}
 		}
 		else
 		{
 			catchManager.enabled = false;
 			guiManager.enabled = true;
+
+			if(!captureViewScript.isCollided)
+			{
+				foreach (GameObject enemy in enemies)
+				{
+					enemy.transform.Find ("Canvas").gameObject.SetActive (true);
+				}
+			}
 		}
 	}
 }

@@ -82,7 +82,7 @@ namespace Cameras
         public void FindAndTargetPlayer()
         {
             // auto target an object tagged player, if no target has been assigned
-            var targetObj = GameObject.FindGameObjectWithTag("Player");
+			var targetObj = GameObject.Find ("Character");
             if (targetObj)
             {
                 SetTarget(targetObj.transform);

@@ -21,37 +21,55 @@ public class GameManager : MonoBehaviour
 	private GameObject player;
 	public Player.Movement playerMovementScript;
 	public Player.Controller playerControllerScript;
+	CaptureView captureViewScript;
+	GUIManagerScript guiManagerScript;
+	CatchManager catchManagerScript;
+
 	public GameObject[] enemies;
-	public bool winCondition;
-	public bool loseCondition;
+
+
+	public bool winCondition = false;
+	public bool loseCondition = false;
 	public float timeMax = 900;
+	public int enemyCounter = 0;
+
 	void Awake()
 	{
-		player = GameObject.FindGameObjectWithTag("Player");
+		player = GameObject.Find("Character");
 		playerMovementScript = player.GetComponent <Player.Movement>(); 
 		playerControllerScript = player.GetComponent <Player.Controller>();
+		captureViewScript = FindObjectOfType <CaptureView> ();
+		guiManagerScript = FindObjectOfType <GUIManagerScript> ();
+		catchManagerScript = FindObjectOfType <CatchManager> ();
 	}
 
 	void Start()
 	{
 		SoundManagerScript.Instance.PlayLoopingBGM (AudioClipID.BGM_MAIN_MENU);
-		if (enemies == null) 
+
+
+		enemies = GameObject.FindGameObjectsWithTag ("Enemy");
+
+		foreach (GameObject enemy in enemies)
 		{
-			enemies = GameObject.FindGameObjectsWithTag ("Enemy");
+			enemyCounter ++;
 		}
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
-		timeMax -= Time.deltaTime;
-		if (enemies.Length == 0) 
+		if (enemyCounter <= 0) 
 		{
 			winCondition = true;
 		}
-		if (timeMax <= 0) 
+
+
+		/*if (guiManagerScript.maxTime <= 0) 
 		{
-			loseCondition = true;
-		}
+			//guiManagerScript.GetComponent <Canvas>().enabled = true;
+			catchManagerScript.GetComponent <Canvas>().enabled = false;
+			//loseCondition = true;
+		}*/
 	}
 
 }
