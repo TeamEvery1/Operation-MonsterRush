@@ -20,7 +20,7 @@ namespace Player
 		[SerializeField] private float groundCheckDistance = -0.1f;
 
 		public LayerMask ground;
-		private bool onGround;
+		public bool onGround;
 		public bool canJump;
 
 		private float turnSpeed;
@@ -55,6 +55,7 @@ namespace Player
 		private void FixedUpdate()
 		{
 			Jump();
+
 			/*if(canJump)
 				myRB.velocity = transform.TransformDirection(v);*/
 		}
@@ -73,7 +74,7 @@ namespace Player
 			//movement = Vector3.ProjectOnPlane (movement, groundNormal);
 
 			turnRatio = Mathf.Atan2 (movement.x, movement.z);
-			forwardRatio = movement.z * 2;
+			forwardRatio = movement.z;
 
 			ApplyExtraRotation();
 
@@ -115,8 +116,8 @@ namespace Player
 
 		private void UpdateAnimator(Vector3 movement)
 		{
-			myAnim.SetFloat("forwardRatio", forwardRatio, 0.2f, Time.deltaTime);
-			myAnim.SetFloat("turnRatio", turnRatio, 0.2f, Time.deltaTime);
+			myAnim.SetFloat("forwardRatio", forwardRatio, 0.1f, Time.deltaTime);
+			myAnim.SetFloat("turnRatio", turnRatio, 0.1f, Time.deltaTime);
 			myAnim.SetBool("onGround", onGround);
 
 			float runCycle = Mathf.Repeat(myAnim.GetCurrentAnimatorStateInfo(0).normalizedTime + runCycleLegOffset, 1);
@@ -143,10 +144,10 @@ namespace Player
 
 		public void OnAnimatorMove()
 		{
-			if(onGround && Time.deltaTime > 0)
+			if(Grounded() && Time.deltaTime > 0)
 			{
 				Vector3 moveForward = transform.forward * myAnim.GetFloat("motionZ") * Time.deltaTime;
-				v = ((myAnim.deltaPosition + moveForward) * movementSpeedMultiplier / Time.deltaTime);
+				v = ((myAnim.deltaPosition + moveForward) * movementSpeedMultiplier * 1.3f / Time.deltaTime);
 				 
 				myRB.velocity = v;
 			}
@@ -181,11 +182,24 @@ namespace Player
 
 				myRB.AddForce (extraGravityForce);
 			}
+			else if(!Grounded() && onGround)
+			{
+				Vector3 extraGravityForce = new Vector3 (0, -jumpForce * fallingMultiplier * gravityMultiplier * 30f , 0);
 
+				myRB.AddForce (extraGravityForce);
+			}
 			else
 			{
 				onGround = true;
 				v.y = 0;
+			}
+		}
+
+		void OnCollsionEnter (Collider other)
+		{
+			if(other.CompareTag("Obstacles"))
+			{
+				onGround = true;
 			}
 		}
 	}

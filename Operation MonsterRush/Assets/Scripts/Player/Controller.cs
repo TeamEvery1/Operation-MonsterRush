@@ -86,7 +86,16 @@ namespace Player
 			direction.x = Input.GetAxis("Horizontal");
 			direction.z = Input.GetAxis("Vertical");
 
-			direction = direction.z * cameraForward + direction.x * mainCam.right;
+			if(mainCam != null)
+			{
+				cameraForward = Vector3.Scale (mainCam.forward, new Vector3(1, 0, 1)).normalized;
+				direction = direction.z * cameraForward + direction.x * mainCam.right ;
+			}
+			else
+			{
+				direction = direction.z * Vector3.forward + direction.x * Vector3.right;
+			}
+
 			if(direction.magnitude > 1)
 			{
 				direction.Normalize();
@@ -96,11 +105,17 @@ namespace Player
 				isMoving = false;
 
 			//Phone Input
-
-			cameraForward = Vector3.Scale (mainCam.forward, new Vector3(1, 0, 1).normalized);
 			if(moveJoyStick.InputDirection != Vector3.zero)
 			{
-				direction = moveJoyStick.InputDirection.z * cameraForward + moveJoyStick.InputDirection.x * mainCam.right ;
+				if(mainCam != null)
+				{
+					cameraForward = Vector3.Scale (mainCam.forward, new Vector3(1, 0, 1)).normalized;
+					direction = moveJoyStick.InputDirection.z * cameraForward + moveJoyStick.InputDirection.x * mainCam.right ;
+				}
+				else
+				{
+					direction = moveJoyStick.InputDirection.z * Vector3.forward + moveJoyStick.InputDirection.x * Vector3.right;
+				}
 			}
 
 			if(isMovable)

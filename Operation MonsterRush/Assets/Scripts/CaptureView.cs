@@ -60,7 +60,7 @@ public class CaptureView : MonoBehaviour
 		camera = pivotPoint.transform.parent.gameObject;
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		if(!isCollided)
 		{
@@ -68,7 +68,7 @@ public class CaptureView : MonoBehaviour
 		}
 	}
 
-	void LateUpdate()
+	void Update()
 	{
 		foreach (Enemies.Collision enemyCollisionScript in enemyCollisionScripts)
 		{

@@ -7,6 +7,7 @@ namespace Cameras
     {
         public enum UpdateType // The available methods of updating are:
         {
+			Update,
             FixedUpdate, // Update in FixedUpdate (for tracking rigidbodies).
             LateUpdate, // Update in LateUpdate. (for tracking objects that are moved in Update)
             ManualUpdate, // user must call to update camera
