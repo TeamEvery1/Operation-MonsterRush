@@ -12,14 +12,14 @@ public class Timer : MonoBehaviour
 	void Awake()
 	{
 		timer = 0.0f;
-		realTime = Time.time;
+		realTime = 900.0f;
 
 		timerText = this.transform.GetComponent <Text>();
 	}
 
 	void FixedUpdate()
 	{
-		timer = Time.time - realTime;
+		timer = realTime - Time.time;
 
 		minutes = (int) timer / 60;
 		seconds = (int) timer % 60;
