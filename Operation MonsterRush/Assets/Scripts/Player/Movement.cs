@@ -20,8 +20,9 @@ namespace Player
 		[SerializeField] private float groundCheckDistance = -0.1f;
 
 		public LayerMask ground;
-		public bool onGround;
-		public bool canJump;
+		private bool onGround;
+		[HideInInspector] public bool canJump;
+		public bool isSwimming;
 
 		private float turnSpeed;
 		private float turnRatio;
@@ -33,13 +34,13 @@ namespace Player
 
 		private Player.Controller playerControllerScript;
 
-		public Animator myAnim;
+		[HideInInspector] public Animator myAnim;
 		Rigidbody myRB;
 		CapsuleCollider myCollider;
 
 		//Vector3 groundNormal;
-		public Vector3 jumpMovement;
-		public Vector3 v;
+		private Vector3 jumpMovement;
+		private Vector3 v;
 
 		private void Start()
 		{
@@ -58,6 +59,7 @@ namespace Player
 
 			/*if(canJump)
 				myRB.velocity = transform.TransformDirection(v);*/
+			
 		}
 
 		public void Player_Movement(Vector3 movement, bool jump)
@@ -119,6 +121,7 @@ namespace Player
 			myAnim.SetFloat("forwardRatio", forwardRatio, 0.1f, Time.deltaTime);
 			myAnim.SetFloat("turnRatio", turnRatio, 0.1f, Time.deltaTime);
 			myAnim.SetBool("onGround", onGround);
+			myAnim.SetBool("isSwimming", isSwimming);
 
 			float runCycle = Mathf.Repeat(myAnim.GetCurrentAnimatorStateInfo(0).normalizedTime + runCycleLegOffset, 1);
 			float jumpPosition = (runCycle < 0.5f ? 1 : -1) * forwardRatio;
@@ -144,11 +147,18 @@ namespace Player
 
 		public void OnAnimatorMove()
 		{
-			if(Grounded() && Time.deltaTime > 0)
+			if(Grounded() && Time.deltaTime > 0 && !isSwimming)
 			{
 				Vector3 moveForward = transform.forward * myAnim.GetFloat("motionZ") * Time.deltaTime;
 				v = ((myAnim.deltaPosition + moveForward) * movementSpeedMultiplier * 1.3f / Time.deltaTime);
 				 
+				myRB.velocity = v;
+			}
+			else if(isSwimming)
+			{
+				Vector3 moveForward = transform.forward * myAnim.GetFloat("motionZ") * Time.deltaTime;
+				v = ((myAnim.deltaPosition + moveForward) * movementSpeedMultiplier * 1.3f / Time.deltaTime);
+
 				myRB.velocity = v;
 			}
 		}
@@ -161,7 +171,7 @@ namespace Player
 		void Jump()
 		{
 			//Jump
-			if(Grounded() && onGround)
+			if(Grounded() && onGround && !isSwimming)
 			{
 				if(canJump)
 				{
@@ -174,7 +184,7 @@ namespace Player
 					onGround = true;
 				}
 			}
-			else if(!Grounded())
+			else if(!Grounded() && !isSwimming)
 			{
 				Vector3 extraGravityForce = new Vector3 (0, -jumpForce * fallingMultiplier * gravityMultiplier , 0);
 
@@ -182,9 +192,9 @@ namespace Player
 
 				myRB.AddForce (extraGravityForce);
 			}
-			else if(!Grounded() && onGround)
+			else if(!Grounded() && onGround && !isSwimming)
 			{
-				Vector3 extraGravityForce = new Vector3 (0, -jumpForce * fallingMultiplier * gravityMultiplier * 30f , 0);
+				Vector3 extraGravityForce = new Vector3 (0, -jumpForce * fallingMultiplier * gravityMultiplier * 15f , 0);
 
 				myRB.AddForce (extraGravityForce);
 			}
@@ -195,11 +205,19 @@ namespace Player
 			}
 		}
 
-		void OnCollsionEnter (Collider other)
+		void OnTriggerEnter (Collider other)
 		{
-			if(other.CompareTag("Obstacles"))
+			if (other.CompareTag ("Water"))
 			{
-				onGround = true;
+				isSwimming = true;
+			}
+		}
+
+		void OnTriggerExit (Collider other)
+		{
+			if(other.CompareTag ("Water"))
+			{
+				isSwimming = false;
 			}
 		}
 	}
