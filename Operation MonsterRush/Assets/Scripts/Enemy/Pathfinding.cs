@@ -38,6 +38,7 @@ namespace Enemies
 		bool sawPlayer = false;
 		bool isWander = false;
 		bool recovering = false;
+		public bool isShit = false;
 
 		public LayerMask PlayerLayer;
 		public LayerMask ObstacleLayer;
@@ -125,7 +126,11 @@ namespace Enemies
 				isWander = true;
 			}
 
-			Move();
+			if(isShit == false)
+			{
+				Move();
+			}
+
 		}
 
 		IEnumerator FindTargetsWithDelay(float delay)
@@ -218,6 +223,11 @@ namespace Enemies
 				sawPlayer = true;
 				RandomDes = Random.Range(0,3);
 				GPS.destination = desPoint[RandomDes].position;
+				if(isShit == true)
+				{
+					viewAngle = 120.0f;
+					GPS.baseOffset = -0.26f;
+				}
 			}
 
 			if(sawPlayer == true)
@@ -254,23 +264,33 @@ namespace Enemies
 
 			if(VisibleTarget == null && sawPlayer == false)
 			{
-				if(GPS.remainingDistance < 0.5f)
+				if(isShit == true)
 				{
-					Move();
+					GPS.baseOffset = -1.46f;
+					viewAngle = 360.0f;
 				}
-
-				if(GPS.remainingDistance > 0.5f)
+				else if(isShit == false)
 				{
-					if(stamina > 0.0f && recovering == false)
+					if(GPS.remainingDistance < 0.5f)
 					{
-						//Debug.Log("stamina: " + Stamina);
-						stamina -= Time.deltaTime;
-						if(stamina <= 0.0f)
+						Move();
+					}
+
+					if(GPS.remainingDistance > 0.5f)
+					{
+						if(stamina > 0.0f && recovering == false)
 						{
-							recovering = true;
+							//Debug.Log("stamina: " + Stamina);
+							stamina -= Time.deltaTime;
+							if(stamina <= 0.0f)
+							{
+								recovering = true;
+							}
 						}
 					}
 				}
+				
+
 			}
 
 			if(recovering == true)
