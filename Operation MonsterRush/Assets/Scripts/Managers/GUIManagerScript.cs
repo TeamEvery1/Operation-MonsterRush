@@ -56,6 +56,9 @@ public class GUIManagerScript : MonoBehaviour
 	public float nextTime = 0;
 	public float maxTime = 10;
 	public bool enemyCollided;
+	//PauseUI
+	private bool paused = false;
+
 
 	void Awake () 
 	{
@@ -68,6 +71,7 @@ public class GUIManagerScript : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		
 		//fillUpLove.enabled = false;
 	}
 	
@@ -248,8 +252,5 @@ public class GUIManagerScript : MonoBehaviour
 		}
 	}
 
-	public void RestartButton()
-	{
-		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
-	}
+
 }
