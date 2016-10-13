@@ -109,11 +109,11 @@ public class GUIManagerScript : MonoBehaviour
 			winConImage.gameObject.SetActive(true);
 		}
 			
-		if (maxTime <= 0.0f) 
+		/*if (maxTime <= 0.0f) 
 		{
 			//loseConImage.gameObject.SetActive(true);
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
-		}
+		}*/
 
 		/*if (loseConImage.gameObject.activeSelf) 
 		{
@@ -142,7 +142,7 @@ public class GUIManagerScript : MonoBehaviour
 	{
 		if(enemyCollided)
 		{
-			maxTime -= Time.deltaTime;
+			//maxTime -= Time.deltaTime;
 			//enemyHealth = captureScript.enemyExhaustInfo;
 			captureBarContent.fillAmount = fillUpMetre / fillUpMetreMax;
 			if (captureScript.fillUpMode) 

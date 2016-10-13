@@ -95,7 +95,7 @@ public class CaptureView : MonoBehaviour
 					enemyCollisionScript.isCollided = false;
 					guiManagerScript.enemyCollided = false;
 					guiManagerScript.fillUpMetre = 0;
-					guiManagerScript.maxTime = 10.0f;
+					//guiManagerScript.maxTime = 10.0f;
 					playerControllerScript.myAnim.Play ("Grounded Movement");
 					isCollided = false;
 					changed = false;

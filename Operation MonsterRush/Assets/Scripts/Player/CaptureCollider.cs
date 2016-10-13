@@ -6,7 +6,7 @@ public class CaptureCollider : MonoBehaviour
 	public bool enemyCollided = false;
 	public bool fillUpMode = false;
 	public float enemyExhaustInfo;
-	public float timeLimit = 10;
+	public float timeLimit = 30;
 	public float timeLimitModifier;
 	// Use this for initialization
 	void Start () 

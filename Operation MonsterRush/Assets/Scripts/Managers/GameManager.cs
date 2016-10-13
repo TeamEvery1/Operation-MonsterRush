@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameManager : MonoBehaviour 
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
 	public bool loseCondition = false;
 	public float timeMax = 900;
 	public int enemyCounter = 0;
+	public Text enemyCounterText;
 
 	void Awake()
 	{
@@ -41,6 +43,8 @@ public class GameManager : MonoBehaviour
 		captureViewScript = FindObjectOfType <CaptureView> ();
 		guiManagerScript = FindObjectOfType <GUIManagerScript> ();
 		catchManagerScript = FindObjectOfType <CatchManager> ();
+
+
 	}
 
 	void Start()
@@ -58,6 +62,7 @@ public class GameManager : MonoBehaviour
 
 	void FixedUpdate()
 	{
+		enemyCounterText.text = enemyCounter.ToString();
 		if (enemyCounter <= 0) 
 		{
 			winCondition = true;
