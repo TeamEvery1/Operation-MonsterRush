@@ -56,7 +56,7 @@ public class IKSnap : MonoBehaviour
 		RaycastHit rightFootHitInfo;
 
 		// Left Hand IK Check
-		if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.5f, 1.0f)), transform.TransformDirection (new Vector3 (-0.25f, -1.0f, 0.0f)), out leftHitInfo, 1.0f))
+		if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.3f, 0.5f)), transform.TransformDirection (new Vector3 (-0.25f, -1.0f, 0.0f)), out leftHitInfo, 1.0f))
 		{
 			Vector3 lookAt = Vector3.Cross (-leftHitInfo.normal, transform.right);
 			lookAt = lookAt.y < 0 ? -lookAt : lookAt;
@@ -75,7 +75,7 @@ public class IKSnap : MonoBehaviour
 		}
 
 		// Right Hand IK Check
-		if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.5f, 1.0f)), transform.TransformDirection (new Vector3 (0.25f, -1.0f, 0.0f)), out rightHitInfo, 1.0f))
+		if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.3f, 0.5f)), transform.TransformDirection (new Vector3 (0.25f, -1.0f, 0.0f)), out rightHitInfo, 1.0f))
 		{
 			Vector3 lookAt = Vector3.Cross (-rightHitInfo.normal, transform.right);
 			lookAt = lookAt.y < 0 ? -lookAt : lookAt;
@@ -124,7 +124,7 @@ public class IKSnap : MonoBehaviour
 			rightFootIK = false;
 		}
 
-		normalizedTime = myAnim.GetCurrentAnimatorStateInfo (0).normalizedTime % 1;
+		//normalizedTime = myAnim.GetCurrentAnimatorStateInfo (0).normalizedTime % 1;
 
 		if(myAnim)
 		{
@@ -154,9 +154,9 @@ public class IKSnap : MonoBehaviour
 	void Update()
 	{
 		// Left Hand IK Visual Ray
-		Debug.DrawRay (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.5f, 1.0f)), transform.TransformDirection (new Vector3 (-0.25f, -1.0f, 0.0f)), Color.green);
+		Debug.DrawRay (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.3f, 0.5f)), transform.TransformDirection (new Vector3 (-0.25f, -1.0f, 0.0f)), Color.blue);
 		// Right Hand IK Visual Ray
-		Debug.DrawRay (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.5f, 1.0f)), transform.TransformDirection (new Vector3 (0.25f, -1.0f, 0.0f)), Color.green);
+		Debug.DrawRay (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.3f, 0.5f)), transform.TransformDirection (new Vector3 (0.25f, -1.0f, 0.0f)), Color.blue);
 		// Left Foot IK Visual Ray
 		Debug.DrawRay (transform.position + transform.TransformDirection (new Vector3 (-0.5f, 0.5f, 0.0f)), transform.forward, Color.red);
 		// Right Foot IK Visual Ray
@@ -173,7 +173,7 @@ public class IKSnap : MonoBehaviour
 			if(leftHandIK)
 			{
 				isClimbing = true;
-				myAnim.SetIKPositionWeight (AvatarIKGoal.LeftHand,leftHandWeight);
+				myAnim.SetIKPositionWeight (AvatarIKGoal.LeftHand,1.0f);
 				myAnim.SetIKPosition (AvatarIKGoal.LeftHand, leftHandPos);
 
 				myAnim.SetIKRotationWeight (AvatarIKGoal.LeftHand, 1.0f);
@@ -185,7 +185,7 @@ public class IKSnap : MonoBehaviour
 			if(rightHandIK)
 			{
 				isClimbing = true;
-				myAnim.SetIKPositionWeight (AvatarIKGoal.RightHand , rightHandWeight);
+				myAnim.SetIKPositionWeight (AvatarIKGoal.RightHand , 1.0f);
 				myAnim.SetIKPosition (AvatarIKGoal.RightHand, rightHandPos);
 
 				myAnim.SetIKRotationWeight (AvatarIKGoal.RightHand, 1.0f);
