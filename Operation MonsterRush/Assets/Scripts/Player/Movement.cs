@@ -31,7 +31,7 @@ namespace Player
 		private float runCycleLegOffset;
 
 		private VirtualJoyStickScripts moveJoyStick;
-
+		private IKSnap iKSnapScript;
 		private Player.Controller playerControllerScript;
 
 		[HideInInspector] public Animator myAnim;
@@ -50,6 +50,7 @@ namespace Player
 			myRB.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 			defGroundCheckDistance = groundCheckDistance;
 
+			iKSnapScript = GetComponent <IKSnap> ();
 			playerControllerScript = GetComponent <Player.Controller>();
 		}
 
@@ -184,7 +185,7 @@ namespace Player
 					onGround = true;
 				}
 			}
-			else if(!Grounded() && !isSwimming)
+			else if(!Grounded() && !onGround && !isSwimming && !iKSnapScript.isClimbing)
 			{
 				Vector3 extraGravityForce = new Vector3 (0, -jumpForce * fallingMultiplier * gravityMultiplier , 0);
 
@@ -192,17 +193,31 @@ namespace Player
 
 				myRB.AddForce (extraGravityForce);
 			}
-			else if(!Grounded() && onGround && !isSwimming)
+			else if(!Grounded() && onGround && !isSwimming && !iKSnapScript.isClimbing)
 			{
-				Vector3 extraGravityForce = new Vector3 (0, -jumpForce * fallingMultiplier * gravityMultiplier * 15f , 0);
+				Vector3 extraGravityForce = new Vector3 (0, fallingMultiplier * gravityMultiplier * -8.0f , 0);
+
+				myRB.velocity = new Vector3 (playerControllerScript.direction.x * jumpForce / 1.5f, myRB.velocity.y , playerControllerScript.direction.z * jumpForce / 1.5f);
 
 				myRB.AddForce (extraGravityForce);
+			}
+			else if(iKSnapScript.isClimbing)
+			{
+				myRB.velocity = new Vector3 (0, 0, 0);
+
+
+				Invoke ("ClimbingPosition", 0.5f);
 			}
 			else
 			{
 				onGround = true;
 				v.y = 0;
 			}
+		}
+
+		void ClimbingPosition()
+		{
+			this.transform.position = new Vector3 (this.transform.position.x , this.transform.position.y - 0.01f, this.transform.position.z);
 		}
 
 		void OnTriggerEnter (Collider other)

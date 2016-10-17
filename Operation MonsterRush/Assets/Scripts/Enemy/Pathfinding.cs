@@ -3,8 +3,8 @@ using System.Collections;
 
 namespace Enemies
 {
-	public class Pathfinding : MonoBehaviour {
-
+	public class Pathfinding : MonoBehaviour 
+	{
 		public NavMeshAgent GPS;
 
 		public Transform target;
