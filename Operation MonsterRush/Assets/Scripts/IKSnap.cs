@@ -36,7 +36,6 @@ public class IKSnap : MonoBehaviour
 	public Quaternion rightFootRotationOffset;
 
 	private Animator myAnim;
-
 	public float normalizedTime;
 
 	public float leftHandWeight = 1.0f;
@@ -49,25 +48,25 @@ public class IKSnap : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		RaycastHit leftHitInfo;
-		RaycastHit rightHitInfo;
+		RaycastHit leftHandtHitInfo;
+		RaycastHit rightHandHitInfo;
 
 		RaycastHit leftFootHitInfo;
 		RaycastHit rightFootHitInfo;
 
 		// Left Hand IK Check
-		if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.3f, 0.5f)), transform.TransformDirection (new Vector3 (-0.25f, -1.0f, 0.0f)), out leftHitInfo, 1.0f))
+		if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.4f, 0.4f)), transform.TransformDirection (new Vector3 (-0.3f, -1.0f, 0.0f)), out leftHandtHitInfo, 0.65f))
 		{
-			Vector3 lookAt = Vector3.Cross (-leftHitInfo.normal, transform.right);
+			Vector3 lookAt = Vector3.Cross (-leftHandtHitInfo.normal, transform.right);
 			lookAt = lookAt.y < 0 ? -lookAt : lookAt;
 
 			leftHandIK = true;
-			leftHandPos = leftHitInfo.point - leftHandOffset;
+			leftHandPos = leftHandtHitInfo.point - transform.TransformDirection(leftHandOffset);
 			//leftHandPos.x = leftHandOriginalPos.x - leftHandOffset.x;
 			//leftHandPos.z = leftFootPos.z - leftHandOffset.z;
 			//leftHandPos.z = transform.TransformDirection (leftFootPos).x;
-			leftHandRotation = (Quaternion.FromToRotation (Vector3.forward, leftHitInfo.normal)) * leftHandRotationOffset;
-			//leftHandRotation = Quaternion.LookRotation (leftHitInfo.point + lookAt, leftHitInfo.normal);
+			leftHandRotation = Quaternion.FromToRotation(Vector3.forward, leftHandtHitInfo.normal);
+			//leftHandRotation = Quaternion.LookRotation(leftHandtHitInfo.point + lookAt, leftHandtHitInfo.normal);
 		}
 		else
 		{
@@ -75,17 +74,17 @@ public class IKSnap : MonoBehaviour
 		}
 
 		// Right Hand IK Check
-		if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.3f, 0.5f)), transform.TransformDirection (new Vector3 (0.25f, -1.0f, 0.0f)), out rightHitInfo, 1.0f))
+		if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.4f, 0.4f)), transform.TransformDirection (new Vector3 (0.3f, -1.0f, 0.0f)), out rightHandHitInfo, 0.65f))
 		{
-			Vector3 lookAt = Vector3.Cross (-rightHitInfo.normal, transform.right);
+			Vector3 lookAt = Vector3.Cross (-rightHandHitInfo.normal, transform.right);
 			lookAt = lookAt.y < 0 ? -lookAt : lookAt;
 
 			rightHandIK = true;
-			rightHandPos = rightHitInfo.point - rightHandOffset;
+			rightHandPos = rightHandHitInfo.point - transform.TransformDirection(rightHandOffset);
 			//rightHandPos.x = rightHandOriginalPos.x - rightHandOffset.x;
 			//rightHandPos.z = rightFootPos.z - rightHandOffset.z;
-			rightHandRotation = (Quaternion.FromToRotation (Vector3.forward, rightHitInfo.normal)) * rightHandRotationOffset;
-			//rightHandRotation = Quaternion.LookRotation (rightHitInfo.point + lookAt, rightHitInfo.normal);
+			rightHandRotation = Quaternion.FromToRotation(Vector3.forward, rightHandHitInfo.normal);
+			//rightHandRotation = Quaternion.LookRotation(rightHandHitInfo.point + lookAt, rightHandHitInfo.normal);
 		}
 		else
 		{
@@ -124,7 +123,7 @@ public class IKSnap : MonoBehaviour
 			rightFootIK = false;
 		}
 
-		//normalizedTime = myAnim.GetCurrentAnimatorStateInfo (0).normalizedTime % 1;
+		normalizedTime = myAnim.GetCurrentAnimatorStateInfo (0).normalizedTime % 1;
 
 		if(myAnim)
 		{
@@ -154,13 +153,13 @@ public class IKSnap : MonoBehaviour
 	void Update()
 	{
 		// Left Hand IK Visual Ray
-		Debug.DrawRay (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.3f, 0.5f)), transform.TransformDirection (new Vector3 (-0.25f, -1.0f, 0.0f)), Color.blue);
+		Debug.DrawRay (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.4f, 0.4f)), transform.TransformDirection (new Vector3 (-0.3f, -1.0f, 0.0f)), Color.blue);
 		// Right Hand IK Visual Ray
-		Debug.DrawRay (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.3f, 0.5f)), transform.TransformDirection (new Vector3 (0.25f, -1.0f, 0.0f)), Color.blue);
+		Debug.DrawRay (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.4f, 0.4f)), transform.TransformDirection (new Vector3 (0.3f, -1.0f, 0.0f)), Color.blue);
 		// Left Foot IK Visual Ray
-		Debug.DrawRay (transform.position + transform.TransformDirection (new Vector3 (-0.5f, 0.5f, 0.0f)), transform.forward, Color.red);
+		Debug.DrawRay (transform.position + transform.TransformDirection (new Vector3 (-0.35f, 0.5f, 0.0f)), transform.forward, Color.red);
 		// Right Foot IK Visual Ray
-		Debug.DrawRay (transform.position + transform.TransformDirection (new Vector3 (0.5f, 0.5f, 0.0f)), transform.forward, Color.red);
+		Debug.DrawRay (transform.position + transform.TransformDirection (new Vector3 (0.35f, 0.5f, 0.0f)), transform.forward, Color.red);
 	}
 		
 	void OnAnimatorIK ()

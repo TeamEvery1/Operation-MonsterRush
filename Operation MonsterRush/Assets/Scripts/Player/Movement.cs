@@ -204,7 +204,7 @@ namespace Player
 			else if(iKSnapScript.isClimbing)
 			{
 				myRB.velocity = new Vector3 (0, 0, 0);
-
+				myAnim.Play("Climbing");
 
 				Invoke ("ClimbingPosition", 0.5f);
 			}
