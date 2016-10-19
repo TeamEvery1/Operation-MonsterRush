@@ -57,6 +57,8 @@ public class GUIManagerScript : MonoBehaviour
 	public float maxTime = 10;
 	public bool enemyCollided;
 
+	private Image captureImage;
+
 	void Awake () 
 	{
 		captureScript = GameObject.FindObjectOfType <CaptureCollider>();
@@ -64,11 +66,14 @@ public class GUIManagerScript : MonoBehaviour
 		playerMovementScript = GameObject.FindObjectOfType <Player.Movement>();
 		enemyCollisionScript = GameObject.FindObjectOfType <Enemies.Collision>();
 		gameManagerScript = FindObjectOfType <GameManager>();
+		captureImage = GameObject.Find("CaptureStart").GetComponent<Image>();
 	}
 	// Use this for initialization
 	void Start ()
 	{
-		
+		Color temp = captureImage.color;
+		temp.a = 0.65f;
+		captureImage.color = temp;
 		//fillUpLove.enabled = false;
 	}
 	

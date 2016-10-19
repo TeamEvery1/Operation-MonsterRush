@@ -8,6 +8,9 @@ public class VirtualJoyStickScripts : MonoBehaviour, IDragHandler, IPointerUpHan
 	private Image bgImg;
 	private Image joystickImg;
 
+	public Sprite hightLightAnolog;
+	private Sprite originalAnolog;
+
 	public Vector3 InputDirection{ set; get; }
 
 	private void Start()
@@ -15,10 +18,13 @@ public class VirtualJoyStickScripts : MonoBehaviour, IDragHandler, IPointerUpHan
 		bgImg = GetComponent<Image>();
 		joystickImg = transform.GetChild(0).GetComponent<Image>();
 		InputDirection = Vector3.zero;
+		originalAnolog = bgImg.sprite;
+		bgImg.overrideSprite = hightLightAnolog;
 	}
 
 	public virtual void OnDrag(PointerEventData ped)
 	{
+		bgImg.overrideSprite = originalAnolog;
 		Vector2 pos = Vector2.zero;
 		if(RectTransformUtility.ScreenPointToLocalPointInRectangle
 			(bgImg.rectTransform, ped.position, ped.pressEventCamera, out pos))
