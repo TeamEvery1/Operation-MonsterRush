@@ -41,111 +41,120 @@ public class IKSnap : MonoBehaviour
 	public float leftHandWeight = 1.0f;
 	public float rightHandWeight = 1.0f;
 
+	RaycastHit leftHandtHitInfo;
+	RaycastHit rightHandHitInfo;
+	RaycastHit leftFootHitInfo;
+	RaycastHit rightFootHitInfo;
+
+	private Player.Movement playerMovement;
+
 	void Awake()
 	{
 		myAnim = GetComponent <Animator> ();
 	}
 
+	void Start()
+	{
+		playerMovement = this.GetComponent<Player.Movement>();
+	}
+
 	void FixedUpdate()
 	{
-		RaycastHit leftHandtHitInfo;
-		RaycastHit rightHandHitInfo;
-
-		RaycastHit leftFootHitInfo;
-		RaycastHit rightFootHitInfo;
-
-		// Left Hand IK Check
-		if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.4f, 0.4f)), transform.TransformDirection (new Vector3 (-0.3f, -1.0f, 0.0f)), out leftHandtHitInfo, 0.65f))
+		if(playerMovement.onGround == false)
 		{
-			Vector3 lookAt = Vector3.Cross (-leftHandtHitInfo.normal, transform.right);
-			lookAt = lookAt.y < 0 ? -lookAt : lookAt;
-
-			leftHandIK = true;
-			leftHandPos = leftHandtHitInfo.point - transform.TransformDirection(leftHandOffset);
-			//leftHandPos.x = leftHandOriginalPos.x - leftHandOffset.x;
-			//leftHandPos.z = leftFootPos.z - leftHandOffset.z;
-			//leftHandPos.z = transform.TransformDirection (leftFootPos).x;
-			leftHandRotation = Quaternion.FromToRotation(Vector3.forward, leftHandtHitInfo.normal);
-			//leftHandRotation = Quaternion.LookRotation(leftHandtHitInfo.point + lookAt, leftHandtHitInfo.normal);
-		}
-		else
-		{
-			leftHandIK = false;
-		}
-
-		// Right Hand IK Check
-		if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.4f, 0.4f)), transform.TransformDirection (new Vector3 (0.3f, -1.0f, 0.0f)), out rightHandHitInfo, 0.65f))
-		{
-			Vector3 lookAt = Vector3.Cross (-rightHandHitInfo.normal, transform.right);
-			lookAt = lookAt.y < 0 ? -lookAt : lookAt;
-
-			rightHandIK = true;
-			rightHandPos = rightHandHitInfo.point - transform.TransformDirection(rightHandOffset);
-			//rightHandPos.x = rightHandOriginalPos.x - rightHandOffset.x;
-			//rightHandPos.z = rightFootPos.z - rightHandOffset.z;
-			rightHandRotation = Quaternion.FromToRotation(Vector3.forward, rightHandHitInfo.normal);
-			//rightHandRotation = Quaternion.LookRotation(rightHandHitInfo.point + lookAt, rightHandHitInfo.normal);
-		}
-		else
-		{
-			rightHandIK = false;
-		}
-
-		if(leftHandIK == true && rightHandIK == true)
-		{
-			// Left Foot IK Check
-			if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (-0.35f, 0.5f, 0.0f)), transform.forward, out leftFootHitInfo, 1.0f))
+			// Left Hand IK Check
+			if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.4f, 0.4f)), transform.TransformDirection (new Vector3 (-0.3f, -1.0f, 0.0f)), out leftHandtHitInfo, 0.65f))
 			{
-				leftFootIK = true;
-				leftFootPos = leftFootHitInfo.point - leftFootOffset;
-				leftFootRotation = (Quaternion.FromToRotation (Vector3.up, leftFootHitInfo.normal)) * leftFootRotationOffset;
+				Vector3 lookAt = Vector3.Cross (-leftHandtHitInfo.normal, transform.right);
+				lookAt = lookAt.y < 0 ? -lookAt : lookAt;
+
+				leftHandIK = true;
+				leftHandPos = leftHandtHitInfo.point - transform.TransformDirection(leftHandOffset);
+				//leftHandPos.x = leftHandOriginalPos.x - leftHandOffset.x;
+				//leftHandPos.z = leftFootPos.z - leftHandOffset.z;
+				//leftHandPos.z = transform.TransformDirection (leftFootPos).x;
+				leftHandRotation = Quaternion.FromToRotation(Vector3.forward, leftHandtHitInfo.normal);
+				//leftHandRotation = Quaternion.LookRotation(leftHandtHitInfo.point + lookAt, leftHandtHitInfo.normal);
+			}
+			else
+			{
+				leftHandIK = false;
+			}
+
+			// Right Hand IK Check
+			if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.4f, 0.4f)), transform.TransformDirection (new Vector3 (0.3f, -1.0f, 0.0f)), out rightHandHitInfo, 0.65f))
+			{
+				Vector3 lookAt = Vector3.Cross (-rightHandHitInfo.normal, transform.right);
+				lookAt = lookAt.y < 0 ? -lookAt : lookAt;
+
+				rightHandIK = true;
+				rightHandPos = rightHandHitInfo.point - transform.TransformDirection(rightHandOffset);
+				//rightHandPos.x = rightHandOriginalPos.x - rightHandOffset.x;
+				//rightHandPos.z = rightFootPos.z - rightHandOffset.z;
+				rightHandRotation = Quaternion.FromToRotation(Vector3.forward, rightHandHitInfo.normal);
+				//rightHandRotation = Quaternion.LookRotation(rightHandHitInfo.point + lookAt, rightHandHitInfo.normal);
+			}
+			else
+			{
+				rightHandIK = false;
+			}
+
+			if(leftHandIK == true && rightHandIK == true)
+			{
+				// Left Foot IK Check
+				if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (-0.35f, 0.5f, 0.0f)), transform.forward, out leftFootHitInfo, 1.0f))
+				{
+					leftFootIK = true;
+					leftFootPos = leftFootHitInfo.point - leftFootOffset;
+					leftFootRotation = (Quaternion.FromToRotation (Vector3.up, leftFootHitInfo.normal)) * leftFootRotationOffset;
+				}
+				else
+				{
+					leftFootIK = false;
+				}
+
+				// Right Foot IK Check
+				if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.35f, 0.5f, 0.0f)), transform.forward, out rightFootHitInfo, 1.0f))
+				{
+					rightFootIK = true;
+					rightFootPos = rightFootHitInfo.point - rightFootOffset;
+					rightFootRotation = (Quaternion.FromToRotation (Vector3.up, rightFootHitInfo.normal)) * rightFootRotationOffset;
+				}
+				else
+				{
+					rightFootIK = false;
+				}
 			}
 			else
 			{
 				leftFootIK = false;
-			}
-
-			// Right Foot IK Check
-			if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.35f, 0.5f, 0.0f)), transform.forward, out rightFootHitInfo, 1.0f))
-			{
-				rightFootIK = true;
-				rightFootPos = rightFootHitInfo.point - rightFootOffset;
-				rightFootRotation = (Quaternion.FromToRotation (Vector3.up, rightFootHitInfo.normal)) * rightFootRotationOffset;
-			}
-			else
-			{
 				rightFootIK = false;
 			}
-		}
-		else
-		{
-			leftFootIK = false;
-			rightFootIK = false;
-		}
 
-		normalizedTime = myAnim.GetCurrentAnimatorStateInfo (0).normalizedTime % 1;
+			normalizedTime = myAnim.GetCurrentAnimatorStateInfo (0).normalizedTime % 1;
 
-		if(myAnim)
-		{
-			if(myAnim.GetCurrentAnimatorStateInfo(0).IsName ("Grounded Movement"))
+			if(myAnim)
 			{
-				float velocity = 0.0f;
+				if(myAnim.GetCurrentAnimatorStateInfo(0).IsName ("Grounded Movement"))
+				{
+					float velocity = 0.0f;
 
-				if (normalizedTime < 0.25f)
-				{
-					leftHandWeight = Mathf.SmoothDamp (leftHandWeight, 0.0f, ref velocity, 2 * Time.deltaTime);
-					rightHandWeight = Mathf.SmoothDamp (rightHandWeight, 1.0f, ref velocity, 8 * Time.deltaTime);
+					if (normalizedTime < 0.25f)
+					{
+						leftHandWeight = Mathf.SmoothDamp (leftHandWeight, 0.0f, ref velocity, 2 * Time.deltaTime);
+						rightHandWeight = Mathf.SmoothDamp (rightHandWeight, 1.0f, ref velocity, 8 * Time.deltaTime);
+					}
+					else if (normalizedTime > 0.25f && normalizedTime < 0.5f)
+					{
+						leftHandWeight = Mathf.SmoothDamp (leftHandWeight, 1.0f, ref velocity, 8 * Time.deltaTime);
+						rightHandWeight = Mathf.SmoothDamp (rightHandWeight, 0.0f, ref velocity, 2 * Time.deltaTime);
+					}
 				}
-				else if (normalizedTime > 0.25f && normalizedTime < 0.5f)
+				else
 				{
-					leftHandWeight = Mathf.SmoothDamp (leftHandWeight, 1.0f, ref velocity, 8 * Time.deltaTime);
-					rightHandWeight = Mathf.SmoothDamp (rightHandWeight, 0.0f, ref velocity, 2 * Time.deltaTime);
+					leftHandWeight = 1.0f;
+					rightHandWeight = 1.0f;
 				}
-			}
-			else
-			{
-				leftHandWeight = 1.0f;
-				rightHandWeight = 1.0f;
 			}
 		}
 	}
@@ -160,8 +169,10 @@ public class IKSnap : MonoBehaviour
 		Debug.DrawRay (transform.position + transform.TransformDirection (new Vector3 (-0.35f, 0.5f, 0.0f)), transform.forward, Color.red);
 		// Right Foot IK Visual Ray
 		Debug.DrawRay (transform.position + transform.TransformDirection (new Vector3 (0.35f, 0.5f, 0.0f)), transform.forward, Color.red);
+
+		ClimbUp();
 	}
-		
+
 	void OnAnimatorIK ()
 	{
 		if (useIK)
@@ -216,6 +227,17 @@ public class IKSnap : MonoBehaviour
 			}
 			else 
 				isClimbing = false;
+		}
+	}
+
+	void ClimbUp()
+	{
+		if(isClimbing == true)
+		{
+			if(Input.GetKeyDown(KeyCode.B))
+			{
+				this.transform.position = new Vector3(leftHandtHitInfo.point.x, leftHandtHitInfo.point.y,  leftHandtHitInfo.point.z);
+			}
 		}
 	}
 }

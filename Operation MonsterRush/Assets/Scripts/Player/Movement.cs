@@ -20,7 +20,7 @@ namespace Player
 		[SerializeField] private float groundCheckDistance = -0.1f;
 
 		public LayerMask ground;
-		private bool onGround;
+		public bool onGround;
 		[HideInInspector] public bool canJump;
 		public bool isSwimming;
 
