@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class DrawCallOptimizer : MonoBehaviour {
+public class DrawCallOptimizer : MonoBehaviour 
+{
 	public GameObject EmptyCombinedPrefab;
 	delegate T Action<T>(T item);
 
@@ -27,7 +28,7 @@ public class DrawCallOptimizer : MonoBehaviour {
 
 		for (int i = 0; i < transformsList.Count; i++)
 		{
-			transformsList[i].gameObject.SetActive(false);
+			transformsList[i].gameObject.GetComponent <MeshRenderer>().enabled = false;
 		}
 	}
 

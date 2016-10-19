@@ -43,7 +43,7 @@ namespace Player
 			radar = new Equipment ("Radar", 0, 0);
 			//radarInfo = new EquipmentInfo ("Radar", "Radar", "Capable to sense the monster that within certain range." , 0);
 
-			radarIndicator = GameObject.Find ("MultipurposeCameraRig/Pivot/MainCamera/Indicator").transform;
+			radarIndicator = GameObject.Find ("Camera/Pivot/MainCamera/Indicator").transform;
 
 			damageCollider = transform.Find ("Gauntlet_DamageCollider/Combo 1").gameObject;
 			damageCollider2 = transform.Find ("Gauntlet_DamageCollider/Combo 2").gameObject;
