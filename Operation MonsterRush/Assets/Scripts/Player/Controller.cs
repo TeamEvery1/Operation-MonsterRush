@@ -32,12 +32,12 @@ namespace Player
 		public KeyCode attackKey, primaryWeaponKey, secondaryWeaponKey, tertiaryWeaponKey; 
 
 		public Animator myAnim;
-		Rigidbody myRB;
-		CapsuleCollider myCollider;
+		// myRB;
+		//CapsuleCollider myCollider;
 
 		private Player.Movement playerMovement;
 		private Rigidbody controller;
-		private bool jump;
+		private bool jump = false;
 
 		void Awake()
 		{
@@ -47,8 +47,8 @@ namespace Player
 			isMovable = true;
 
 			myAnim = GetComponent<Animator>();
-			myRB = GetComponent<Rigidbody>();
-			myCollider = GetComponent<CapsuleCollider>();
+			//myRB = GetComponent<Rigidbody>();
+			//myCollider = GetComponent<CapsuleCollider>();
 			mainCam = GameObject.FindGameObjectWithTag ("MainCamera").transform;
 		}
 

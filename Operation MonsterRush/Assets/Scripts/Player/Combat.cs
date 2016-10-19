@@ -7,7 +7,7 @@ namespace Player
 	{
 		//public PlayerBullet.Statistic bulletStatistics;
 		public Equipment gauntlet, gauntlet02, radar;
-		EquipmentInfo gaunletInfo, gaunlet02Info, radarInfo;
+		//EquipmentInfo gaunletInfo, gaunlet02Info, radarInfo;
 		private Effect effectScript;
 		//public PlayerBullet.Movement bulletMovementScript;
 		public Player.Controller playerControllerScript;
@@ -37,11 +37,11 @@ namespace Player
 		{
 			//bulletStatistics = new PlayerBullet.Statistic (10, 20, 3, 0, "Catcher", "Shooting a projectile towards enemy and catch them while they're exhausted.");
 			gauntlet = new Equipment ("Gaunlet", 0, 3); 
-			gaunletInfo = new EquipmentInfo ("Ifrit", "Flame Gauntlet", "My name is Ifrit. The fool who awakens me shall pay dearly with fires of hell.", 10);
+			//gaunletInfo = new EquipmentInfo ("Ifrit", "Flame Gauntlet", "My name is Ifrit. The fool who awakens me shall pay dearly with fires of hell.", 10);
 			gauntlet02 = new Equipment ("Gauntlet_02", 0, 0);
-			gaunlet02Info = new EquipmentInfo ("Death Saucer", "Gauntlet", "Energy that able to compress monster and capture them.", 0);
+			//gaunlet02Info = new EquipmentInfo ("Death Saucer", "Gauntlet", "Energy that able to compress monster and capture them.", 0);
 			radar = new Equipment ("Radar", 0, 0);
-			radarInfo = new EquipmentInfo ("Radar", "Radar", "Capable to sense the monster that within certain range." , 0);
+			//radarInfo = new EquipmentInfo ("Radar", "Radar", "Capable to sense the monster that within certain range." , 0);
 
 			radarIndicator = GameObject.Find ("MultipurposeCameraRig/Pivot/MainCamera/Indicator").transform;
 

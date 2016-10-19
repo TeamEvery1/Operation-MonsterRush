@@ -6,14 +6,14 @@ public class OrbitAround : MonoBehaviour
 	[SerializeField] private float OrbitDegrees;
 
 	private GameObject player;
-	private Transform center;
+	//private Transform center;
 	private Transform target;
 	public Vector3 rotation;
 
 	void Awake()
 	{
 		player =  GameObject.Find ("Character");
-		center = transform;
+		//center = transform;
 
 	}
 

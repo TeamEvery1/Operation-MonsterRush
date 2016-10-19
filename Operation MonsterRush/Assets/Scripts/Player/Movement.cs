@@ -27,8 +27,8 @@ namespace Player
 		private float turnSpeed;
 		private float turnRatio;
 		private float forwardRatio;
-		private float defGroundCheckDistance;
-		private float runCycleLegOffset;
+		//private float defGroundCheckDistance;
+		private float runCycleLegOffset = 0.0f;
 
 		private VirtualJoyStickScripts moveJoyStick;
 		private IKSnap iKSnapScript;
@@ -36,7 +36,7 @@ namespace Player
 
 		[HideInInspector] public Animator myAnim;
 		Rigidbody myRB;
-		CapsuleCollider myCollider;
+		//CapsuleCollider myCollider;
 
 		//Vector3 groundNormal;
 		private Vector3 jumpMovement;
@@ -46,9 +46,8 @@ namespace Player
 		{
 			myAnim = GetComponent<Animator>();
 			myRB = GetComponent<Rigidbody>();
-			myCollider = GetComponent<CapsuleCollider>();
+			//myCollider = GetComponent<CapsuleCollider>();
 			myRB.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-			defGroundCheckDistance = groundCheckDistance;
 
 			iKSnapScript = GetComponent <IKSnap> ();
 			playerControllerScript = GetComponent <Player.Controller>();
