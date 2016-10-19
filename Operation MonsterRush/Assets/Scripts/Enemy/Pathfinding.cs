@@ -24,6 +24,8 @@ namespace Enemies
 		public float enemyExhaustion;
 		public float enemyMaxExhaustion;
 
+		public bool playerCanMove;
+
 		public float safeToBackTimer;
 		public float staminaRcvrSpeed;
 		public float stamina;
@@ -42,6 +44,13 @@ namespace Enemies
 
 		public LayerMask PlayerLayer;
 		public LayerMask ObstacleLayer;
+
+		private VirtualJoyStickScripts vjs;
+
+		GameObject player;
+		float Dist;
+		bool IsKnockBacking;
+
 
 		[HideInInspector] public Transform VisibleTarget = null;
 
@@ -67,7 +76,9 @@ namespace Enemies
 	
 		void Start()
 		{
+			vjs = GameObject.Find("VirtualJoyStickContainer").GetComponent<VirtualJoyStickScripts>();
 			StartCoroutine("FindTargetsWithDelay", .2f);
+			player = GameObject.FindGameObjectWithTag("Player");
 			GPS = this.gameObject.GetComponent <NavMeshAgent> ();
 			GPS.autoBraking = false;
 
@@ -213,19 +224,34 @@ namespace Enemies
 		// Update is called once per frame
 		void Update () 
 		{
-			rotation.y = this.transform.position.y;
+			//rotation.y = this.transform.position.y;
 
 			transform.LookAt (rotation);
 
-			if(VisibleTarget != null && sawPlayer == false)
+			if(VisibleTarget != null && sawPlayer == false && IsKnockBacking == false)
 			{
-				sawPlayer = true;
-				RandomDes = Random.Range(0,3);
-				GPS.destination = desPoint[RandomDes].position;
-				if(isShit == true)
+				GPS.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
+
+				IsKnockBacking = true;
+
+			}
+
+			if(IsKnockBacking == true)
+			{
+				
+				if(GPS.remainingDistance <= 0.5f)
 				{
-					viewAngle = 120.0f;
-					GPS.baseOffset = -0.26f;
+					vjs.canMove = false;
+					IsKnockBacking = false;
+					sawPlayer = true;
+					timer = 0.0f;
+					RandomDes = Random.Range(0,3);
+					GPS.destination = desPoint[RandomDes].position;
+					if(isShit == true)
+					{
+						viewAngle = 120.0f;
+						GPS.baseOffset = -0.26f;
+					}
 				}
 			}
 
@@ -259,10 +285,29 @@ namespace Enemies
 						sawPlayer = false;
 					}
 				}
+				else if(VisibleTarget != null)
+				{
+					timer = 0.0f;
+				}
 			}
 
 			if(VisibleTarget == null && sawPlayer == false)
 			{
+				Dist = Vector3.Distance(new Vector3(startX, startY, startZ), new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
+
+				if(Dist <= viewRadius)
+				{
+					timer += Time.deltaTime;
+					if(timer >= 5.0f)
+					{
+						timer = 0.0f;
+						if(Random.Range(0.0f, 1.0f) > 0.9f)
+						{
+							transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
+						}
+					}
+				}
+
 				if(isShit == true)
 				{
 					GPS.baseOffset = -1.46f;
