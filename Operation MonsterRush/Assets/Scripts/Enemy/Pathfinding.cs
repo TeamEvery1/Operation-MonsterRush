@@ -211,9 +211,8 @@ namespace Enemies
 		}
 		
 		// Update is called once per frame
-		void Update () {
-			Debug.Log(GPS.speed);
-
+		void Update () 
+		{
 			rotation.y = this.transform.position.y;
 
 			transform.LookAt (rotation);

@@ -13,7 +13,7 @@ public class InputManager : MonoBehaviour
 			if( instance == null )
 			{
 				GameObject obj = new GameObject ("Input Manager");
-				obj.AddComponent <InputManager> ();
+				instance = obj.AddComponent <InputManager> ();
 			}
 			return instance;
 		}

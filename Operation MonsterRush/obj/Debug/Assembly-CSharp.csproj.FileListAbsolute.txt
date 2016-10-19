@@ -303,3 +303,4 @@ C:\Users\tyran\Desktop\Tyran Monster Rush\Operation MonsterRush\obj\Debug\Assemb
 C:\Users\tyran\Desktop\Tyran Monster Rush\Operation MonsterRush\obj\Debug\Assembly-CSharp.dll
 C:\Users\tyran\Desktop\Tyran Monster Rush\Operation MonsterRush\obj\Debug\Assembly-CSharp.pdb
 C:\Users\User\Documents\GitHub\Operation-MonsterRush\Operation MonsterRush\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
+C:\Users\devil\OneDrive\Documents\GitHub\Operation-MonsterRush\Operation-MonsterRush\Operation MonsterRush\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb

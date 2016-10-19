@@ -56,9 +56,6 @@ public class GUIManagerScript : MonoBehaviour
 	public float nextTime = 0;
 	public float maxTime = 10;
 	public bool enemyCollided;
-	//PauseUI
-	private bool paused = false;
-
 
 	void Awake () 
 	{
