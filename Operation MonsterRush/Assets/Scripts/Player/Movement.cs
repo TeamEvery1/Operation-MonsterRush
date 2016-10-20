@@ -205,7 +205,7 @@ namespace Player
 				myRB.velocity = new Vector3 (0, 0, 0);
 				myAnim.Play("Climbing");
 
-				Invoke ("ClimbingPosition", 0.5f);
+				//Invoke ("ClimbingPosition", 0.5f);
 			}
 			else
 			{
@@ -214,10 +214,10 @@ namespace Player
 			}
 		}
 
-		void ClimbingPosition()
+		/*void ClimbingPosition()
 		{
 			this.transform.position = new Vector3 (this.transform.position.x , this.transform.position.y - 0.01f, this.transform.position.z);
-		}
+		}*/
 
 		void OnTriggerEnter (Collider other)
 		{
