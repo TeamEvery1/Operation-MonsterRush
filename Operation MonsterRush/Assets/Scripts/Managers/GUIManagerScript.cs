@@ -58,6 +58,7 @@ public class GUIManagerScript : MonoBehaviour
 	public bool enemyCollided;
 
 	private Image captureImage;
+	public bool canCapture;
 
 	void Awake () 
 	{
@@ -67,19 +68,20 @@ public class GUIManagerScript : MonoBehaviour
 		enemyCollisionScript = GameObject.FindObjectOfType <Enemies.Collision>();
 		gameManagerScript = FindObjectOfType <GameManager>();
 		captureImage = GameObject.Find("CaptureStart").GetComponent<Image>();
+
 	}
 	// Use this for initialization
 	void Start ()
 	{
-		Color temp = captureImage.color;
-		temp.a = 0.65f;
-		captureImage.color = temp;
+		canCapture = false;
 		//fillUpLove.enabled = false;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		ChangeUITranparentcy();
+
 		CaptureUI ();
 		if (victoryImage.enabled == true) 
 		{
@@ -199,20 +201,23 @@ public class GUIManagerScript : MonoBehaviour
 
 	public void CaptureButton()
 	{
-		if(! playerCombatScript.Gauntlet_02.gameObject.activeSelf)
+		if(canCapture == true)
 		{
-			playerCombatScript.radarIndicator.gameObject.SetActive (false);
-			playerCombatScript.Gauntlet_02.gameObject.SetActive (true);
-			playerCombatScript.Gauntlet.gameObject.SetActive (false);
-			playerCombatScript.Radar.gameObject.SetActive (false);
-			playerCombatScript.catchDelayed = true;
-		}
+			if(! playerCombatScript.Gauntlet_02.gameObject.activeSelf)
+			{
+				playerCombatScript.radarIndicator.gameObject.SetActive (false);
+				playerCombatScript.Gauntlet_02.gameObject.SetActive (true);
+				playerCombatScript.Gauntlet.gameObject.SetActive (false);
+				playerCombatScript.Radar.gameObject.SetActive (false);
+				playerCombatScript.catchDelayed = true;
+			}
 
-		if(playerCombatScript.catchDelayed)
-		{
-			playerCombatScript.Perform();
+			if(playerCombatScript.catchDelayed)
+			{
+				playerCombatScript.Perform();
+			}
+			fillUpMetre+=1;
 		}
-		fillUpMetre+=1;
 	}
 
 	public void JumpButton()
@@ -254,5 +259,20 @@ public class GUIManagerScript : MonoBehaviour
 		}
 	}
 
+	public void ChangeUITranparentcy()
+	{
+		if(canCapture == false)
+		{
+			Color temp = captureImage.color;
+			temp.a = 0.65f;
+			captureImage.color = temp;
+		}
+		else
+		{
+			Color temp = captureImage.color;
+			temp.a = 1.0f;
+			captureImage.color = temp;
+		}
 
+	}
 }
