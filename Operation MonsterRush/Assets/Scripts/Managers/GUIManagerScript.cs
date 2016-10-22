@@ -59,6 +59,8 @@ public class GUIManagerScript : MonoBehaviour
 
 	private Image captureImage;
 	public bool canCapture;
+	public GameObject blackScreen;
+	public bool canDisplay;
 
 	void Awake () 
 	{
@@ -74,12 +76,14 @@ public class GUIManagerScript : MonoBehaviour
 	void Start ()
 	{
 		canCapture = false;
+		canDisplay = false;
 		//fillUpLove.enabled = false;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		TutorialScene();
 		ChangeUITranparentcy();
 
 		CaptureUI ();
@@ -274,5 +278,17 @@ public class GUIManagerScript : MonoBehaviour
 			captureImage.color = temp;
 		}
 
+	}
+
+	public void TutorialScene()
+	{
+		if(canDisplay == true)
+		{
+			blackScreen.SetActive(true);
+		}
+		else if(canDisplay == false)
+		{
+			blackScreen.SetActive(false);
+		}
 	}
 }

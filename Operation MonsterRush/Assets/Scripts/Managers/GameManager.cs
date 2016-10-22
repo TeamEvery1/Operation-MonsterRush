@@ -33,7 +33,10 @@ public class GameManager : MonoBehaviour
 	public bool loseCondition = false;
 	public float timeMax = 900;
 	public int enemyCounter = 0;
+	private int maxEnemyCounter;
 	public Text enemyCounterText;
+
+	public GUIManagerScript guiManager;
 
 	void Awake()
 	{
@@ -43,7 +46,7 @@ public class GameManager : MonoBehaviour
 		captureViewScript = FindObjectOfType <CaptureView> ();
 		guiManagerScript = FindObjectOfType <GUIManagerScript> ();
 		catchManagerScript = FindObjectOfType <CatchManager> ();
-
+		guiManager = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManagerScript>();
 
 	}
 
@@ -57,6 +60,16 @@ public class GameManager : MonoBehaviour
 		foreach (GameObject enemy in enemies)
 		{
 			enemyCounter ++;
+		}
+
+		maxEnemyCounter = enemyCounter;
+	}
+
+	void Update()
+	{
+		if(enemyCounter < maxEnemyCounter)
+		{
+			guiManager.canDisplay = false;
 		}
 	}
 

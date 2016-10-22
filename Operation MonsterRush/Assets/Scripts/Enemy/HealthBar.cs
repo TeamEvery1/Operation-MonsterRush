@@ -23,6 +23,7 @@ namespace Enemies
 			if(health.fillAmount == 0)
 			{
 				guiManager.canCapture = true;
+				guiManager.canDisplay = true;
 			}
 		}
 
