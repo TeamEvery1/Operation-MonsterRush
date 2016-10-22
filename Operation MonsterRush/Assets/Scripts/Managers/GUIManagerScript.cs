@@ -61,6 +61,7 @@ public class GUIManagerScript : MonoBehaviour
 	public bool canCapture;
 	public GameObject blackScreen;
 	public bool canDisplay;
+	CatchManager catchManager;
 
 	void Awake () 
 	{
@@ -70,6 +71,7 @@ public class GUIManagerScript : MonoBehaviour
 		enemyCollisionScript = GameObject.FindObjectOfType <Enemies.Collision>();
 		gameManagerScript = FindObjectOfType <GameManager>();
 		captureImage = GameObject.Find("CaptureStart").GetComponent<Image>();
+		catchManager = GameObject.FindObjectOfType<CatchManager>();
 
 	}
 	// Use this for initialization
@@ -221,6 +223,7 @@ public class GUIManagerScript : MonoBehaviour
 				playerCombatScript.Perform();
 			}
 			fillUpMetre+=1;
+			catchManager.teachText.enabled = false;
 		}
 	}
 

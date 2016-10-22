@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class CatchManager : MonoBehaviour {
@@ -34,6 +35,8 @@ public class CatchManager : MonoBehaviour {
 	public Canvas guiManager;
 	public Canvas catchManager;
 	public GameObject[] enemies;
+	public Text teachText;
+	public bool firstTimeCollided;
 
 	void Awake()
 	{
@@ -45,6 +48,8 @@ public class CatchManager : MonoBehaviour {
 	void Start () 
 	{
 		catchManager.enabled = false;
+		teachText.enabled = false;
+		firstTimeCollided = true;
 	}
 	
 	// Update is called once per frame
@@ -54,6 +59,12 @@ public class CatchManager : MonoBehaviour {
 		{
 			catchManager.enabled = true;
 			guiManager.enabled = false;
+			if(firstTimeCollided == true)
+			{
+				teachText.enabled = true;
+				firstTimeCollided = false;
+			}
+
 
 			foreach (GameObject enemy in enemies)
 			{
