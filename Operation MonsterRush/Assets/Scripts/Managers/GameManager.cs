@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
 	public int enemyCounter = 0;
 	private int maxEnemyCounter;
 	public Text enemyCounterText;
+	public Text coinCounterText;
+	Player.Collision playerCollision;
 
 	public GUIManagerScript guiManager;
 
@@ -47,11 +49,14 @@ public class GameManager : MonoBehaviour
 		guiManagerScript = FindObjectOfType <GUIManagerScript> ();
 		catchManagerScript = FindObjectOfType <CatchManager> ();
 		guiManager = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManagerScript>();
+		playerCollision = FindObjectOfType<Player.Collision>();
 
 	}
 
 	void Start()
 	{
+		coinCounterText.text = "x " + playerCollision.coinCounter.ToString();
+
 		SoundManagerScript.Instance.PlayLoopingBGM (AudioClipID.BGM_MAIN_MENU);
 
 
@@ -75,6 +80,8 @@ public class GameManager : MonoBehaviour
 
 	void FixedUpdate()
 	{
+		coinCounterText.text = "x " + playerCollision.coinCounter.ToString();
+
 		enemyCounterText.text = enemyCounter.ToString();
 		if (enemyCounter <= 0) 
 		{
