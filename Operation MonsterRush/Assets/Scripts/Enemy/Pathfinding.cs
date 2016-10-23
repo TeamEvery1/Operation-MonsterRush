@@ -226,7 +226,7 @@ namespace Enemies
 		{
 			//rotation.y = this.transform.position.y;
 
-			transform.LookAt (rotation);
+			//transform.LookAt (rotation);
 
 			if(VisibleTarget != null && sawPlayer == false && IsKnockBacking == false)
 			{
