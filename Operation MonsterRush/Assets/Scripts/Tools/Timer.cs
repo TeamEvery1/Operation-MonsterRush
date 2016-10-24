@@ -4,22 +4,26 @@ using System.Collections;
 
 public class Timer : MonoBehaviour 
 {
-	float timer, realTime;
+	public float timer, realTime;
 	int minutes, seconds, fraction;
 
 	public Text timerText;
 
 	void Awake()
 	{
-		timer = 0.0f;
-		realTime = 900.0f;
+		timer = 900.0f;
+		//realTime = 900.0f;
 
 		timerText = this.transform.GetComponent <Text>();
 	}
 
 	void FixedUpdate()
 	{
-		timer = realTime - Time.time;
+		timer -= Time.deltaTime;
+		if (timer <= 0) 
+		{
+			timer = 0;
+		}
 
 		minutes = (int) timer / 60;
 		seconds = (int) timer % 60;

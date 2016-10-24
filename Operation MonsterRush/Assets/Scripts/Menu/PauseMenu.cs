@@ -7,11 +7,13 @@ public class PauseMenu : MonoBehaviour
 {
 	public GameObject PauseUI;
 	//public GameObject InstructionUI;
-
+	Timer timerScript;
 	private bool paused = false;
 
-
-
+	void Awake () 
+	{
+		timerScript = FindObjectOfType<Timer> ();
+	}
 	// Use this for initialization
 	void Start () 
 	{
@@ -48,11 +50,15 @@ public class PauseMenu : MonoBehaviour
 	public void Restart()
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		timerScript.timer = 900.0f;
+
 	}
 
 	public void GoToMainMenu()
 	{
 		SceneManager.LoadScene("Main Menu");
+		timerScript.timer = 900.0f;
+
 	}
 	public void MenuReturn()
 	{

@@ -38,6 +38,7 @@ public class GUIManagerScript : MonoBehaviour
 	public Player.Movement playerMovementScript;
 	public Enemies.Collision enemyCollisionScript;
 	GameManager gameManagerScript;
+	Timer timerScript;
 
 	public Image captureBarContent;
 	public Image captureBarBack;
@@ -72,6 +73,7 @@ public class GUIManagerScript : MonoBehaviour
 		gameManagerScript = FindObjectOfType <GameManager>();
 		captureImage = GameObject.Find("CaptureStart").GetComponent<Image>();
 		catchManager = GameObject.FindObjectOfType<CatchManager>();
+		timerScript = FindObjectOfType<Timer> ();
 
 	}
 	// Use this for initialization
@@ -119,6 +121,34 @@ public class GUIManagerScript : MonoBehaviour
 			winConImage.gameObject.SetActive(true);
 		}
 			
+		if (winConImage.gameObject.activeSelf) 
+		{
+			closeImageCounter -= Time.deltaTime;
+			if (closeImageCounter <= 0) 
+			{
+				loseConImage.gameObject.SetActive(false);
+				closeImageCounter = 2;
+				maxTime = 10.0f;
+				SceneManager.LoadScene("Gameover");
+			}
+		}
+
+		if (timerScript.timer <= 0) 
+		{
+			loseConImage.gameObject.SetActive(true);
+		}
+
+		if (loseConImage.gameObject.activeSelf) 
+		{
+			closeImageCounter -= Time.deltaTime;
+			if (closeImageCounter <= 0) 
+			{
+				loseConImage.gameObject.SetActive(false);
+				closeImageCounter = 2;
+				maxTime = 10.0f;
+				SceneManager.LoadScene("Gameover");
+			}
+		}
 		/*if (maxTime <= 0.0f) 
 		{
 			//loseConImage.gameObject.SetActive(true);
