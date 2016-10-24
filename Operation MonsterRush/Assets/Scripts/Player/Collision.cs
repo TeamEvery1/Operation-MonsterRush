@@ -23,7 +23,7 @@ namespace Player
 
 			if(other.CompareTag("Coin"))
 			{
-				coinCounter += 10;
+				coinCounter += 1;
 				Destroy(other.gameObject);
 			}
 		}
