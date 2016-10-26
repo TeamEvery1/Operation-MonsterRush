@@ -19,7 +19,7 @@ namespace Enemies
 
 		void Update()
 		{
-			health.fillAmount = enemyPathfindingScript.enemyExhaustion / enemyPathfindingScript.enemyMaxExhaustion;
+			health.fillAmount = enemyPathfindingScript.enemyInfo.enemyExhaustion / enemyPathfindingScript.enemyInfo.enemyMaxExhaustion;
 			if(health.fillAmount == 0)
 			{
 				guiManager.canCapture = true;

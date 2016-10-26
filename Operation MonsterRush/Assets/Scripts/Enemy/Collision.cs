@@ -33,17 +33,17 @@ namespace Enemies
 		{
 			if (other.CompareTag ("PlayerDamageCollider"))
 			{
-				enemyPathfindingScript.enemyExhaustion -= playerControllerScript.damage;
+				enemyPathfindingScript.enemyInfo.enemyExhaustion -= playerControllerScript.damage;
 
-				if(enemyPathfindingScript.enemyExhaustion <= 0)
+				if(enemyPathfindingScript.enemyInfo.enemyExhaustion <= 0)
 				{
-					enemyPathfindingScript.enemyExhaustion = 0;
+					enemyPathfindingScript.enemyInfo.enemyExhaustion = 0;
 				}
 			}
 
 			else if (other.CompareTag ("PlayerCatchCollider"))
 			{
-				if(enemyPathfindingScript.enemyExhaustion <= 0)
+				if(enemyPathfindingScript.enemyInfo.enemyExhaustion <= 0)
 				{
 					isCollided = true;
 					enemyPathfindingScript.GPS.speed = 0;

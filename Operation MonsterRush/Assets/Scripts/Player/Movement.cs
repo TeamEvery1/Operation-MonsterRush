@@ -24,6 +24,7 @@ namespace Player
 		[HideInInspector] public bool canJump;
 		public bool isSwimming;
 
+		public float objectVelocity = 1.0f;
 		private float turnSpeed;
 		private float turnRatio;
 		private float forwardRatio;
@@ -149,7 +150,7 @@ namespace Player
 		{
 			if(Grounded() && Time.deltaTime > 0 && !isSwimming)
 			{
-				Vector3 moveForward = transform.forward * myAnim.GetFloat("motionZ") * Time.deltaTime;
+				Vector3 moveForward = transform.forward * myAnim.GetFloat("motionZ") * objectVelocity * Time.deltaTime;
 				v = ((myAnim.deltaPosition + moveForward) * movementSpeedMultiplier * 1.3f / Time.deltaTime);
 				 
 				myRB.velocity = v;

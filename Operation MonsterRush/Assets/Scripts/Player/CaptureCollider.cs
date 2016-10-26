@@ -38,7 +38,7 @@ public class CaptureCollider : MonoBehaviour
 		if (other.tag == "Enemy") 
 		{
 			fillUpMode = true;
-			enemyExhaustInfo = other.GetComponent<Enemies.Pathfinding>().enemyExhaustion;
+			enemyExhaustInfo = other.GetComponent<Enemies.Pathfinding>().enemyInfo.enemyExhaustion;
 			timeLimitModifier = (100 - enemyExhaustInfo)/10;
 			timeLimit = timeLimit + timeLimitModifier;
 			if (timeLimit>20)

@@ -7,16 +7,18 @@
 		private float health;
 		private float maxHealth;
 		private float stamina;
+		private float maxStamina;
 		private float recoveryRate;
 		private float movementSpeed;
 
-		public Character(float eA, float mE, float h, float mH, float s, float rR, float mS)
+		public Character(float eA, float mE, float h, float mH, float s, float mST, float rR, float mS)
 		{
 			exhaustionAmount = eA;
 			maxExhaustion = mE;
 			health = h;
 			maxHealth = mH;
 			stamina = s;
+			maxStamina = mST;
 			recoveryRate = rR;
 			movementSpeed = mS;
 		}
@@ -46,6 +48,11 @@
 		{
 			get {return stamina;}
 			set {stamina = value;}
+		}
+		public float MaxStamina
+		{
+			get {return maxStamina;}
+			set {maxStamina = value;}
 		}
 		public float RecoveryRate
 		{
