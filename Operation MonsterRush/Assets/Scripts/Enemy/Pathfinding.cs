@@ -51,6 +51,8 @@ namespace Enemies
 		float Dist;
 		bool IsKnockBacking;
 
+		Animator anim;
+
 
 		[HideInInspector] public Transform VisibleTarget = null;
 
@@ -69,14 +71,15 @@ namespace Enemies
 			slime = new Enemies.Character (enemyExhaustion, enemyMaxExhaustion, enemyHealth, enemyMaxHealth, stamina, staminaRcvrSpeed, 1);
 			bird = new Enemies.Character (enemyExhaustion, enemyMaxExhaustion, enemyHealth, enemyMaxHealth, stamina, staminaRcvrSpeed, 1);
 			bean = new Enemies.Character (enemyExhaustion, enemyMaxExhaustion, enemyHealth, enemyMaxHealth, stamina, staminaRcvrSpeed, 1);
-			disgustingThing = new Enemies.Character (enemyExhaustion, enemyMaxExhaustion, enemyHealth, enemyMaxHealth, stamina, staminaRcvrSpeed, 1);
+			disgustingThing = new Enemies.Character (enemyExhaustion, enemyMaxExhaustion, enemyHealth, enemyMaxHealth, stamina, staminaRcvrSpeed,1);
 
 			monsterSelection = GetComponent <Selection> ();
 		}
-	
+
 		void Start()
 		{
 			vjs = GameObject.Find("VirtualJoyStickContainer").GetComponent<VirtualJoyStickScripts>();
+			anim = this.gameObject.GetComponent <Animator> ();
 			StartCoroutine("FindTargetsWithDelay", .2f);
 			player = GameObject.FindGameObjectWithTag("Player");
 			GPS = this.gameObject.GetComponent <NavMeshAgent> ();
@@ -127,17 +130,17 @@ namespace Enemies
 				enemyMaxExhaustion = disgustingThing.MaxExhaustion;
 				enemyExhaustion = disgustingThing.ExhaustionAmount;
 			}
-				
+
 			startX = this.transform.position.x;
 			startY = this.transform.position.y;
 			startZ = this.transform.position.z;
-				
+
 			if(wanderPoint.Length > 1)
 			{
 				isWander = true;
 			}
 
-			if(isShit == false)
+			if(monsterSelection.monsterType != "disgusting")
 			{
 				Move();
 			}
@@ -220,104 +223,62 @@ namespace Enemies
 				}
 			}
 		}
-		
+
 		// Update is called once per frame
 		void Update () 
 		{
 			//rotation.y = this.transform.position.y;
 
 			//transform.LookAt (rotation);
-
-			if(VisibleTarget != null && sawPlayer == false && IsKnockBacking == false)
+			if(enemyExhaustion > 0f)
 			{
-				GPS.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
-
-				IsKnockBacking = true;
-
-			}
-
-			if(IsKnockBacking == true)
-			{
-				
-				if(GPS.remainingDistance <= 0.5f)
+				if(VisibleTarget != null && sawPlayer == false && IsKnockBacking == false)
 				{
-					vjs.canMove = false;
-					IsKnockBacking = false;
-					sawPlayer = true;
-					timer = 0.0f;
-					RandomDes = Random.Range(0,3);
-					GPS.destination = desPoint[RandomDes].position;
-					if(isShit == true)
+					if(monsterSelection.monsterType != "slime" && monsterSelection.monsterType != "penguin")
 					{
-						viewAngle = 120.0f;
-						GPS.baseOffset = -0.26f;
+
+						GPS.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
+
+						IsKnockBacking = true;
 					}
-				}
-			}
-
-			if(sawPlayer == true)
-			{
-				if(GPS.remainingDistance < 0.5f)
-				{
-					RandomDes = Random.Range(0,3);
-					GPS.destination = desPoint[RandomDes].position;
-				}
-
-				if(GPS.remainingDistance > 0.5f)
-				{
-					if(stamina > 0.0f && recovering == false)
+					else
 					{
-						//Debug.Log("stamina: " + Stamina);
-						stamina -= Time.deltaTime;
-						if(stamina <= 0.0f)
-						{
-							recovering = true;
-						}
-					}
-				}
-
-				if(VisibleTarget == null)
-				{
-					timer += Time.deltaTime;
-					if(timer >= safeToBackTimer)
-					{
-						GPS.SetDestination(new Vector3(startX, startY, startZ));
-						sawPlayer = false;
-					}
-				}
-				else if(VisibleTarget != null)
-				{
-					timer = 0.0f;
-				}
-			}
-
-			if(VisibleTarget == null && sawPlayer == false)
-			{
-				Dist = Vector3.Distance(new Vector3(startX, startY, startZ), new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
-
-				if(Dist <= viewRadius)
-				{
-					timer += Time.deltaTime;
-					if(timer >= 5.0f)
-					{
+						sawPlayer = true;
 						timer = 0.0f;
-						if(Random.Range(0.0f, 1.0f) > 0.9f)
+						if(monsterSelection.monsterType == "penguin")
 						{
-							transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
+							RandomDes = Random.Range(0,3);
+							GPS.destination = desPoint[RandomDes].position;
+						}
+					}
+
+				}
+
+				if(IsKnockBacking == true)
+				{
+
+					if(GPS.remainingDistance <= 0.5f)
+					{
+						vjs.canMove = false;
+						IsKnockBacking = false;
+						sawPlayer = true;
+						timer = 0.0f;
+						RandomDes = Random.Range(0,3);
+						GPS.destination = desPoint[RandomDes].position;
+						if(monsterSelection.monsterType == "disgusting")
+						{
+							viewAngle = 120.0f;
+							GPS.baseOffset = -0.26f;
 						}
 					}
 				}
 
-				if(isShit == true)
-				{
-					GPS.baseOffset = -1.46f;
-					viewAngle = 360.0f;
-				}
-				else if(isShit == false)
+				if(sawPlayer == true)
 				{
 					if(GPS.remainingDistance < 0.5f)
 					{
-						Move();
+						RandomDes = Random.Range(0,3);
+						GPS.destination = desPoint[RandomDes].position;
 					}
 
 					if(GPS.remainingDistance > 0.5f)
@@ -326,63 +287,175 @@ namespace Enemies
 						{
 							//Debug.Log("stamina: " + Stamina);
 							stamina -= Time.deltaTime;
+							if(monsterSelection.monsterType == "disgusting")
+							{
+								anim.Play("Walk");
+							}
+							else if(monsterSelection.monsterType == "bean")
+							{
+								anim.Play("Walk");
+							}
 							if(stamina <= 0.0f)
 							{
+								anim.Play("Tired");
+
 								recovering = true;
 							}
 						}
 					}
+
+					if(VisibleTarget == null)
+					{
+						timer += Time.deltaTime;
+						if(timer >= safeToBackTimer)
+						{
+							GPS.SetDestination(new Vector3(startX, startY, startZ));
+							sawPlayer = false;
+						}
+					}
+					else if(VisibleTarget != null)
+					{
+						timer = 0.0f;
+					}
 				}
-				
 
+				if(VisibleTarget == null && sawPlayer == false)
+				{
+					Dist = Vector3.Distance(new Vector3(startX, startY, startZ), new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
+
+					if(Dist <= viewRadius)
+					{
+						timer += Time.deltaTime;
+						if(timer >= 5.0f)
+						{
+							timer = 0.0f;
+							if(Random.Range(0.0f, 1.0f) > 0.9f)
+							{
+								transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
+							}
+						}
+					}
+
+					if(monsterSelection.monsterType == "disgusting")
+					{
+						if(GPS.remainingDistance <= 0.5f)
+						{
+							anim.Play("Idle");
+							GPS.baseOffset = -1.46f;
+							viewAngle = 360.0f;
+						}
+					}
+					else if(monsterSelection.monsterType != "disgusting")
+					{
+						if(GPS.remainingDistance < 0.5f)
+						{
+							Move();
+						}
+
+						if(GPS.remainingDistance > 0.5f)
+						{
+
+							if(stamina > 0.0f && recovering == false)
+							{
+								//Debug.Log("stamina: " + Stamina);
+								if(monsterSelection.monsterType == "bean")
+								{
+
+									anim.Play("Walk");
+								}
+								stamina -= Time.deltaTime *3.0f;
+
+								//!Monster Tired Condition (after 50% stamina consume)
+								if(monsterSelection.monsterType == "penguin")
+								{
+									if(stamina <= penguin.Stamina * 0.5f)
+									{
+										recovering = true;
+									}
+								}
+								else if(monsterSelection.monsterType == "slime")
+								{
+									if(stamina <= slime.Stamina * 0.5f)
+									{
+										recovering = true;
+									}
+								}
+								else if(monsterSelection.monsterType == "bird")
+								{
+									if(stamina <= bird.Stamina * 0.5f)
+									{
+										recovering = true;
+									}
+								}
+								else if(monsterSelection.monsterType == "bean")
+								{
+									if(stamina <= bean.Stamina * 0.5f)
+									{
+
+										recovering = true;
+									}
+								}
+							}
+						}
+					}
+
+
+				}
+
+				if(recovering == true)
+				{
+					anim.Play("Tired");
+					GPS.speed = 0.0f;
+					stamina += Time.deltaTime * staminaRcvrSpeed ;
+
+					if(monsterSelection.monsterType == "penguin")
+					{
+						if(stamina >= penguin.Stamina)
+						{
+							GPS.speed = penguin.MovementSpeed;
+							recovering = false;
+						}
+					}
+					else if(monsterSelection.monsterType == "slime")
+					{
+						if(stamina >= slime.Stamina)
+						{
+							GPS.speed = slime.MovementSpeed;
+							recovering = false;
+						}
+					}
+					else if(monsterSelection.monsterType == "bird")
+					{
+						if(stamina >= bird.Stamina)
+						{
+							GPS.speed = bird.MovementSpeed;
+							recovering = false;
+						}
+					}
+					else if(monsterSelection.monsterType == "bean")
+					{
+						if(stamina >= bean.Stamina)
+						{
+							GPS.speed = bean.MovementSpeed;
+							recovering = false;
+						}
+					}
+					else if(monsterSelection.monsterType == "disgusting")
+					{
+						if(stamina >= disgustingThing.Stamina)
+						{
+							GPS.speed = disgustingThing.MovementSpeed;
+							recovering = false;
+						}
+					}
+				}
 			}
-
-			if(recovering == true)
+			else if(enemyExhaustion <= 0f)
 			{
-				GPS.speed = 0.0f;
-				stamina += Time.deltaTime * 3.0f * staminaRcvrSpeed;
-
-				if(monsterSelection.monsterType == "penguin")
-				{
-					if(stamina >= penguin.Stamina)
-					{
-						GPS.speed = penguin.MovementSpeed;
-						recovering = false;
-					}
-				}
-				else if(monsterSelection.monsterType == "slime")
-				{
-					if(stamina >= slime.Stamina)
-					{
-						GPS.speed = slime.MovementSpeed;
-						recovering = false;
-					}
-				}
-				else if(monsterSelection.monsterType == "bird")
-				{
-					if(stamina >= bird.Stamina)
-					{
-						GPS.speed = bird.MovementSpeed;
-						recovering = false;
-					}
-				}
-				else if(monsterSelection.monsterType == "bean")
-				{
-					if(stamina >= bean.Stamina)
-					{
-						GPS.speed = bean.MovementSpeed;
-						recovering = false;
-					}
-				}
-				else if(monsterSelection.monsterType == "disgusting")
-				{
-					if(stamina >= disgustingThing.Stamina)
-					{
-						GPS.speed = disgustingThing.MovementSpeed;
-						recovering = false;
-					}
-				}
+				GPS.Stop();
 			}
+
+
 		}
 
 		/*GameObject FindClosestTarget() {

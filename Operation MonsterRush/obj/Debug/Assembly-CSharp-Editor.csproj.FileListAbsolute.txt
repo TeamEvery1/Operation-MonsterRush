@@ -282,7 +282,6 @@ C:\Users\tyran\Desktop\Operation-MonsterRush\Operation MonsterRush\Temp\bin\Debu
 C:\Users\tyran\Desktop\Operation-MonsterRush\Operation MonsterRush\obj\Debug\Assembly-CSharp-Editor.csprojResolveAssemblyReference.cache
 C:\Users\tyran\Desktop\Operation-MonsterRush\Operation MonsterRush\obj\Debug\Assembly-CSharp-Editor.dll
 C:\Users\tyran\Desktop\Operation-MonsterRush\Operation MonsterRush\obj\Debug\Assembly-CSharp-Editor.pdb
-C:\Users\chong\OneDrive\Documents\GitHub\Operation-MonsterRush\Operation MonsterRush\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
 C:\Users\tyran\Desktop\Tyran Monster Rush\Operation MonsterRush\Temp\bin\Debug\Assembly-CSharp-Editor.dll
 C:\Users\tyran\Desktop\Tyran Monster Rush\Operation MonsterRush\Temp\bin\Debug\Assembly-CSharp-Editor.pdb
 C:\Users\tyran\Desktop\Tyran Monster Rush\Operation MonsterRush\Temp\bin\Debug\nunit.framework.dll
