@@ -7,6 +7,8 @@ namespace Player
 	{
 		Player.Controller playerControllerScript;
 		public float coinCounter;
+		public GameObject coconut;
+		public float potionCounter;
 
 		void Start()
 		{
@@ -25,6 +27,15 @@ namespace Player
 			{
 				coinCounter += 1;
 				Destroy(other.gameObject);
+			}
+
+			if(other.CompareTag("Coconut"))
+			{
+				if(potionCounter < 1)
+				{
+					Instantiate(coconut, new Vector3(other.transform.position.x , this.transform.position.y + 2.5f, other.transform.position.z + 1.5f), Quaternion.identity);
+					potionCounter += 1;
+				}
 			}
 		}
 

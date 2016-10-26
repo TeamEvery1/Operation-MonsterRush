@@ -63,7 +63,7 @@ public class IKSnap : MonoBehaviour
 		if(playerMovement.onGround == false)
 		{
 			// Left Hand IK Check
-			if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.4f, 0.4f)), transform.TransformDirection (new Vector3 (-0.3f, -1.0f, 0.0f)), out leftHandtHitInfo, 0.65f))
+			if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.0f, 0.9f, 0.4f)), transform.TransformDirection (new Vector3 (-0.3f, -1.0f, 0.0f)), out leftHandtHitInfo, 0.3f))
 			{
 				Vector3 lookAt = Vector3.Cross (-leftHandtHitInfo.normal, transform.right);
 				lookAt = lookAt.y < 0 ? -lookAt : lookAt;
@@ -82,7 +82,7 @@ public class IKSnap : MonoBehaviour
 			}
 
 			// Right Hand IK Check
-			if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.4f, 0.4f)), transform.TransformDirection (new Vector3 (0.3f, -1.0f, 0.0f)), out rightHandHitInfo, 0.65f))
+			if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.0f, 0.9f, 0.4f)), transform.TransformDirection (new Vector3 (0.3f, -1.0f, 0.0f)), out rightHandHitInfo, 0.3f))
 			{
 				Vector3 lookAt = Vector3.Cross (-rightHandHitInfo.normal, transform.right);
 				lookAt = lookAt.y < 0 ? -lookAt : lookAt;
@@ -162,9 +162,9 @@ public class IKSnap : MonoBehaviour
 	void Update()
 	{
 		// Left Hand IK Visual Ray
-		Debug.DrawRay (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.4f, 0.4f)), transform.TransformDirection (new Vector3 (-0.3f, -1.0f, 0.0f)), Color.blue);
+		Debug.DrawRay (transform.position + transform.TransformDirection (new Vector3 (0.0f, 0.9f, 0.4f)), transform.TransformDirection (new Vector3 (-0.3f, -1.0f, 0.0f)), Color.blue);
 		// Right Hand IK Visual Ray
-		Debug.DrawRay (transform.position + transform.TransformDirection (new Vector3 (0.0f, 1.4f, 0.4f)), transform.TransformDirection (new Vector3 (0.3f, -1.0f, 0.0f)), Color.blue);
+		Debug.DrawRay (transform.position + transform.TransformDirection (new Vector3 (0.0f, 0.9f, 0.4f)), transform.TransformDirection (new Vector3 (0.3f, -1.0f, 0.0f)), Color.blue);
 		// Left Foot IK Visual Ray
 		Debug.DrawRay (transform.position + transform.TransformDirection (new Vector3 (-0.35f, 0.5f, 0.0f)), transform.forward, Color.red);
 		// Right Foot IK Visual Ray

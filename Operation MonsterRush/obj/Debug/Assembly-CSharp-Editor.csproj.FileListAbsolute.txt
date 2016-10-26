@@ -350,7 +350,6 @@ C:\Users\User\Documents\GitHub\Operation-MonsterRush\Operation MonsterRush\Temp\
 C:\Users\User\Documents\GitHub\Operation-MonsterRush\Operation MonsterRush\Temp\bin\Debug\UnityEditor.iOS.Extensions.Common.dll
 C:\Users\User\Documents\GitHub\Operation-MonsterRush\Operation MonsterRush\Temp\bin\Debug\Unity.CecilTools.dll
 C:\Users\User\Documents\GitHub\Operation-MonsterRush\Operation MonsterRush\Temp\bin\Debug\Mono.Cecil.Pdb.dll
-C:\Users\User\Documents\GitHub\Operation-MonsterRush\Operation MonsterRush\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
 C:\Users\User\Documents\GitHub\Operation-MonsterRush\Operation MonsterRush\Temp\bin\Debug\Assembly-CSharp.pdb
 C:\Users\User\Documents\GitHub\Operation-MonsterRush\Operation MonsterRush\Temp\bin\Debug\UnityEngine.xml
 C:\Users\User\Documents\GitHub\Operation-MonsterRush\Operation MonsterRush\Temp\bin\Debug\UnityEditor.xml
