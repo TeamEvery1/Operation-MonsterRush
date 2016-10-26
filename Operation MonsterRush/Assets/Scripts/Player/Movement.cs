@@ -194,7 +194,7 @@ namespace Player
 			}
 			else if(!Grounded() && onGround && !isSwimming && !iKSnapScript.isClimbing)
 			{
-				Vector3 extraGravityForce = new Vector3 (0, fallingMultiplier * gravityMultiplier * -6.0f , 0);
+				Vector3 extraGravityForce = new Vector3 (0, fallingMultiplier * gravityMultiplier * -4.0f , 0);
 
 				myRB.velocity = new Vector3 (playerControllerScript.direction.x * jumpForce / 1.5f, myRB.velocity.y , playerControllerScript.direction.z * jumpForce / 1.5f);
 

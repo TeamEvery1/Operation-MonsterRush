@@ -202,7 +202,6 @@ C:\Users\devil\OneDrive\Documents\GitHub\Operation-MonsterRush\Operation Monster
 C:\Users\devil\OneDrive\Documents\GitHub\Operation-MonsterRush\Operation MonsterRush\Temp\bin\Debug\UnityEditor.Networking.xml
 C:\Users\devil\OneDrive\Documents\GitHub\Operation-MonsterRush\Operation MonsterRush\Temp\bin\Debug\UnityEditor.TreeEditor.xml
 C:\Users\devil\OneDrive\Documents\GitHub\Operation-MonsterRush\Operation MonsterRush\Temp\bin\Debug\UnityEngine.Analytics.xml
-C:\Users\devil\OneDrive\Documents\GitHub\Operation-MonsterRush\Operation MonsterRush\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
 C:\Users\0114571\Desktop\Operation MonsterRush\Temp\bin\Debug\Assembly-CSharp-Editor.dll
 C:\Users\0114571\Desktop\Operation MonsterRush\Temp\bin\Debug\Assembly-CSharp-Editor.pdb
 C:\Users\0114571\Desktop\Operation MonsterRush\Temp\bin\Debug\nunit.framework.dll
