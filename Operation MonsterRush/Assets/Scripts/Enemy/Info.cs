@@ -5,23 +5,16 @@ using System.Collections;
 
 namespace Enemies
 {
+	[Serializable] 
+	public class MonsterDictionary : SerializableDictionary <int, string> {}
+
 	public class Info : MonoBehaviour
 	{
-		//public MonsterDictionary monsterDictionary1;
+		public MonsterDictionary monsterDictionary1;
 		public string monsterName;
 
-		[SerializeField()] private MonsterDictionary _dictionary;
 
-		public MonsterDictionary Dictionary
-		{
-			get { return _dictionary; }
-		}
 
-		[System.Serializable()]
-		public class MonsterDictionary : SerializableDictionary <string, int>
-		{
-			
-		}
 
 		void Start()
 		{
