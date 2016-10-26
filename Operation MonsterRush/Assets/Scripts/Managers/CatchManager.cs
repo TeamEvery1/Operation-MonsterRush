@@ -31,7 +31,7 @@ public class CatchManager : MonoBehaviour {
 	}
 
 	GUIManagerScript guiScript;
-	CaptureView captureViewScript;
+	Cameras.CaptureView captureViewScript;
 	public Canvas guiManager;
 	public Canvas catchManager;
 	public GameObject[] enemies;
@@ -41,7 +41,7 @@ public class CatchManager : MonoBehaviour {
 	void Awake()
 	{
 		guiScript = FindObjectOfType<GUIManagerScript> ();
-		captureViewScript = FindObjectOfType <CaptureView>();
+		captureViewScript = FindObjectOfType <Cameras.CaptureView>();
 		enemies = GameObject.FindGameObjectsWithTag ("Enemy");
 	}
 	// Use this for initialization

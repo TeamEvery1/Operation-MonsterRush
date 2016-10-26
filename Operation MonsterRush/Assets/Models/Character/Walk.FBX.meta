@@ -1,0 +1,446 @@
+fileFormatVersion: 2
+guid: 25cb264f312cb1f4ba1c1c8a66e12cbe
+timeCreated: 1477451205
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Bip002
+    100002: Bip002 Footsteps
+    100004: Bip002 Head
+    100006: Bip002 HeadNub
+    100008: Bip002 L Calf
+    100010: Bip002 L Clavicle
+    100012: Bip002 L Finger0
+    100014: Bip002 L Finger0Nub
+    100016: Bip002 L Foot
+    100018: Bip002 L Forearm
+    100020: Bip002 L Hand
+    100022: Bip002 L Thigh
+    100024: Bip002 L Toe0
+    100026: Bip002 L Toe0Nub
+    100028: Bip002 L UpperArm
+    100030: Bip002 Neck
+    100032: Bip002 Pelvis
+    100034: Bip002 R Calf
+    100036: Bip002 R Clavicle
+    100038: Bip002 R Finger0
+    100040: Bip002 R Finger0Nub
+    100042: Bip002 R Foot
+    100044: Bip002 R Forearm
+    100046: Bip002 R Hand
+    100048: Bip002 R Thigh
+    100050: Bip002 R Toe0
+    100052: Bip002 R Toe0Nub
+    100054: Bip002 R UpperArm
+    100056: Bip002 Spine
+    100058: Bip002 Spine1
+    100060: Bip002 Spine2
+    100062: Bip002 Spine3
+    100064: Box020
+    100066: Hair Bone 1.1
+    100068: Hair Bone 1.2
+    100070: Hair Bone 1.3
+    100072: Hair Bone 2.1
+    100074: Hair Bone 2.2
+    100076: Hair Bone 2.3
+    100078: Hair Bone 3.1
+    100080: Hair Bone 3.2
+    100082: Hair Bone 3.3
+    100084: IK Chain002
+    100086: IK Chain003
+    100088: IK Chain004
+    100090: IK Chain005
+    100092: IK Chain006
+    100094: IK Chain007
+    100096: Left Gauntlet
+    100098: Point001
+    100100: Point002
+    100102: Point003
+    100104: Point004
+    100106: Point005
+    100108: Point006
+    100110: Point007
+    100112: Point008
+    100114: Point009
+    100116: Point010
+    100118: Point011
+    100120: Point012
+    100122: Point013
+    100124: Right Gauntlet
+    100126: SplineIKNode001
+    100128: SplineIKNode002
+    100130: SplineIKNode003
+    100132: SplineIKNode004
+    100134: //RootNode
+    400000: Bip002
+    400002: Bip002 Footsteps
+    400004: Bip002 Head
+    400006: Bip002 HeadNub
+    400008: Bip002 L Calf
+    400010: Bip002 L Clavicle
+    400012: Bip002 L Finger0
+    400014: Bip002 L Finger0Nub
+    400016: Bip002 L Foot
+    400018: Bip002 L Forearm
+    400020: Bip002 L Hand
+    400022: Bip002 L Thigh
+    400024: Bip002 L Toe0
+    400026: Bip002 L Toe0Nub
+    400028: Bip002 L UpperArm
+    400030: Bip002 Neck
+    400032: Bip002 Pelvis
+    400034: Bip002 R Calf
+    400036: Bip002 R Clavicle
+    400038: Bip002 R Finger0
+    400040: Bip002 R Finger0Nub
+    400042: Bip002 R Foot
+    400044: Bip002 R Forearm
+    400046: Bip002 R Hand
+    400048: Bip002 R Thigh
+    400050: Bip002 R Toe0
+    400052: Bip002 R Toe0Nub
+    400054: Bip002 R UpperArm
+    400056: Bip002 Spine
+    400058: Bip002 Spine1
+    400060: Bip002 Spine2
+    400062: Bip002 Spine3
+    400064: Box020
+    400066: Hair Bone 1.1
+    400068: Hair Bone 1.2
+    400070: Hair Bone 1.3
+    400072: Hair Bone 2.1
+    400074: Hair Bone 2.2
+    400076: Hair Bone 2.3
+    400078: Hair Bone 3.1
+    400080: Hair Bone 3.2
+    400082: Hair Bone 3.3
+    400084: IK Chain002
+    400086: IK Chain003
+    400088: IK Chain004
+    400090: IK Chain005
+    400092: IK Chain006
+    400094: IK Chain007
+    400096: Left Gauntlet
+    400098: Point001
+    400100: Point002
+    400102: Point003
+    400104: Point004
+    400106: Point005
+    400108: Point006
+    400110: Point007
+    400112: Point008
+    400114: Point009
+    400116: Point010
+    400118: Point011
+    400120: Point012
+    400122: Point013
+    400124: Right Gauntlet
+    400126: SplineIKNode001
+    400128: SplineIKNode002
+    400130: SplineIKNode003
+    400132: SplineIKNode004
+    400134: //RootNode
+    2300000: Left Gauntlet
+    2300002: Right Gauntlet
+    3300000: Left Gauntlet
+    3300002: Right Gauntlet
+    4300000: Left Gauntlet
+    4300002: Right Gauntlet
+    4300004: Box020
+    7400000: Character Walk
+    9500000: //RootNode
+    13700000: Box020
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: "\nInbetween bone default rotation found in this file
+      is different from the one found in the source avatar:\n\t'Bip002 Spine2' : rotation
+      error = 10.209904 deg\n\t'Bip002 Spine3' : rotation error = 29.062374 deg\n\nClip
+      'Take 001' has import animation warnings that might lower retargeting quality:\n\t'Bip002
+      L Thigh' has translation animation that will be discarded.\n\t'Bip002 Spine2'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Bip002
+      Spine3' has translation animation that will be discarded.\n\t'Bip002 Spine3'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Character Walk
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 22
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves:
+      - name: motionZ
+        curve:
+          serializedVersion: 2
+          curve:
+          - time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          - time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+          preInfinity: 3
+          postInfinity: 3
+          rotationOrder: 0
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bip002
+        weight: 1
+      - path: Bip002/Bip002 Footsteps
+        weight: 1
+      - path: Bip002/Bip002 Pelvis
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 L Thigh
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 L Thigh/Bip002 L Calf
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 L Thigh/Bip002 L Calf/Bip002
+          L Foot
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 L Thigh/Bip002 L Calf/Bip002
+          L Foot/Bip002 L Toe0
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 L Thigh/Bip002 L Calf/Bip002
+          L Foot/Bip002 L Toe0/Bip002 L Toe0Nub
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 R Thigh
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 R Thigh/Bip002 R Calf
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 R Thigh/Bip002 R Calf/Bip002
+          R Foot
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 R Thigh/Bip002 R Calf/Bip002
+          R Foot/Bip002 R Toe0
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 R Thigh/Bip002 R Calf/Bip002
+          R Foot/Bip002 R Toe0/Bip002 R Toe0Nub
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 Head
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 Head/Bip002 HeadNub
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 Head/Bip002 HeadNub/Point002
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 Head/Bip002 HeadNub/Point002/Point003
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 Head/Bip002 HeadNub/Point002/Point004
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 Head/Bip002 HeadNub/Point006
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 Head/Bip002 HeadNub/Point006/Point007
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 Head/Bip002 HeadNub/Point006/Point008
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 Head/Bip002 HeadNub/Point010
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 Head/Bip002 HeadNub/Point010/Point011
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 Head/Bip002 HeadNub/Point010/Point012
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 L Clavicle
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 L Clavicle/Bip002 L UpperArm
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 L Clavicle/Bip002 L UpperArm/Bip002 L Forearm
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 L Clavicle/Bip002 L UpperArm/Bip002 L Forearm/Bip002
+          L Hand
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 L Clavicle/Bip002 L UpperArm/Bip002 L Forearm/Bip002
+          L Hand/Bip002 L Finger0
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 L Clavicle/Bip002 L UpperArm/Bip002 L Forearm/Bip002
+          L Hand/Bip002 L Finger0/Bip002 L Finger0Nub
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 L Clavicle/Bip002 L UpperArm/Bip002 L Forearm/Bip002
+          L Hand/Left Gauntlet
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 R Clavicle
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 R Clavicle/Bip002 R UpperArm
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 R Clavicle/Bip002 R UpperArm/Bip002 R Forearm
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 R Clavicle/Bip002 R UpperArm/Bip002 R Forearm/Bip002
+          R Hand
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 R Clavicle/Bip002 R UpperArm/Bip002 R Forearm/Bip002
+          R Hand/Bip002 R Finger0
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 R Clavicle/Bip002 R UpperArm/Bip002 R Forearm/Bip002
+          R Hand/Bip002 R Finger0/Bip002 R Finger0Nub
+        weight: 1
+      - path: Bip002/Bip002 Pelvis/Bip002 Spine/Bip002 Spine1/Bip002 Spine2/Bip002
+          Spine3/Bip002 Neck/Bip002 R Clavicle/Bip002 R UpperArm/Bip002 R Forearm/Bip002
+          R Hand/Right Gauntlet
+        weight: 1
+      - path: Box020
+        weight: 1
+      - path: Hair Bone 1.1
+        weight: 1
+      - path: Hair Bone 1.1/Hair Bone 1.2
+        weight: 1
+      - path: Hair Bone 1.1/Hair Bone 1.2/Hair Bone 1.3
+        weight: 1
+      - path: Hair Bone 2.1
+        weight: 1
+      - path: Hair Bone 2.1/Hair Bone 2.2
+        weight: 1
+      - path: Hair Bone 2.1/Hair Bone 2.2/Hair Bone 2.3
+        weight: 1
+      - path: Hair Bone 3.1
+        weight: 1
+      - path: Hair Bone 3.1/Hair Bone 3.2
+        weight: 1
+      - path: Hair Bone 3.1/Hair Bone 3.2/Hair Bone 3.3
+        weight: 1
+      - path: IK Chain002
+        weight: 1
+      - path: IK Chain003
+        weight: 1
+      - path: IK Chain004
+        weight: 1
+      - path: IK Chain005
+        weight: 1
+      - path: IK Chain006
+        weight: 1
+      - path: IK Chain007
+        weight: 1
+      - path: Point001
+        weight: 1
+      - path: Point005
+        weight: 1
+      - path: Point009
+        weight: 1
+      - path: Point013
+        weight: 1
+      - path: SplineIKNode001
+        weight: 1
+      - path: SplineIKNode002
+        weight: 1
+      - path: SplineIKNode003
+        weight: 1
+      - path: SplineIKNode004
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

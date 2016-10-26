@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 	private GameObject player;
 	public Player.Movement playerMovementScript;
 	public Player.Controller playerControllerScript;
-	CaptureView captureViewScript;
+	Cameras.CaptureView captureViewScript;
 	GUIManagerScript guiManagerScript;
 	CatchManager catchManagerScript;
 
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 		player = GameObject.Find("Character");
 		playerMovementScript = player.GetComponent <Player.Movement>(); 
 		playerControllerScript = player.GetComponent <Player.Controller>();
-		captureViewScript = FindObjectOfType <CaptureView> ();
+		captureViewScript = FindObjectOfType <Cameras.CaptureView> ();
 		guiManagerScript = FindObjectOfType <GUIManagerScript> ();
 		catchManagerScript = FindObjectOfType <CatchManager> ();
 		guiManager = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManagerScript>();
