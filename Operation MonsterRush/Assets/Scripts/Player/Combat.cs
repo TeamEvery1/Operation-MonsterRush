@@ -239,9 +239,7 @@ namespace Player
 
 			isDelayed = true;
 			playerControllerScript.isMovable = true;
-			effectScript.Combo1End();
-			effectScript.Combo2End();
-			effectScript.Combo3End();
+
 		}
 
 		IEnumerator revertTimer (float t)
