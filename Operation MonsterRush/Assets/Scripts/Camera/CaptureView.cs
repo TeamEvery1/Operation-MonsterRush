@@ -10,7 +10,8 @@ namespace Cameras
 		Enemies.Pathfinding[] enemyPathfindingScripts;
 		public Player.Controller playerControllerScript;
 		GUIManagerScript guiManagerScript;
-		GameManager gameManagaerScript;
+		CatchManager catchManagerScript;
+		GameManager gameManagerScript;
 
 		public GameObject pivotPoint;
 		private GameObject target;
@@ -50,7 +51,8 @@ namespace Cameras
 
 			playerControllerScript = player.GetComponent <Player.Controller>();
 			guiManagerScript = FindObjectOfType <GUIManagerScript>();
-			gameManagaerScript = FindObjectOfType <GameManager>();
+			catchManagerScript = FindObjectOfType <CatchManager>();
+			gameManagerScript = FindObjectOfType <GameManager>();
 
 			//pivotPoint = transform.FindChild ("Pivot").gameObject;
 
@@ -92,20 +94,30 @@ namespace Cameras
 						CatchingView();
 					}
 
-					if(guiManagerScript.fillUpMetre >= GUIManagerScript.fillUpMetreMax)
+					if(catchManagerScript.successCapture||catchManagerScript.failCapture)
 					{
+						if (catchManagerScript.successCapture) 
+						{
+							gameManagerScript.enemyCounter --;
+							target.gameObject.SetActive (false);
+						}
 						enemyCollisionScript.isCollided = false;
-						guiManagerScript.enemyCollided = false;
-						guiManagerScript.fillUpMetre = 0;
+						enemyCollisionScript.timeLimit = 20;
+						enemyCollisionScript.timeLimitModifier = 0;
+						catchManagerScript.enemyCollided = false;
+						catchManagerScript.captureMode = false;
+						catchManagerScript.fillUpMetre = 0;
 						//guiManagerScript.maxTime = 10.0f;
 						playerControllerScript.myAnim.Play ("Grounded Movement");
 						isCollided = false;
 						changed = false;
 						enemyCounter ++;
-						gameManagaerScript.enemyCounter --;
-						target.gameObject.SetActive (false);
+						playerControllerScript.isMovable = true;
+						catchManagerScript.successCapture = false;
+						catchManagerScript.failCapture = false;
 
 						break;
+
 					}
 				}
 				else

@@ -33,7 +33,7 @@ public class GUIManagerScript : MonoBehaviour
 		}
 	}
 
-	public CaptureCollider captureScript = null;
+	//public CaptureCollider captureScript = null;
 	public Player.Combat playerCombatScript;
 	public Player.Movement playerMovementScript;
 	public Enemies.Collision enemyCollisionScript;
@@ -66,7 +66,7 @@ public class GUIManagerScript : MonoBehaviour
 
 	void Awake () 
 	{
-		captureScript = GameObject.FindObjectOfType <CaptureCollider>();
+		//captureScript = GameObject.FindObjectOfType <CaptureCollider>();
 		playerCombatScript = GameObject.FindObjectOfType <Player.Combat>();
 		playerMovementScript = GameObject.FindObjectOfType <Player.Movement>();
 		enemyCollisionScript = GameObject.FindObjectOfType <Enemies.Collision>();
@@ -90,26 +90,7 @@ public class GUIManagerScript : MonoBehaviour
 		TutorialScene();
 		ChangeUITranparentcy();
 
-		CaptureUI ();
-		if (victoryImage.enabled == true) 
-		{
-			closeImageCounter -= Time.deltaTime;
-			if (closeImageCounter <= 0) 
-			{
-				victoryImage.enabled = false;
-				Reset();
-			}
-		}
-		if (loseImage.enabled == true) 
-		{
-			closeImageCounter -= Time.deltaTime;
-			if (closeImageCounter <= 0) 
-			{
-				loseImage.enabled = false;
-				Reset();
 
-			}
-		}
 
 		if(Input.GetKeyDown (KeyCode.J))
 		{
@@ -154,91 +135,22 @@ public class GUIManagerScript : MonoBehaviour
 			//loseConImage.gameObject.SetActive(true);
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 		}*/
-
-		/*if (loseConImage.gameObject.activeSelf) 
-		{
-			closeImageCounter -= Time.deltaTime;
-			if (closeImageCounter <= 0) 
-			{
-				loseConImage.gameObject.SetActive(false);
-				closeImageCounter = 2;
-				maxTime = 10.0f;
-
-			}
-		}*/
 	}
 
 	void Reset()
 	{
-		faintCounter = 10;
-		captureScript.timeLimit = 10;
-		captureScript.fillUpMode = false;
+		
 		closeImageCounter = 2;
 		enemyCollided = false;
 		//enemyDestroyed = false;
 	}
 		
-	void CaptureUI()
-	{
-		if(enemyCollided)
-		{
-			//maxTime -= Time.deltaTime;
-			//enemyHealth = captureScript.enemyExhaustInfo;
-			captureBarContent.fillAmount = fillUpMetre / fillUpMetreMax;
-			if (captureScript.fillUpMode) 
-			{
-				captureBarContent.enabled = true;
-				captureBarBack.enabled = true;
-				if (faintCounter <= 0) 
-				{
-					victoryImage.enabled = true;
-					Debug.Log ("Captured");
 
-
-				}
-				captureScript.timeLimit -= Time.deltaTime;
-				if (captureScript.timeLimit <= 0 && faintCounter > 0) 
-				{
-					loseImage.enabled= true;
-					captureScript.timeLimit = 0;
-
-					Debug.Log ("You Lose");
-
-
-				}
-				//fillUpLove.enabled = true;
-				if (( fillUpMetre <= enemyHealth + 5 ) && (fillUpMetre >= enemyHealth - 5)) 
-				{
-					faintCounter -= Time.deltaTime;
-				}
-			} 
-			else 
-			{
-				captureBarContent.enabled = false;
-				captureBarBack.enabled = false;
-				//fillUpLove.enabled = false;
-			}
-
-			//battle win condition
-
-			//update every second instead of every frame
-			if (Time.time >= nextTime) 
-			{
-				fillUpMetre--;
-				nextTime += oneSecond;
-			}
-
-			if (fillUpMetre <= 0) 
-			{
-				fillUpMetre = 0;
-			}
-		}
-	}
 
 	public void CaptureButton()
 	{
-		if(canCapture == true)
-		{
+		//if(canCapture == true)
+
 			if(! playerCombatScript.Gauntlet_02.gameObject.activeSelf)
 			{
 				playerCombatScript.radarIndicator.gameObject.SetActive (false);
@@ -254,7 +166,7 @@ public class GUIManagerScript : MonoBehaviour
 			}
 			fillUpMetre+=1;
 			catchManager.teachText.enabled = false;
-		}
+
 	}
 
 	public void JumpButton()

@@ -7,24 +7,30 @@ namespace Enemies
 	{
 		Pathfinding enemyPathfindingScript;
 		Player.Controller playerControllerScript;
-		CaptureCollider captureScript;
+		//CaptureCollider captureScript;
 		GUIManagerScript guiScript;
+		CatchManager catchScript;
 
 		public bool isCollided;
+		public float timeLimit = 20;
+		public float timeLimitModifier;
+		public float enemyExhaustInfo;
 
 		void Awake()
 		{
 			enemyPathfindingScript = GetComponent <Enemies.Pathfinding>();
 			playerControllerScript = FindObjectOfType <Player.Controller>();
-			captureScript = FindObjectOfType <CaptureCollider>();
+			//captureScript = FindObjectOfType <CaptureCollider>();
 			guiScript = FindObjectOfType <GUIManagerScript>();
+			catchScript = FindObjectOfType <CatchManager>();
+
 		}
 
 		void Update()
 		{
 			if (isCollided == true) 
 			{
-				guiScript.enemyCollided = true;
+				catchScript.enemyCollided = true;
 			}
 		}
 
@@ -41,19 +47,23 @@ namespace Enemies
 				}
 			}
 
-			else if (other.CompareTag ("PlayerCatchCollider"))
+			else if (other.CompareTag ("PlayerCatchCollider")) 
 			{
-				if(enemyPathfindingScript.enemyInfo.enemyExhaustion <= 0)
-				{
-					isCollided = true;
-					enemyPathfindingScript.GPS.speed = 0;
-					guiScript.fillUpMetre += 1;
-				}
-				else
-				{
-					isCollided = false;
-				}
+				//if (enemyPathfindingScript.enemyExhaustion <= 0) 
+
+				isCollided = true;
+				enemyExhaustInfo = enemyPathfindingScript.enemyInfo.enemyExhaustion;
+				timeLimitModifier = (100 - enemyExhaustInfo)/10;
+				timeLimit = timeLimit + timeLimitModifier;
+				enemyPathfindingScript.GPS.speed = 0;
+				catchScript.fillUpMetre += 1;
+
+			} 
+			else 
+			{
+				isCollided = false;
 			}
+
 		}
 	}
 }
