@@ -149,7 +149,8 @@ public class GUIManagerScript : MonoBehaviour
 
 	public void CaptureButton()
 	{
-		//if(canCapture == true)
+		if(canCapture == true)
+		{
 
 			if(! playerCombatScript.Gauntlet_02.gameObject.activeSelf)
 			{
@@ -166,7 +167,7 @@ public class GUIManagerScript : MonoBehaviour
 			}
 			fillUpMetre+=1;
 			catchManager.teachText.enabled = false;
-
+		}
 	}
 
 	public void JumpButton()
