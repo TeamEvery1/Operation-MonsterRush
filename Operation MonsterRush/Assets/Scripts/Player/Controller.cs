@@ -74,6 +74,10 @@ namespace Player
 				myAnim.Play ("LOSE00");
 				StartCoroutine ("reviveTimer", 1.5f);
 			}
+			else if(health > 100)
+			{
+				health = 100;
+			}
 
 
 			myAnim.SetInteger("attackCounter", playerCombatScript.gauntlet.AttackCounter);

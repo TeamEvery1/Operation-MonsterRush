@@ -16,11 +16,6 @@ namespace Player
 			playerControllerScript = GetComponent <Player.Controller> ();
 		}
 
-		void Update()
-		{
-
-		}
-
 		void OnTriggerEnter (Collider other)
 		{
 			if (other.CompareTag ("DeathZone"))
@@ -36,6 +31,7 @@ namespace Player
 
 			if(other.CompareTag("Potion"))
 			{
+				playerControllerScript.health += 20;
 				Destroy(other.gameObject);
 			}
 
