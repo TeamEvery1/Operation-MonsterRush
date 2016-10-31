@@ -84,7 +84,7 @@ namespace Player
 			myAnim.SetBool ("onCatch", playerCombatScript.onCatch);
 		
 			myAnim.applyRootMotion = false;
-		    direction = Vector3.zero;
+		   // direction = Vector3.zero;
 
 			direction.x = Input.GetAxis("Horizontal");
 			direction.z = Input.GetAxis("Vertical");

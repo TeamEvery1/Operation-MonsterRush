@@ -110,7 +110,7 @@ public class GUIManagerScript : MonoBehaviour
 				loseConImage.gameObject.SetActive(false);
 				closeImageCounter = 2;
 				maxTime = 10.0f;
-				SceneManager.LoadScene("Gameover");
+				SceneManager.LoadScene("Game Over");
 			}
 		}
 
@@ -127,7 +127,7 @@ public class GUIManagerScript : MonoBehaviour
 				loseConImage.gameObject.SetActive(false);
 				closeImageCounter = 2;
 				maxTime = 10.0f;
-				SceneManager.LoadScene("Gameover");
+				SceneManager.LoadScene("Game Over");
 			}
 		}
 		/*if (maxTime <= 0.0f) 

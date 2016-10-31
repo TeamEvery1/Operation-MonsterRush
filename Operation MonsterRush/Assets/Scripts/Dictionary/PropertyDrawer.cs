@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -208,4 +208,4 @@ public abstract class DictionaryDrawer<TKey, TValue>  : PropertyDrawer
 	[CustomPropertyDrawer (typeof (Enemies.Info))]
 	public class MonsterDictionaryDrawer : DictionaryDrawer <string, int> {}
 }
-
+*/

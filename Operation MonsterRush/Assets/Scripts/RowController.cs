@@ -13,8 +13,9 @@ public class RowController : MonoBehaviour
 {
 	public RowStat rowStat;
 	public Transform[] patrolPoint;
-	private int currentPoint;
+	public int currentPoint;
 	private bool rotating = false;
+	public bool reached = true;
 
 	void Start()
 	{
@@ -24,10 +25,9 @@ public class RowController : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		transform.position = Vector3.MoveTowards (transform.position, patrolPoint[currentPoint].position, rowStat.movementSpeed * Time.deltaTime);
-
 		if ( Vector3.Distance (transform.position, patrolPoint[currentPoint].position) < 0.5f)
 		{
+			reached = true;
 			currentPoint ++;
 		}
 
@@ -41,6 +41,21 @@ public class RowController : MonoBehaviour
 		rotation.z = 0;
 
 		transform.rotation = Quaternion.Slerp (transform.rotation, rotation, rowStat.rotateSpeed * Time.deltaTime);
-	
+
+		if (reached)
+		{
+			StartCoroutine ("StopTime", 3.0f);
+		}
+		else
+		{
+			transform.position = Vector3.MoveTowards (transform.position, patrolPoint[currentPoint].position, rowStat.movementSpeed * Time.deltaTime);
+		}
+	}
+
+	IEnumerator StopTime (float t)
+	{
+		yield return new WaitForSeconds (t);
+
+		reached = false;
 	}
 }

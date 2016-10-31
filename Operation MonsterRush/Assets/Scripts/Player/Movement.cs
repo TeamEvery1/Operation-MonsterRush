@@ -21,10 +21,11 @@ namespace Player
 
 		public LayerMask ground;
 		public LayerMask upperGround;
-		private LayerMask allGround;
+		//private LayerMask allGround;
 
 
-		public bool onGround;
+		public bool onGround = false;
+		public bool onHigherGround = false;
 		[HideInInspector] public bool canJump;
 		public bool isSwimming;
 
@@ -49,7 +50,7 @@ namespace Player
 
 		private void Start()
 		{
-			allGround = ~ (( 1 << ground.value) | ( 1 << upperGround.value));
+			//allGround = ~ (( 1 << ground.value) | ( 1 << upperGround.value));
 			myAnim = GetComponent<Animator>();
 			myRB = GetComponent<Rigidbody>();
 			//myCollider = GetComponent<CapsuleCollider>();
@@ -153,7 +154,7 @@ namespace Player
 
 		public void OnAnimatorMove()
 		{
-			if(Grounded() && Time.deltaTime > 0 && !isSwimming)
+			if((Grounded() || UpperGrounded()) && Time.deltaTime > 0 && !isSwimming)
 			{
 				Vector3 moveForward = transform.forward * myAnim.GetFloat("motionZ") * objectVelocity * Time.deltaTime;
 				v = ((myAnim.deltaPosition + moveForward) * movementSpeedMultiplier * 1.3f / Time.deltaTime);
@@ -171,7 +172,7 @@ namespace Player
 
 		public bool Grounded()
 		{
-			return Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, allGround);
+			return Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, ground);
 		}
 
 		public bool UpperGrounded()
@@ -181,13 +182,20 @@ namespace Player
 
 		void Jump()
 		{
+			if(UpperGrounded())
+			{
+				onHigherGround = true;
+				onGround = true;
+			}
+
 			//Jump
-			if(Grounded() && onGround && !isSwimming)
+			if((Grounded() || UpperGrounded()) && onGround && !isSwimming)
 			{
 				if(canJump)
 				{
 					canJump = false;
 					onGround = false;
+					onHigherGround = false;
 					myRB.velocity = new Vector3 (0, jumpForce, 0);
 				}
 				else
@@ -197,7 +205,7 @@ namespace Player
 			}
 			else if(!Grounded() && !onGround && !isSwimming && !iKSnapScript.isClimbing)
 			{
-				Vector3 extraGravityForce = new Vector3 (0, -jumpForce * fallingMultiplier * gravityMultiplier , 0);
+				Vector3 extraGravityForce = new Vector3 (0, -jumpForce * fallingMultiplier * gravityMultiplier * 1.3f , 0);
 
 				myRB.velocity = new Vector3 (playerControllerScript.direction.x * jumpForce / 1.5f, myRB.velocity.y , playerControllerScript.direction.z * jumpForce / 1.5f);
 
@@ -206,10 +214,6 @@ namespace Player
 			else if(!Grounded() && onGround && !isSwimming && !iKSnapScript.isClimbing)
 			{
 				myRB.velocity = new Vector3 (playerControllerScript.direction.x * jumpForce / 1.5f, -fallingMultiplier * gravityMultiplier / 3.45f , playerControllerScript.direction.z * jumpForce / 1.5f);
-			}
-			else if(onGround && UpperGrounded())
-			{
-				myRB.velocity = new Vector3 (playerControllerScript.direction.x * jumpForce / 1.5f, -fallingMultiplier * gravityMultiplier, playerControllerScript.direction.z * jumpForce / 1.5f);
 			}
 			else if(iKSnapScript.isClimbing)
 			{
@@ -223,6 +227,17 @@ namespace Player
 				onGround = true;
 				v.y = 0;
 			}
+
+			if(!Grounded() && onHigherGround)
+			{
+				myRB.velocity = new Vector3 (playerControllerScript.direction.x * jumpForce / 1.5f, -fallingMultiplier * gravityMultiplier / 1.5f, playerControllerScript.direction.z * jumpForce / 1.5f);
+			}
+
+			if(Grounded())
+			{
+				onHigherGround = false;
+			}
+				
 		}
 
 		/*void ClimbingPosition()
