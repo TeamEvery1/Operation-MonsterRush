@@ -24,8 +24,8 @@ namespace Player
 			//healthBar = this.GetComponent<Image>();
 			health = this.gameObject.transform.FindChild ("Health").GetComponent <Image>();
 			value = this.gameObject.transform.FindChild("Value").GetComponent<Text>();
-			text = this.gameObject.transform.FindChild("Text").GetComponent<RectTransform>();
-			textImage = this.gameObject.transform.FindChild("Text").GetComponent<Text>();
+			//text = this.gameObject.transform.FindChild("Text").GetComponent<RectTransform>();
+			//textImage = this.gameObject.transform.FindChild("Text").GetComponent<Text>();
 			canShowText = false;
 		}
 

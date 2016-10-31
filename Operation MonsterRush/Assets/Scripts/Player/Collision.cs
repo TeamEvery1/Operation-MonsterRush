@@ -6,7 +6,7 @@ namespace Player
 	public class Collision : MonoBehaviour 
 	{
 		Player.Controller playerControllerScript;
-		Player.Health playerHealth;
+		public Player.Health playerHealthScript;
 		public float coinCounter;
 		public GameObject potion;
 		public GameObject coin;
@@ -16,7 +16,7 @@ namespace Player
 		{
 			coinCounter = 0;
 			playerControllerScript = GetComponent <Player.Controller> ();
-			playerHealth = GameObject.FindGameObjectWithTag("GUIManager").transform.FindChild("PlayerUI").GetComponent<Player.Health>();
+			playerHealthScript = GameObject.FindGameObjectWithTag("GUIManager").transform.FindChild("Player UI").GetComponent <Player.Health> ();
 			guiScript = FindObjectOfType <GUIManagerScript>();
 		}
 
@@ -37,7 +37,7 @@ namespace Player
 			if(other.CompareTag("Potion"))
 			{
 				playerControllerScript.health += 1;
-				playerHealth.canShowText = true;
+				playerHealthScript.canShowText = true;
 				Destroy(other.gameObject);
 			}
 

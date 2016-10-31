@@ -80,8 +80,8 @@ public class GUIManagerScript : MonoBehaviour
 		captureImage = GameObject.Find("CaptureStart").GetComponent<Image>();
 		catchManager = GameObject.FindObjectOfType<CatchManager>();
 		timerScript = FindObjectOfType<Timer> ();
-		text = this.gameObject.transform.FindChild("Coin").transform.FindChild("Text").GetComponent<RectTransform>();
-		textImage = this.gameObject.transform.FindChild("Coin").transform.FindChild("Text").GetComponent<Text>();
+		text = this.gameObject.transform.Find("Coin/CoinText").GetComponent<RectTransform>();
+		textImage = this.gameObject.transform.FindChild("Coin/CoinText").GetComponent<Text>();
 		canShowCoinText = false;
 
 	}

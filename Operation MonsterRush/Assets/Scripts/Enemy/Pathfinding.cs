@@ -102,6 +102,24 @@ namespace Enemies
 			GPS = this.gameObject.GetComponent <NavMeshAgent> ();
 			GPS.autoBraking = false;
 
+			startX = this.transform.position.x;
+			startY = this.transform.position.y;
+			startZ = this.transform.position.z;
+
+			if(wanderPoint.Length > 1)
+			{
+				isWander = true;
+			}
+
+			if(monsterSelection.monsterType != "disgusting" && monsterSelection.monsterType != "bean")
+			{
+				Move();
+			}
+			else if(monsterSelection.monsterType == "bean")
+			{
+				GPS.speed = 0.0f;
+			}
+
 			if(monsterSelection.monsterType == "penguin")
 			{
 				GPS.speed = penguin.MovementSpeed;
@@ -151,24 +169,6 @@ namespace Enemies
 				enemyInfo.enemyHealth = disgustingThing.Health;
 				enemyInfo.enemyMaxExhaustion = disgustingThing.MaxExhaustion;
 				enemyInfo.enemyExhaustion = disgustingThing.ExhaustionAmount;
-			}
-
-			startX = this.transform.position.x;
-			startY = this.transform.position.y;
-			startZ = this.transform.position.z;
-
-			if(wanderPoint.Length > 1)
-			{
-				isWander = true;
-			}
-
-			if(monsterSelection.monsterType != "disgusting" && monsterSelection.monsterType != "bean")
-			{
-				Move();
-			}
-			else if(monsterSelection.monsterType == "bean")
-			{
-				GPS.speed = 0.0f;
 			}
 
 		}
@@ -273,7 +273,7 @@ namespace Enemies
 		void Update () 
 		{
 			//rotation.y = this.transform.position.y;
-
+				
 			//transform.LookAt (rotation);
 			if(enemyInfo.enemyExhaustion > 0f)
 			{
