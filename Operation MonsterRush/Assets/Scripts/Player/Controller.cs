@@ -73,9 +73,9 @@ namespace Player
 				myAnim.Play ("LOSE00");
 				StartCoroutine ("reviveTimer", 1.5f);
 			}
-			else if(health > 100)
+			else if(health > 5)
 			{
-				health = 100;
+				health = 5;
 			}
 
 

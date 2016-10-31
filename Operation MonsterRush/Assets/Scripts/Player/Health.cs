@@ -6,16 +6,18 @@ namespace Player
 {
 	public class Health : MonoBehaviour
 	{
-		public Sprite HP5, HP4, HP3, HP2, HP1, HP0;
+		//public Sprite HP5, HP4, HP3, HP2, HP1, HP0;
 		private Player.Controller playerController;
 		//private Image healthBar;
 		private Image health;
+		private Text value;
 
 		void Start()
 		{
 			playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<Player.Controller>();
 			//healthBar = this.GetComponent<Image>();
 			health = this.gameObject.transform.FindChild ("Health").GetComponent <Image>();
+			value = this.gameObject.transform.FindChild("Value").GetComponent<Text>();
 
 		}
 
@@ -49,7 +51,15 @@ namespace Player
 			}*/
 
 			// Player Health Bar With Single Sprite
+
+			/*if(playerController.health > 20 )
+			{
+				value
+			}*/
+
+
 			health.fillAmount = playerController.health / playerController.maxHealth;
+			value.text = playerController.health + " / " + playerController.maxHealth;
 
 		}
 	}
