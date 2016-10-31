@@ -64,6 +64,12 @@ public class GUIManagerScript : MonoBehaviour
 	public bool canDisplay;
 	CatchManager catchManager;
 
+	private RectTransform text;
+	private Text textImage;
+	[HideInInspector ]public bool canShowCoinText;
+	private float showTextTimer;
+	private float showTextDuration = 0.5f;
+
 	void Awake () 
 	{
 		//captureScript = GameObject.FindObjectOfType <CaptureCollider>();
@@ -74,6 +80,9 @@ public class GUIManagerScript : MonoBehaviour
 		captureImage = GameObject.Find("CaptureStart").GetComponent<Image>();
 		catchManager = GameObject.FindObjectOfType<CatchManager>();
 		timerScript = FindObjectOfType<Timer> ();
+		text = this.gameObject.transform.FindChild("Coin").transform.FindChild("Text").GetComponent<RectTransform>();
+		textImage = this.gameObject.transform.FindChild("Coin").transform.FindChild("Text").GetComponent<Text>();
+		canShowCoinText = false;
 
 	}
 	// Use this for initialization
@@ -89,7 +98,7 @@ public class GUIManagerScript : MonoBehaviour
 	{
 		TutorialScene();
 		ChangeUITranparentcy();
-
+		TextMovingUP();
 
 
 		if(Input.GetKeyDown (KeyCode.J))
@@ -235,6 +244,23 @@ public class GUIManagerScript : MonoBehaviour
 		else if(canDisplay == false)
 		{
 			blackScreen.SetActive(false);
+		}
+	}
+
+	public void TextMovingUP()
+	{
+		if(canShowCoinText == true)
+		{
+			textImage.enabled = true;
+			text.transform.Translate(Vector3.up * Time.deltaTime * 50.0f);
+			showTextTimer += Time.deltaTime;
+			if(showTextTimer >= showTextDuration)
+			{
+				showTextTimer = 0.0f;
+				textImage.enabled = false;
+				canShowCoinText = false;
+				text.anchoredPosition = new Vector2(68, 3);
+			}
 		}
 	}
 }
