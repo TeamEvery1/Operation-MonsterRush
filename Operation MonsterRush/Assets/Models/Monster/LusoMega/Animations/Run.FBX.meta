@@ -54,7 +54,7 @@ ModelImporter:
     400044: Circle038
     400046: //RootNode
     4300000: Box001
-    7400000: Run
+    7400000: Luso Run
     9500000: //RootNode
     13700000: Box001
   materials:
@@ -79,7 +79,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Run
+      name: Luso Run
       takeName: Take 001
       firstFrame: 0
       lastFrame: 20
@@ -90,7 +90,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1

@@ -20,6 +20,10 @@ namespace Player
 		[SerializeField] private float groundCheckDistance = -0.1f;
 
 		public LayerMask ground;
+		public LayerMask upperGround;
+		private LayerMask allGround;
+
+
 		public bool onGround;
 		[HideInInspector] public bool canJump;
 		public bool isSwimming;
@@ -45,6 +49,7 @@ namespace Player
 
 		private void Start()
 		{
+			allGround = ~ (( 1 << ground.value) | ( 1 << upperGround.value));
 			myAnim = GetComponent<Animator>();
 			myRB = GetComponent<Rigidbody>();
 			//myCollider = GetComponent<CapsuleCollider>();
@@ -166,7 +171,12 @@ namespace Player
 
 		public bool Grounded()
 		{
-			return Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, ground);
+			return Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, allGround);
+		}
+
+		public bool UpperGrounded()
+		{
+			return Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, upperGround);
 		}
 
 		void Jump()
@@ -195,11 +205,11 @@ namespace Player
 			}
 			else if(!Grounded() && onGround && !isSwimming && !iKSnapScript.isClimbing)
 			{
-				Vector3 extraGravityForce = new Vector3 (0, fallingMultiplier * gravityMultiplier * -4.0f , 0);
-
-				myRB.velocity = new Vector3 (playerControllerScript.direction.x * jumpForce / 1.5f, myRB.velocity.y , playerControllerScript.direction.z * jumpForce / 1.5f);
-
-				myRB.AddForce (extraGravityForce);
+				myRB.velocity = new Vector3 (playerControllerScript.direction.x * jumpForce / 1.5f, -fallingMultiplier * gravityMultiplier / 3.45f , playerControllerScript.direction.z * jumpForce / 1.5f);
+			}
+			else if(onGround && UpperGrounded())
+			{
+				myRB.velocity = new Vector3 (playerControllerScript.direction.x * jumpForce / 1.5f, -fallingMultiplier * gravityMultiplier, playerControllerScript.direction.z * jumpForce / 1.5f);
 			}
 			else if(iKSnapScript.isClimbing)
 			{

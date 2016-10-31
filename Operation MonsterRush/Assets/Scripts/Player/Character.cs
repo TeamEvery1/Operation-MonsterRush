@@ -4,14 +4,16 @@
 	{
 		private float movementSpeed;
 		private float health;
+		private float maxHealth;
 		private int damage;
 		private string name;
 
 		public Character() {}
-		public Character( float mS, float h, int d, string n )
+		public Character( float mS, float h, float mH, int d, string n )
 		{
 			movementSpeed = mS;
 			health = h;
+			maxHealth = mH;
 			damage = d;
 			name = n;
 		}
@@ -26,6 +28,11 @@
 		{
 			get { return health; }
 			set { health = value; }
+		}
+		public float MaxHealth
+		{
+			get { return maxHealth; }
+			set { maxHealth = value; }
 		}
 		public int Damage
 		{

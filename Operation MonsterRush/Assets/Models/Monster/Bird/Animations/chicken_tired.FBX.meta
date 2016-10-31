@@ -1,0 +1,312 @@
+fileFormatVersion: 2
+guid: eb0b57356670fba43ac48a868491973a
+timeCreated: 1477904522
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Bone001
+    100002: Bone002
+    100004: Bone003
+    100006: Bone004
+    100008: Bone005
+    100010: Bone005(mirrored)
+    100012: Bone006
+    100014: Bone006(mirrored)
+    100016: Bone007
+    100018: Bone007(mirrored)
+    100020: Bone008
+    100022: Bone008(mirrored)
+    100024: Bone008(mirrored) 1
+    100026: Bone008(mirrored)(mirrored)
+    100028: Bone011
+    100030: Bone011(mirrored)
+    100032: Bone013
+    100034: Bone013(mirrored)
+    100036: Bone015
+    100038: Bone016
+    100040: Bone017
+    100042: Bone019
+    100044: Bone021
+    100046: Bone023
+    100048: Bone025
+    100050: Bone027
+    100052: //RootNode
+    100054: Circle003
+    100056: Circle004
+    100058: Circle005
+    100060: Circle006
+    100062: Circle007
+    100064: Circle008
+    100066: Circle009
+    100068: Circle010
+    100070: Circle011
+    100072: Circle012
+    100074: Circle013
+    100076: Circle014
+    100078: Circle015
+    100080: Circle016
+    100082: Circle017
+    100084: Circle018
+    100086: Circle019
+    100088: Circle020
+    100090: Circle021
+    100092: Circle022
+    100094: IK Chain001
+    100096: IK Chain002
+    100098: Object002
+    100100: Rectangle001
+    100102: Rectangle002
+    400000: Bone001
+    400002: Bone002
+    400004: Bone003
+    400006: Bone004
+    400008: Bone005
+    400010: Bone005(mirrored)
+    400012: Bone006
+    400014: Bone006(mirrored)
+    400016: Bone007
+    400018: Bone007(mirrored)
+    400020: Bone008
+    400022: Bone008(mirrored)
+    400024: Bone008(mirrored) 1
+    400026: Bone008(mirrored)(mirrored)
+    400028: Bone011
+    400030: Bone011(mirrored)
+    400032: Bone013
+    400034: Bone013(mirrored)
+    400036: Bone015
+    400038: Bone016
+    400040: Bone017
+    400042: Bone019
+    400044: Bone021
+    400046: Bone023
+    400048: Bone025
+    400050: Bone027
+    400052: //RootNode
+    400054: Circle003
+    400056: Circle004
+    400058: Circle005
+    400060: Circle006
+    400062: Circle007
+    400064: Circle008
+    400066: Circle009
+    400068: Circle010
+    400070: Circle011
+    400072: Circle012
+    400074: Circle013
+    400076: Circle014
+    400078: Circle015
+    400080: Circle016
+    400082: Circle017
+    400084: Circle018
+    400086: Circle019
+    400088: Circle020
+    400090: Circle021
+    400092: Circle022
+    400094: IK Chain001
+    400096: IK Chain002
+    400098: Object002
+    400100: Rectangle001
+    400102: Rectangle002
+    4300000: Object002
+    7400000: Chicken Tired
+    9500000: //RootNode
+    13700000: Object002
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Chicken Tired
+      takeName: chicken (1)
+      firstFrame: 0
+      lastFrame: 150
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Circle006
+        weight: 1
+      - path: Circle012
+        weight: 1
+      - path: Circle018
+        weight: 1
+      - path: Circle018/Bone001
+        weight: 1
+      - path: Circle018/Bone001/Bone002
+        weight: 1
+      - path: Circle018/Bone001/Bone002/Bone003
+        weight: 1
+      - path: Circle018/Bone001/Bone002/Bone003/Circle022
+        weight: 1
+      - path: Circle018/Bone001/Bone002/Bone003/Circle022/Bone004
+        weight: 1
+      - path: Circle018/Bone001/Bone002/Bone003/Circle022/Bone004/Circle019
+        weight: 1
+      - path: Circle018/Bone001/Bone002/Bone003/Circle022/Bone004/Circle019/Bone027
+        weight: 1
+      - path: Circle018/Bone001/Bone002/Bone003/Circle022/Bone004/Circle020
+        weight: 1
+      - path: Circle018/Bone001/Bone002/Bone003/Circle022/Bone004/Circle020/Bone025
+        weight: 1
+      - path: Circle018/Bone001/Bone002/Bone003/Circle022/Bone004/Circle021
+        weight: 1
+      - path: Circle018/Bone001/Bone002/Bone003/Circle022/Bone004/Circle021/Bone023
+        weight: 1
+      - path: Circle018/Bone001/Bone002/Circle007
+        weight: 1
+      - path: Circle018/Bone001/Bone002/Circle007/Bone013
+        weight: 1
+      - path: Circle018/Bone001/Bone002/Circle008
+        weight: 1
+      - path: Circle018/Bone001/Bone002/Circle008/Bone013(mirrored)
+        weight: 1
+      - path: Circle018/Bone001/Bone005
+        weight: 1
+      - path: Circle018/Bone001/Bone005/Bone006
+        weight: 1
+      - path: Circle018/Bone001/Bone005/Bone006/Bone007
+        weight: 1
+      - path: Circle018/Bone001/Bone005/Bone006/Bone007/Circle003
+        weight: 1
+      - path: Circle018/Bone001/Bone005/Bone006/Bone007/Circle003/Bone008
+        weight: 1
+      - path: Circle018/Bone001/Bone005/Bone006/Bone007/Circle004
+        weight: 1
+      - path: Circle018/Bone001/Bone005/Bone006/Bone007/Circle004/Bone008(mirrored)
+          1
+        weight: 1
+      - path: Circle018/Bone001/Bone005/Bone006/Bone007/Circle005
+        weight: 1
+      - path: Circle018/Bone001/Bone005/Bone006/Bone007/Circle005/Bone011
+        weight: 1
+      - path: Circle018/Bone001/Bone005(mirrored)
+        weight: 1
+      - path: Circle018/Bone001/Bone005(mirrored)/Bone006(mirrored)
+        weight: 1
+      - path: Circle018/Bone001/Bone005(mirrored)/Bone006(mirrored)/Bone007(mirrored)
+        weight: 1
+      - path: Circle018/Bone001/Bone005(mirrored)/Bone006(mirrored)/Bone007(mirrored)/Circle009
+        weight: 1
+      - path: Circle018/Bone001/Bone005(mirrored)/Bone006(mirrored)/Bone007(mirrored)/Circle009/Bone008(mirrored)(mirrored)
+        weight: 1
+      - path: Circle018/Bone001/Bone005(mirrored)/Bone006(mirrored)/Bone007(mirrored)/Circle010
+        weight: 1
+      - path: Circle018/Bone001/Bone005(mirrored)/Bone006(mirrored)/Bone007(mirrored)/Circle010/Bone008(mirrored)
+        weight: 1
+      - path: Circle018/Bone001/Bone005(mirrored)/Bone006(mirrored)/Bone007(mirrored)/Circle011
+        weight: 1
+      - path: Circle018/Bone001/Bone005(mirrored)/Bone006(mirrored)/Bone007(mirrored)/Circle011/Bone011(mirrored)
+        weight: 1
+      - path: Circle018/Bone001/Circle013
+        weight: 1
+      - path: Circle018/Bone001/Circle013/Bone015
+        weight: 1
+      - path: Circle018/Bone001/Circle013/Bone015/Circle014
+        weight: 1
+      - path: Circle018/Bone001/Circle013/Bone015/Circle014/Bone016
+        weight: 1
+      - path: Circle018/Bone001/Circle015
+        weight: 1
+      - path: Circle018/Bone001/Circle015/Bone017
+        weight: 1
+      - path: Circle018/Bone001/Circle016
+        weight: 1
+      - path: Circle018/Bone001/Circle016/Bone019
+        weight: 1
+      - path: Circle018/Bone001/Circle017
+        weight: 1
+      - path: Circle018/Bone001/Circle017/Bone021
+        weight: 1
+      - path: Object002
+        weight: 1
+      - path: Rectangle001
+        weight: 1
+      - path: Rectangle001/IK Chain001
+        weight: 1
+      - path: Rectangle002
+        weight: 1
+      - path: Rectangle002/IK Chain002
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

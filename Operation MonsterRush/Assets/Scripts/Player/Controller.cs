@@ -15,7 +15,7 @@ namespace Player
 
 		public float health;
 		public int damage;
-		private float maxHealth;
+		public float maxHealth;
 		//private string name;
 		public bool isMovable;
 		public bool isMoving;
@@ -41,7 +41,7 @@ namespace Player
 
 		void Awake()
 		{
-			Player.Character playerCharacter = new Player.Character ( movementSpeed, health, damage, name);
+			Player.Character playerCharacter = new Player.Character ( movementSpeed, health, maxHealth, damage, name);
 			playerCombatScript = GetComponent <Player.Combat>(); 
 
 			isMovable = true;
@@ -58,7 +58,6 @@ namespace Player
 			controller = GetComponent<Rigidbody>();
 
 			originalPosition = this.transform.position;
-			maxHealth = health;
 
 			controller.maxAngularVelocity = terminalRotationSpeed;
 			controller.drag = drag;

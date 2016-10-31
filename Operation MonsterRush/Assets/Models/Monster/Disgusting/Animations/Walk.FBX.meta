@@ -32,7 +32,7 @@ ModelImporter:
     400022: //RootNode
     400024: Sphere008
     4300000: Sphere008
-    7400000: Walk
+    7400000: Disgusting Walk
     9500000: //RootNode
     13700000: Sphere008
   materials:
@@ -57,7 +57,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Walk
+      name: Disgusting Walk
       takeName: Take 001
       firstFrame: 0
       lastFrame: 40
@@ -68,7 +68,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
