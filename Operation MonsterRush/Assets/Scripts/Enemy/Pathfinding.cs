@@ -309,7 +309,7 @@ namespace Enemies
 					{
 						if(monsterSelection.monsterType == "bird")
 						{
-							anim.Play("Close-Up");
+							anim.Play("Hit");
 						}
 						else
 						{

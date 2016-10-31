@@ -6,14 +6,18 @@ namespace Player
 	public class Collision : MonoBehaviour 
 	{
 		Player.Controller playerControllerScript;
+		Player.Health playerHealth;
 		public float coinCounter;
 		public GameObject potion;
 		public GameObject coin;
+		GUIManagerScript guiScript;
 
 		void Start()
 		{
 			coinCounter = 0;
 			playerControllerScript = GetComponent <Player.Controller> ();
+			playerHealth = GameObject.FindGameObjectWithTag("GUIManager").transform.FindChild("PlayerUI").GetComponent<Player.Health>();
+			guiScript = FindObjectOfType <GUIManagerScript>();
 		}
 
 		void OnTriggerEnter (Collider other)
@@ -26,12 +30,14 @@ namespace Player
 			if(other.CompareTag("Coin"))
 			{
 				coinCounter += 1;
+				guiScript.canShowCoinText = true;
 				Destroy(other.gameObject);
 			}
 
 			if(other.CompareTag("Potion"))
 			{
-				playerControllerScript.health += 2;
+				playerControllerScript.health += 1;
+				playerHealth.canShowText = true;
 				Destroy(other.gameObject);
 			}
 

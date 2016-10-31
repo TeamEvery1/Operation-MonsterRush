@@ -11,6 +11,12 @@ namespace Player
 		//private Image healthBar;
 		private Image health;
 		private Text value;
+		private RectTransform text;
+		private Text textImage;
+		private Vector3 textOriginalPosition;
+		[HideInInspector ]public bool canShowText;
+		private float showTextTimer;
+		private float showTextDuration = 0.5f;
 
 		void Start()
 		{
@@ -18,7 +24,9 @@ namespace Player
 			//healthBar = this.GetComponent<Image>();
 			health = this.gameObject.transform.FindChild ("Health").GetComponent <Image>();
 			value = this.gameObject.transform.FindChild("Value").GetComponent<Text>();
-
+			text = this.gameObject.transform.FindChild("Text").GetComponent<RectTransform>();
+			textImage = this.gameObject.transform.FindChild("Text").GetComponent<Text>();
+			canShowText = false;
 		}
 
 
@@ -57,10 +65,28 @@ namespace Player
 				value
 			}*/
 
+			MovingUp();
 
 			health.fillAmount = playerController.health / playerController.maxHealth;
 			value.text = playerController.health + " / " + playerController.maxHealth;
 
+		}
+
+		public void MovingUp()
+		{
+			if(canShowText == true)
+			{
+				textImage.enabled = true;
+				text.transform.Translate(Vector3.up * Time.deltaTime * 50.0f);
+				showTextTimer += Time.deltaTime;
+				if(showTextTimer >= showTextDuration)
+				{
+					showTextTimer = 0.0f;
+					textImage.enabled = false;
+					canShowText = false;
+					text.anchoredPosition = new Vector2(68, 3);
+				}
+			}
 		}
 	}
 }
