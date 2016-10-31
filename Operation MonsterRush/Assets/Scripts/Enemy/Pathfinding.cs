@@ -62,6 +62,9 @@ namespace Enemies
 
 		Animator anim;
 
+		public GameObject bullet;
+		public float gooFireRate;
+
 
 		[HideInInspector] public Transform VisibleTarget = null;
 
@@ -159,9 +162,13 @@ namespace Enemies
 				isWander = true;
 			}
 
-			if(monsterSelection.monsterType != "disgusting")
+			if(monsterSelection.monsterType != "disgusting" && monsterSelection.monsterType != "bean")
 			{
 				Move();
+			}
+			else if(monsterSelection.monsterType == "bean")
+			{
+				GPS.speed = 0.0f;
 			}
 
 		}
@@ -243,6 +250,25 @@ namespace Enemies
 			}
 		}
 
+		public void CloseUp()
+		{
+			vjs.canMove = false;
+			IsKnockBacking = false;
+			sawPlayer = true;
+			timer = 0.0f;
+			RandomDes = Random.Range(0,3);
+			GPS.destination = desPoint[RandomDes].position;
+			if(monsterSelection.monsterType == "disgusting")
+			{
+				viewAngle = 120.0f;
+				GPS.baseOffset = -0.26f;
+			}
+			else if(monsterSelection.monsterType == "bean")
+			{
+				timer = gooFireRate;
+			}
+		}
+
 		// Update is called once per frame
 		void Update () 
 		{
@@ -251,9 +277,11 @@ namespace Enemies
 			//transform.LookAt (rotation);
 			if(enemyInfo.enemyExhaustion > 0f)
 			{
+
+				//! First action when face target
 				if(VisibleTarget != null && sawPlayer == false && IsKnockBacking == false)
 				{
-					if(monsterSelection.monsterType != "slime" && monsterSelection.monsterType != "penguin")
+					if(monsterSelection.monsterType != "slime" && monsterSelection.monsterType != "penguin" && monsterSelection.monsterType != "bean")//! luso just temporary in this condition
 					{
 
 						GPS.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
@@ -273,71 +301,99 @@ namespace Enemies
 
 				}
 
+				//!proceed Close-Up action
 				if(IsKnockBacking == true)
 				{
 
-					if(GPS.remainingDistance <= 0.5f)
+					if(GPS.remainingDistance <= 1.5f)
 					{
-						vjs.canMove = false;
-						IsKnockBacking = false;
-						sawPlayer = true;
-						timer = 0.0f;
-						RandomDes = Random.Range(0,3);
-						GPS.destination = desPoint[RandomDes].position;
-						if(monsterSelection.monsterType == "disgusting")
+						if(monsterSelection.monsterType == "bird")
 						{
-							viewAngle = 120.0f;
-							GPS.baseOffset = -0.26f;
+							anim.Play("Close-Up");
+						}
+						else
+						{
+							CloseUp();
 						}
 					}
 				}
 
+
+				//!proceeed Escape cycle action
 				if(sawPlayer == true)
 				{
-					if(GPS.remainingDistance < 0.5f)
+					if(monsterSelection.monsterType != "bean")//! temporary luso become slime
 					{
-						RandomDes = Random.Range(0,3);
-						GPS.destination = desPoint[RandomDes].position;
-					}
-
-					if(GPS.remainingDistance > 0.5f)
-					{
-						if(enemyInfo.enemyStamina > 0.0f && recovering == false)
+						//Debug.Log("Escape");
+						if(GPS.remainingDistance < 0.5f)
 						{
-							//Debug.Log("stamina: " + Stamina);
-							enemyInfo.enemyStamina -= Time.deltaTime;
-							if(monsterSelection.monsterType == "disgusting")
-							{
-								anim.Play("Walk");
-							}
-							else if(monsterSelection.monsterType == "bean")
-							{
-								anim.Play("Walk");
-							}
-							if(enemyInfo.enemyStamina <= 0.0f)
-							{
-								anim.Play("Tired");
+							RandomDes = Random.Range(0,3);
+							GPS.destination = desPoint[RandomDes].position;
+						}
 
-								recovering = true;
+						if(GPS.remainingDistance > 0.5f)
+						{
+							if(enemyInfo.enemyStamina > 0.0f && recovering == false)
+							{
+								//Debug.Log("stamina: " + Stamina);
+								enemyInfo.enemyStamina -= Time.deltaTime;
+								if(monsterSelection.monsterType == "disgusting")
+								{
+									anim.Play("Walk");
+								}
+								else if(monsterSelection.monsterType == "bean")
+								{
+									anim.Play("Walk");
+								}
+								if(enemyInfo.enemyStamina <= 0.0f)
+								{
+									anim.Play("Tired");
+
+									recovering = true;
+								}
 							}
 						}
-					}
 
-					if(VisibleTarget == null)
-					{
-						timer += Time.deltaTime;
-						if(timer >= safeToBackTimer)
+						if(VisibleTarget == null)
 						{
-							GPS.SetDestination(new Vector3(startX, startY, startZ));
+							timer += Time.deltaTime;
+							if(timer >= safeToBackTimer)
+							{
+								GPS.SetDestination(new Vector3(startX, startY, startZ));
+								sawPlayer = false;
+							}
+						}
+						else if(VisibleTarget != null)
+						{
+							timer = 0.0f;
+						}
+					}
+					else if(monsterSelection.monsterType == "bean") //! Split goo
+					{
+						//Debug.Log("bean");
+						if(VisibleTarget != null)
+						{
+							transform.LookAt(VisibleTarget);
+							timer += Time.deltaTime;
+							if (timer >= gooFireRate) {
+								timer = 0.0f;
+								//Audio.PlayOneShot(ShootSound, 1f);
+								GameObject goo = (GameObject)Instantiate (bullet, this.transform.position, bullet.transform.rotation);
+								goo.GetComponent<Bullet> ().targetPos = VisibleTarget.position;
+							}
+
+						}
+						else if(VisibleTarget == null)
+						{
+							//timer = 0.0f;
 							sawPlayer = false;
 						}
+
 					}
-					else if(VisibleTarget != null)
-					{
-						timer = 0.0f;
-					}
+
 				}
 
+				//!When no visible target and wandering
 				if(VisibleTarget == null && sawPlayer == false)
 				{
 					Dist = Vector3.Distance(new Vector3(startX, startY, startZ), new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
@@ -364,8 +420,13 @@ namespace Enemies
 							viewAngle = 360.0f;
 						}
 					}
-					else if(monsterSelection.monsterType != "disgusting")
+					else if(monsterSelection.monsterType == "bean")
 					{
+						anim.Play("Idle");
+					}
+					else if(monsterSelection.monsterType != "disgusting" && monsterSelection.monsterType != "bean") //! temporary luso cant move
+					{
+						//Debug.Log("walk");
 						if(GPS.remainingDistance < 0.5f)
 						{
 							Move();
@@ -421,6 +482,7 @@ namespace Enemies
 
 				}
 
+				//! Recovering stamina
 				if(recovering == true)
 				{
 					anim.Play("Tired");
