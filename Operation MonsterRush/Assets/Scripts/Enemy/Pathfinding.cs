@@ -244,7 +244,7 @@ namespace Enemies
 				}
 				else
 				{
-					rotation = new Vector3(wanderPoint[RandomDes].position.x , wanderPoint[RandomDes].position.y , wanderPoint[RandomDes].position.z);
+ 					rotation = new Vector3(wanderPoint[RandomDes].position.x , wanderPoint[RandomDes].position.y , wanderPoint[RandomDes].position.z);
 					GPS.SetDestination(rotation);
 				}
 			}

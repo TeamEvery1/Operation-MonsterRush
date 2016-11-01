@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class Button : MonoBehaviour 
 {
 	Transform mainMenu;
+	private string scene;
 
 	void Start()
 	{
@@ -13,7 +14,8 @@ public class Button : MonoBehaviour
 
 	public void ChangeScene (string sceneName)
 	{
-		SceneManager.LoadScene (sceneName);
+		scene = sceneName;
+		Invoke ("ChangeSceneDelayTimer",1.0f);
 	}
 
 	public void ChangePosition(GameObject obj)
@@ -28,4 +30,8 @@ public class Button : MonoBehaviour
 		Application.Quit();
 	}
 
+	void ChangeSceneDelayTimer ()
+	{
+			SceneManager.LoadScene (scene);
+	}
 }

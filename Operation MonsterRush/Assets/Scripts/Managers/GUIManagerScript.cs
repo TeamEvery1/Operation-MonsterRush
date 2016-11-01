@@ -181,7 +181,7 @@ public class GUIManagerScript : MonoBehaviour
 
 	public void JumpButton()
 	{
-		if(!playerMovementScript.canJump && playerMovementScript.Grounded() && playerMovementScript.myAnim.GetCurrentAnimatorStateInfo(0).IsName("Grounded Movement"))
+		if(!playerMovementScript.canJump && (playerMovementScript.Grounded() || playerMovementScript.UpperGrounded()) && playerMovementScript.myAnim.GetCurrentAnimatorStateInfo(0).IsName("Grounded Movement"))
 		playerMovementScript.canJump = true;
 	}
 

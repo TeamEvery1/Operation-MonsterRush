@@ -230,7 +230,7 @@ namespace Player
 
 			if(!Grounded() && onHigherGround)
 			{
-				myRB.velocity = new Vector3 (playerControllerScript.direction.x * jumpForce / 1.5f, -fallingMultiplier * gravityMultiplier / 1.5f, playerControllerScript.direction.z * jumpForce / 1.5f);
+				myRB.velocity = new Vector3 (playerControllerScript.direction.x * jumpForce / 1.5f, -fallingMultiplier * gravityMultiplier / 1.3f, playerControllerScript.direction.z * jumpForce / 1.5f);
 			}
 
 			if(Grounded())
@@ -250,6 +250,8 @@ namespace Player
 			if (other.CompareTag ("Water"))
 			{
 				isSwimming = true;
+				this.transform.position = new Vector3 (this.transform.position.x , 6.825f, this.transform.position.z);
+				onHigherGround = false;
 			}
 		}
 
