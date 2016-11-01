@@ -56,6 +56,12 @@ public class CatchManager : MonoBehaviour {
 	public bool failCapture;
 	public float closeImageCounter = 2;
 
+	public bool atStart =true;
+	public float timeLimit = 30;
+	public float timeLimitF;
+	public float timeLimitModifier;
+
+
 	void Awake()
 	{
 		guiScript = FindObjectOfType<GUIManagerScript> ();
@@ -134,6 +140,7 @@ public class CatchManager : MonoBehaviour {
 	{
 		faintCounter = 10;
 		closeImageCounter = 2;
+		atStart = true;
 		enemyCollided = false;
 		//enemyDestroyed = false;
 	}
@@ -144,6 +151,12 @@ public class CatchManager : MonoBehaviour {
 		{
 			if (captureMode) 
 			{
+				if (atStart) 
+				{
+					timeLimitModifier = (100 - enemyCollisionScript.enemyExhaustInfo)/10;
+					timeLimitF = timeLimit + timeLimitModifier;
+					atStart = false;
+				}
 				//maxTime -= Time.deltaTime;
 				//enemyHealth = captureScript.enemyExhaustInfo;
 				captureBarContent.fillAmount = fillUpMetre / fillUpMetreMax;
@@ -156,8 +169,8 @@ public class CatchManager : MonoBehaviour {
 					victoryImage.enabled = true;
 					Debug.Log ("Captured");
 				}
-				enemyCollisionScript.timeLimit -= Time.deltaTime;
-				if (enemyCollisionScript.timeLimit <= 0 && faintCounter > 0) 
+
+				if (timeLimitF <= 0 && faintCounter > 0) 
 				{
 					failCapture = true;
 					loseImage.enabled = true;
@@ -172,7 +185,7 @@ public class CatchManager : MonoBehaviour {
 				{
 					faintCounter -= Time.deltaTime;
 				}
-
+				timeLimitF -= Time.deltaTime*0.5f;
 			}
 
 			//battle win condition

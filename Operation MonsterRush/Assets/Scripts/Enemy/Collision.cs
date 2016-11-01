@@ -12,8 +12,7 @@ namespace Enemies
 		CatchManager catchScript;
 
 		public bool isCollided;
-		public float timeLimit = 20;
-		public float timeLimitModifier;
+
 		public float enemyExhaustInfo;
 
 		void Awake()
@@ -53,8 +52,6 @@ namespace Enemies
 
 				isCollided = true;
 				enemyExhaustInfo = enemyPathfindingScript.enemyInfo.enemyExhaustion;
-				timeLimitModifier = (100 - enemyExhaustInfo)/10;
-				timeLimit = timeLimit + timeLimitModifier;
 				enemyPathfindingScript.GPS.speed = 0;
 				catchScript.fillUpMetre += 1;
 

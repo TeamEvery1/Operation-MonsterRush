@@ -102,8 +102,8 @@ namespace Cameras
 							target.gameObject.SetActive (false);
 						}
 						enemyCollisionScript.isCollided = false;
-						enemyCollisionScript.timeLimit = 20;
-						enemyCollisionScript.timeLimitModifier = 0;
+						catchManagerScript.timeLimit = 20;
+						catchManagerScript.timeLimitModifier = 0;
 						catchManagerScript.enemyCollided = false;
 						catchManagerScript.captureMode = false;
 						catchManagerScript.fillUpMetre = 0;
