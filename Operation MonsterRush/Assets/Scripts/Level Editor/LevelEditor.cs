@@ -22,6 +22,8 @@ public class LevelEditor : MonoBehaviour
 		public MONSTER_TYPE monsterType;
 		public string[] monsterName;
 		public GameObject monsterPrefab;
+		public Transform[] desPoint;
+		public Transform[] wanderPoint;
 		public Vector3 monsterPosition;
 	}
 
