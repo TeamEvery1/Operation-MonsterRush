@@ -5,38 +5,33 @@ using System.Collections;
 
 namespace Enemies
 {
-	[Serializable] 
-	public class MonsterDictionary : SerializableDictionary <int, string> {}
-
-	public class Info : MonoBehaviour
+	public class Info : MonoBehaviour 
 	{
-		public MonsterDictionary monsterDictionary1;
+		public LevelEditor.MonsterSpawnOrder.MONSTER_TYPE mT;
+
+		[HideInInspector]public string monsterType;
 		public string monsterName;
 
-
-
-
-		void Start()
+		void Awake()
 		{
-			/*int rnd = UnityEngine.Random.Range (1, 4);
-			int index = 0;
-
-			foreach (var kvp in monsterDictionary1)
+			switch(mT)
 			{
-				index++; 
-
-				if(index == rnd)
-				{
-					monsterName = kvp.Value;
-
-				}
-			}*/
+			case LevelEditor.MonsterSpawnOrder.MONSTER_TYPE.Penguin:
+				monsterType = "penguin";
+				break;
+			case LevelEditor.MonsterSpawnOrder.MONSTER_TYPE.Slime:
+				monsterType = "slime";
+				break;
+			case LevelEditor.MonsterSpawnOrder.MONSTER_TYPE.Bird:
+				monsterType = "bird";
+				break;
+			case LevelEditor.MonsterSpawnOrder.MONSTER_TYPE.Bean:
+				monsterType = "bean";
+				break;
+			case LevelEditor.MonsterSpawnOrder.MONSTER_TYPE.Disgusting_Thing:
+				monsterType = "disgusting";
+				break;
+			}
 		}
-
-		void Update()
-		{
-		}
-
 	}
-
 }

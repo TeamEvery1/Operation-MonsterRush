@@ -12,7 +12,7 @@ namespace Enemies
 		private Vector3 rotation;
 
 		Enemies.Character penguin, slime, bird, bean, disgustingThing;
-		Selection monsterSelection;
+		Enemies.Info monsterSelection;
 
 		public Transform[] desPoint;
 		public Transform[] wanderPoint;
@@ -90,7 +90,7 @@ namespace Enemies
 			disgustingThing = new Enemies.Character (enemyInfo.enemyExhaustion, enemyInfo.enemyMaxExhaustion, enemyInfo.enemyHealth, enemyInfo.enemyMaxHealth, enemyInfo.enemyStamina,
 				enemyInfo.enemyMaxStamina, enemyInfo.staminaRcvrSpeed, enemyInfo.enemyMovementSpeed);
 
-			monsterSelection = GetComponent <Selection> ();
+			monsterSelection = GetComponent <Enemies.Info> ();
 		}
 
 		void Start()
