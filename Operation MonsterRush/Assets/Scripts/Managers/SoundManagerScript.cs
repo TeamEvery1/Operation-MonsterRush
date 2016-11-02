@@ -56,9 +56,8 @@ public class SoundManagerScript : MonoBehaviour
 		}
 	}
 
-	public float bgmVolume = 1.0f;
-	public float sfxVolume = 1.0f;
-
+	public static float bgmVolume = 1.0f;
+	public static float sfxVolume = 1.0f;
 	
 	public List<AudioClipInfo> audioClipInfoList = new List<AudioClipInfo>();
 	
@@ -135,7 +134,7 @@ public class SoundManagerScript : MonoBehaviour
 	{
 		AudioClip clipToPlay = FindAudioClip(audioClipID);
 
-		for(int i=0; i<bgmAudioSourceList.Count; i++)
+		for(int i = 0; i < bgmAudioSourceList.Count; i++)
 		{
 			if(bgmAudioSourceList[i].clip == clipToPlay)
 			{
@@ -144,7 +143,7 @@ public class SoundManagerScript : MonoBehaviour
 					return;
 				}
 
-				bgmAudioSourceList[i].volume = sfxVolume;
+				bgmAudioSourceList[i].volume = bgmVolume;
 				bgmAudioSourceList[i].Play();
 				return;
 			}
@@ -152,7 +151,7 @@ public class SoundManagerScript : MonoBehaviour
 
 		AudioSource newInstance = gameObject.AddComponent<AudioSource>();
 		newInstance.clip = clipToPlay;
-		newInstance.volume = sfxVolume;
+		newInstance.volume = bgmVolume;
 		newInstance.loop = true;
 		newInstance.Play();
 		bgmAudioSourceList.Add(newInstance);
@@ -177,7 +176,7 @@ public class SoundManagerScript : MonoBehaviour
 	{
 		AudioClip clipToStop = FindAudioClip(audioClipID);
 
-		for(int i=0; i<bgmAudioSourceList.Count; i++)
+		for(int i = 0; i < bgmAudioSourceList.Count; i++)
 		{
 			if(bgmAudioSourceList[i].clip == clipToStop)
 			{
@@ -198,7 +197,7 @@ public class SoundManagerScript : MonoBehaviour
 	{
 		AudioClip clipToPlay = FindAudioClip(audioClipID);
 		
-		for(int i=0; i<sfxAudioSourceList.Count; i++)
+		for(int i = 0; i < sfxAudioSourceList.Count; i++)
 		{
 			if(sfxAudioSourceList[i].clip == clipToPlay)
 			{
@@ -225,7 +224,7 @@ public class SoundManagerScript : MonoBehaviour
 	{
 		AudioClip clipToPause = FindAudioClip(audioClipID);
 		
-		for(int i=0; i<sfxAudioSourceList.Count; i++)
+		for(int i = 0; i < sfxAudioSourceList.Count; i++)
 		{
 			if(sfxAudioSourceList[i].clip == clipToPause)
 			{
@@ -240,7 +239,7 @@ public class SoundManagerScript : MonoBehaviour
 	{
 		AudioClip clipToStop = FindAudioClip(audioClipID);
 		
-		for(int i=0; i<sfxAudioSourceList.Count; i++)
+		for(int i = 0; i < sfxAudioSourceList.Count; i++)
 		{
 			if(sfxAudioSourceList[i].clip == clipToStop)
 			{
@@ -250,12 +249,12 @@ public class SoundManagerScript : MonoBehaviour
 		}
 	}
 	
-	public void SetBGMVolume(float value)
+	public static void SetBGMVolume(float value)
 	{
 		bgmVolume = value;
 	}
 	
-	public void SetSFXVolume(float value)
+	public static void SetSFXVolume(float value)
 	{
 		sfxVolume = value;
 	}

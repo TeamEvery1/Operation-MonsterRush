@@ -4,7 +4,7 @@ using System.Collections;
 public class Shake : MonoBehaviour 
 {
 	private float shakeDuration;
-	private float shakeSpeed;
+	private float shakeSpeed = 0.0f;
 	private float magnitude;
 
 	private Vector3 originalCameraPos;
@@ -59,8 +59,8 @@ public class Shake : MonoBehaviour
 			float x = Random.value * 2.0f - 1.0f;
 			float y = Random.value * 2.0f - 1.0f;
 
-			x *= magnitude * damper;
-			y *= magnitude * damper;
+			x *= shakeSpeed * magnitude * damper;
+			y *= shakeSpeed * magnitude * damper;
 
 			Camera.main.transform.position = new Vector3 (x, y, originalCameraPos.z);
 

@@ -12,7 +12,6 @@ public class Initialization : MonoBehaviour
 	void Awake()
 	{
 		LevelEditorScript = GameObject.Find ("Level").GetComponent <LevelEditor>();
-		Debug.Log (LevelEditorScript.monsterList.Count);
 	}
 
 	void Start()

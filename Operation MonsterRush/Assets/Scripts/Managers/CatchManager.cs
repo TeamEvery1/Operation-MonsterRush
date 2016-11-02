@@ -30,7 +30,7 @@ public class CatchManager : MonoBehaviour {
 		}
 	}
 	Enemies.Collision[] enemyCollisionScripts;
-	GUIManagerScript guiScript;
+	//GUIManagerScript guiScript;
 	Cameras.CaptureView captureViewScript;
 	public Canvas guiManager;
 	public Canvas catchManager;
@@ -64,7 +64,7 @@ public class CatchManager : MonoBehaviour {
 
 	void Awake()
 	{
-		guiScript = FindObjectOfType<GUIManagerScript> ();
+		//guiScript = FindObjectOfType<GUIManagerScript> ();
 		captureViewScript = FindObjectOfType <Cameras.CaptureView>();
 		enemies = GameObject.FindGameObjectsWithTag ("Enemy");
 	}

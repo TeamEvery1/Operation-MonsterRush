@@ -14,7 +14,6 @@ public class RowController : MonoBehaviour
 	public RowStat rowStat;
 	public Transform[] patrolPoint;
 	public int currentPoint;
-	private bool rotating = false;
 	public bool reached = true;
 
 	void Start()

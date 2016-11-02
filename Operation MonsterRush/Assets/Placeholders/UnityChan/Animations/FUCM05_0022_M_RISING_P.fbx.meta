@@ -410,7 +410,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.6286604
+      - time: 0.43851954
         functionName: Combo3End
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 4202476fc4fcb934e91f0e881854955f,

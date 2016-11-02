@@ -8,7 +8,7 @@ namespace Enemies
 		Pathfinding enemyPathfindingScript;
 		Player.Controller playerControllerScript;
 		//CaptureCollider captureScript;
-		GUIManagerScript guiScript;
+		//GUIManagerScript guiScript;
 		CatchManager catchScript;
 
 		public bool isCollided;
@@ -20,7 +20,7 @@ namespace Enemies
 			enemyPathfindingScript = GetComponent <Enemies.Pathfinding>();
 			playerControllerScript = FindObjectOfType <Player.Controller>();
 			//captureScript = FindObjectOfType <CaptureCollider>();
-			guiScript = FindObjectOfType <GUIManagerScript>();
+			//guiScript = FindObjectOfType <GUIManagerScript>();
 			catchScript = FindObjectOfType <CatchManager>();
 
 		}

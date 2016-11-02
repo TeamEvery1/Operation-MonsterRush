@@ -59,8 +59,6 @@ namespace Player
 		{
 			//Equipment = GameObject.FindGameObjectWithTag("Equipment");
 			//bulletPrefab = (GameObject) Resources.Load ("Prefabs/Bullets");
-
-			effectScript = GetComponent<Effect>();
 			//bulletMovementScript = bulletPrefab.GetComponent <PlayerBullet.Movement> ();
 			playerControllerScript = GetComponent <Player.Controller>();
 			//LeftHandPos = transform.Find("Character/Character1_Reference/Character1_Hips/Character1_Spine/Character1_Spine1/Character1_Spine2/Character1_LeftShoulder/Character1_LeftArm/Character1_LeftForeArm/Character1_LeftHand");
@@ -129,10 +127,11 @@ namespace Player
 					gauntlet.AttackCounter ++;
 					if(gauntlet.AttackCounter == 1)
 					{
-						StartCoroutine ("attackDelayTimer", 0.25f);
+						StopCoroutine ("attackDelayTimer");
+						StartCoroutine ("attackDelayTimer", 0.2f);
 
 						StopCoroutine ("revertTimer");
-						StartCoroutine ("revertTimer" , 0.5f);
+						StartCoroutine ("revertTimer" , 0.4f);
 
 						StopCoroutine ("enableDamageCollider");
 						StartCoroutine ("enableDamageCollider", 0.0f);
@@ -142,10 +141,11 @@ namespace Player
 					}
 					else if(gauntlet.AttackCounter == 2 )
 					{
-						StartCoroutine ("attackDelayTimer", 0.25f);
+						StopCoroutine ("attackDelayTimer");
+						StartCoroutine ("attackDelayTimer", 0.2f);
 
 						StopCoroutine ("revertTimer");
-						StartCoroutine ("revertTimer" , 0.5f);
+						StartCoroutine ("revertTimer" , 0.4f);
 
 						StopCoroutine ("enableDamageCollider");
 						StartCoroutine ("enableDamageCollider", 0.08f);
@@ -155,7 +155,8 @@ namespace Player
 					}
 					else if(gauntlet.AttackCounter == 3)
 					{
-						StartCoroutine ("attackDelayTimer", 0.4f);
+						StopCoroutine ("attackDelayTimer");
+						StartCoroutine ("attackDelayTimer", 0.2f);
 
 						StopCoroutine ("revertTimer");
 						StartCoroutine ("revertTimer" , 0.4f);
@@ -169,6 +170,10 @@ namespace Player
 				}
 				else
 				{
+					StopCoroutine ("attackDelayTimer");
+					StopCoroutine ("revertTimer");
+					StartCoroutine ("revertTimer" , 0.2f);
+
 					isDelayed = true;
 					gauntlet.AttackCounter = 0;
 				}
@@ -240,6 +245,7 @@ namespace Player
 			isDelayed = true;
 			playerControllerScript.isMovable = true;
 
+			yield break;
 		}
 
 		IEnumerator revertTimer (float t)

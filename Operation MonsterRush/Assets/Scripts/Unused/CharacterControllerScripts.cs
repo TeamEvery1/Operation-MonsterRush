@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -42,7 +42,7 @@ public class CharacterControllerScripts : MonoBehaviour
 	Rigidbody rBody;
 	Animator myAnim;
 	float forwardInput, turnInput, jumpInput;
-	private float turnRate, forwardRate;
+	private float turnRate = 0.0f, forwardRate = 0.0f;
 	private float extraRotationSpeed;
 	private float jumpHeight;
 
@@ -160,4 +160,4 @@ public class CharacterControllerScripts : MonoBehaviour
 	{
 		canJump = true;
 	}
-}
+}*/

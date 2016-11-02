@@ -9,7 +9,7 @@ namespace Cameras
 		Enemies.Collision[] enemyCollisionScripts;
 		Enemies.Pathfinding[] enemyPathfindingScripts;
 		public Player.Controller playerControllerScript;
-		GUIManagerScript guiManagerScript;
+		//GUIManagerScript guiManagerScript;
 		CatchManager catchManagerScript;
 		GameManager gameManagerScript;
 
@@ -50,7 +50,7 @@ namespace Cameras
 			enemyPathfindingScripts = FindObjectsOfType <Enemies.Pathfinding>();
 
 			playerControllerScript = player.GetComponent <Player.Controller>();
-			guiManagerScript = FindObjectOfType <GUIManagerScript>();
+			//guiManagerScript = FindObjectOfType <GUIManagerScript>();
 			catchManagerScript = FindObjectOfType <CatchManager>();
 			gameManagerScript = FindObjectOfType <GameManager>();
 

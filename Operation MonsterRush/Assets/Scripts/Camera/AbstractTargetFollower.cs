@@ -15,7 +15,7 @@ namespace Cameras
 
         [SerializeField] protected Transform m_Target;            // The target object to follow
         [SerializeField] private bool m_AutoTargetPlayer = true;  // Whether the rig should automatically target the player.
-        [SerializeField] private UpdateType m_UpdateType;         // stores the selected update type
+        [SerializeField] private UpdateType m_UpdateType = 0;         // stores the selected update type
 
         protected Rigidbody targetRigidbody;
 

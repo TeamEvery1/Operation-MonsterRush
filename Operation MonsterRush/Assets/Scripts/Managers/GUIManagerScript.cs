@@ -53,7 +53,6 @@ public class GUIManagerScript : MonoBehaviour
 	public float faintCounter = 10;
 	public float closeImageCounter = 2;
 
-	float oneSecond = 1f;
 	public float nextTime = 0;
 	public float maxTime = 10;
 	public bool enemyCollided;
@@ -165,7 +164,7 @@ public class GUIManagerScript : MonoBehaviour
 			{
 				playerCombatScript.radarIndicator.gameObject.SetActive (false);
 				playerCombatScript.Gauntlet_02.gameObject.SetActive (true);
-				playerCombatScript.Gauntlet.gameObject.SetActive (false);
+				playerCombatScript.Gauntlet.gameObject.SetActive (true);
 				playerCombatScript.Radar.gameObject.SetActive (false);
 				playerCombatScript.catchDelayed = true;
 			}
@@ -191,7 +190,7 @@ public class GUIManagerScript : MonoBehaviour
 		{
 			playerCombatScript.radarIndicator.gameObject.SetActive (false);
 			playerCombatScript.Gauntlet.gameObject.SetActive (true);
-			playerCombatScript.Gauntlet_02.gameObject.SetActive (false);
+			playerCombatScript.Gauntlet_02.gameObject.SetActive (true);
 			playerCombatScript.Radar.gameObject.SetActive (false);
 			playerCombatScript.isDelayed = true;
 		}
@@ -208,8 +207,8 @@ public class GUIManagerScript : MonoBehaviour
 		{
 			playerCombatScript.radarIndicator.gameObject.SetActive (true);
 			playerCombatScript.Radar.gameObject.SetActive (true);
-			playerCombatScript.Gauntlet.gameObject.SetActive (false);
-			playerCombatScript.Gauntlet_02.gameObject.SetActive (false);
+			playerCombatScript.Gauntlet.gameObject.SetActive (true);
+			playerCombatScript.Gauntlet_02.gameObject.SetActive (true);
 		}
 
 		if(playerCombatScript.isDelayed)

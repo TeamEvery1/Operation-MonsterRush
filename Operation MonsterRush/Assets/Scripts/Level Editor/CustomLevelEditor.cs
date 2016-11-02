@@ -14,8 +14,7 @@ public class CustomLevelEditor : Editor
 	SerializedProperty ThisList;
 	int ListSize;
 	bool foldout;
-
-	Transform empty;
+	Transform empty = null;
 
 	void OnEnable ()
 	{
