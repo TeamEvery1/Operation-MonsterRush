@@ -5,9 +5,9 @@ using UnityEditor;
 [ExecuteInEditMode]
 public class Initialization : MonoBehaviour
 {
-	public LevelEditor LevelEditorScript;
-	public Enemies.Info[] enemyInfoScript;
-	public Enemies.Pathfinding enemyPathfindingScript;
+	private LevelEditor LevelEditorScript;
+	private Enemies.Info[] enemyInfoScript;
+	private Enemies.Pathfinding enemyPathfindingScript;
 
 	void Awake()
 	{

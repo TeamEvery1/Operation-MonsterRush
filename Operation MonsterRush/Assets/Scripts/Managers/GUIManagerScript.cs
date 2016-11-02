@@ -80,8 +80,8 @@ public class GUIManagerScript : MonoBehaviour
 		captureImage = GameObject.Find("CaptureStart").GetComponent<Image>();
 		catchManager = GameObject.FindObjectOfType<CatchManager>();
 		timerScript = FindObjectOfType<Timer> ();
-		text = this.gameObject.transform.Find("Coin/CoinText").GetComponent<RectTransform>();
-		textImage = this.gameObject.transform.FindChild("Coin/CoinText").GetComponent<Text>();
+		text = this.gameObject.transform.Find("Coin/CoinText 2").GetComponent<RectTransform>();
+		textImage = this.gameObject.transform.FindChild("Coin/CoinText 2").GetComponent<Text>();
 		canShowCoinText = false;
 
 	}
@@ -254,12 +254,14 @@ public class GUIManagerScript : MonoBehaviour
 			textImage.enabled = true;
 			text.transform.Translate(Vector3.up * Time.deltaTime * 50.0f);
 			showTextTimer += Time.deltaTime;
+
 			if(showTextTimer >= showTextDuration)
 			{
 				showTextTimer = 0.0f;
 				textImage.enabled = false;
 				canShowCoinText = false;
-				text.anchoredPosition = new Vector2(68, 3);
+				text.transform.Translate(Vector3.zero);
+				text.anchoredPosition = new Vector2(101.8f, -5.8f);
 			}
 		}
 	}

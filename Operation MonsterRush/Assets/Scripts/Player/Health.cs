@@ -24,8 +24,8 @@ namespace Player
 			//healthBar = this.GetComponent<Image>();
 			health = this.gameObject.transform.FindChild ("Health").GetComponent <Image>();
 			value = this.gameObject.transform.FindChild("Value").GetComponent<Text>();
-			//text = this.gameObject.transform.FindChild("Text").GetComponent<RectTransform>();
-			//textImage = this.gameObject.transform.FindChild("Text").GetComponent<Text>();
+			text = this.gameObject.transform.FindChild("Text").GetComponent<RectTransform>();
+			textImage = this.gameObject.transform.FindChild("Text").GetComponent<Text>();
 			canShowText = false;
 		}
 
@@ -84,6 +84,7 @@ namespace Player
 					showTextTimer = 0.0f;
 					textImage.enabled = false;
 					canShowText = false;
+					text.transform.Translate(Vector3.zero);
 					text.anchoredPosition = new Vector2(68, 3);
 				}
 			}
