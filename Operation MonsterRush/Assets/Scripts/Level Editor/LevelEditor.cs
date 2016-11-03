@@ -25,6 +25,7 @@ public class LevelEditor : MonoBehaviour
 		public Transform[] desPoint;
 		public Transform[] wanderPoint;
 		public Vector3 monsterPosition;
+		public bool foldOut = false;
 	}
 
 	public List <MonsterSpawnOrder> monsterList = new List <MonsterSpawnOrder> (1);

@@ -13,7 +13,7 @@ public class CustomLevelEditor : Editor
 	SerializedObject GetTarget;
 	SerializedProperty ThisList;
 	int ListSize;
-	bool foldout;
+	bool foldOut;
 	Transform empty = null;
 
 	void OnEnable ()
@@ -74,6 +74,7 @@ public class CustomLevelEditor : Editor
 		// Display our list to the inspector window
 		for (int i = 0; i < ThisList.arraySize; i++)
 		{
+			
 			SerializedProperty MyListRef = ThisList.GetArrayElementAtIndex (i);
 			SerializedProperty monsterID = MyListRef.FindPropertyRelative ("monsterID");
 			SerializedProperty monsterType = MyListRef.FindPropertyRelative ("monsterType");
@@ -84,9 +85,9 @@ public class CustomLevelEditor : Editor
 			SerializedProperty monsterPosition = MyListRef.FindPropertyRelative ("monsterPosition");
 
 			// Display property fields in two ways
-			foldout = EditorGUILayout.Foldout (foldout, "Monster List (" + i.ToString() + ")");
+			MyListRef.FindPropertyRelative ("foldOut").boolValue = EditorGUILayout.Foldout (MyListRef.FindPropertyRelative ("foldOut").boolValue, "Monster List (" + i.ToString() + ")");
 
-			if (foldout)
+			if (MyListRef.FindPropertyRelative ("foldOut").boolValue)
 			{
 				if (DisplayFieldType == 0) // Automatic, no customization 
 				{
@@ -152,7 +153,7 @@ public class CustomLevelEditor : Editor
 
 					EditorGUILayout.Space();
 					EditorGUILayout.Space();
-					EditorGUILayout.LabelField ("Monster Patrol Point");
+					EditorGUILayout.LabelField ("Monster Escape Point");
 
 					using (guiLib.ColorBlock(Color.green))
 					{

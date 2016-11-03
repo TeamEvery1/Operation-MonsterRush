@@ -9,6 +9,8 @@ namespace Enemies
 
 		public Transform target;
 
+		public LayerMask ground;
+
 		private Vector3 rotation;
 
 		Enemies.Character penguin, slime, bird, bean, disgustingThing;
@@ -79,16 +81,16 @@ namespace Enemies
 			// mS = movement Speed
 
 			// monster Type					  eA   mE    h   mH    s  rR  mS
-			penguin = new Enemies.Character (enemyInfo.enemyExhaustion, enemyInfo.enemyMaxExhaustion, enemyInfo.enemyHealth, enemyInfo.enemyMaxHealth, enemyInfo.enemyStamina,
-				enemyInfo.enemyMaxStamina, enemyInfo.staminaRcvrSpeed, enemyInfo.enemyMovementSpeed);
-			slime = new Enemies.Character (enemyInfo.enemyExhaustion, enemyInfo.enemyMaxExhaustion, enemyInfo.enemyHealth, enemyInfo.enemyMaxHealth, enemyInfo.enemyStamina, 
-				enemyInfo.enemyMaxStamina, enemyInfo.staminaRcvrSpeed, enemyInfo.enemyMovementSpeed);
-			bird = new Enemies.Character (enemyInfo.enemyExhaustion, enemyInfo.enemyMaxExhaustion, enemyInfo.enemyHealth, enemyInfo.enemyMaxHealth, enemyInfo.enemyStamina, 
-				enemyInfo.enemyMaxStamina, enemyInfo.staminaRcvrSpeed, enemyInfo.enemyMovementSpeed);
-			bean = new Enemies.Character (enemyInfo.enemyExhaustion, enemyInfo.enemyMaxExhaustion, enemyInfo.enemyHealth, enemyInfo.enemyMaxHealth, enemyInfo.enemyStamina, 
-				enemyInfo.enemyMaxStamina, enemyInfo.staminaRcvrSpeed, enemyInfo.enemyMovementSpeed);
-			disgustingThing = new Enemies.Character (enemyInfo.enemyExhaustion, enemyInfo.enemyMaxExhaustion, enemyInfo.enemyHealth, enemyInfo.enemyMaxHealth, enemyInfo.enemyStamina,
-				enemyInfo.enemyMaxStamina, enemyInfo.staminaRcvrSpeed, enemyInfo.enemyMovementSpeed);
+			penguin = new Enemies.Character (enemyInfo.enemyExhaustion, enemyInfo.enemyMaxExhaustion, enemyInfo.enemyHealth, enemyInfo.enemyMaxHealth, 
+				enemyInfo.enemyStamina, enemyInfo.enemyMaxStamina, enemyInfo.staminaRcvrSpeed, enemyInfo.enemyMovementSpeed);
+			slime = new Enemies.Character (enemyInfo.enemyExhaustion, enemyInfo.enemyMaxExhaustion, enemyInfo.enemyHealth, enemyInfo.enemyMaxHealth, 
+				enemyInfo.enemyStamina, enemyInfo.enemyMaxStamina, enemyInfo.staminaRcvrSpeed, enemyInfo.enemyMovementSpeed);
+			bird = new Enemies.Character (enemyInfo.enemyExhaustion, enemyInfo.enemyMaxExhaustion, enemyInfo.enemyHealth, enemyInfo.enemyMaxHealth, 
+				enemyInfo.enemyStamina, enemyInfo.enemyMaxStamina, enemyInfo.staminaRcvrSpeed, enemyInfo.enemyMovementSpeed);
+			bean = new Enemies.Character (enemyInfo.enemyExhaustion, enemyInfo.enemyMaxExhaustion, enemyInfo.enemyHealth, enemyInfo.enemyMaxHealth, 
+				enemyInfo.enemyStamina, enemyInfo.enemyMaxStamina, enemyInfo.staminaRcvrSpeed, enemyInfo.enemyMovementSpeed);
+			disgustingThing = new Enemies.Character (enemyInfo.enemyExhaustion, enemyInfo.enemyMaxExhaustion, enemyInfo.enemyHealth, enemyInfo.enemyMaxHealth, 
+				enemyInfo.enemyStamina, enemyInfo.enemyMaxStamina, enemyInfo.staminaRcvrSpeed, enemyInfo.enemyMovementSpeed);
 
 			monsterSelection = GetComponent <Enemies.Info> ();
 		}
@@ -111,64 +113,64 @@ namespace Enemies
 				isWander = true;
 			}
 
-			if(monsterSelection.monsterType != "disgusting" && monsterSelection.monsterType != "bean")
+			if(monsterSelection.monsterType != "disgusting" && monsterSelection.monsterType != "slime")
 			{
 				Move();
 			}
-			else if(monsterSelection.monsterType == "bean")
+			else if(monsterSelection.monsterType == "slime")
 			{
 				GPS.speed = 0.0f;
 			}
 
 			if(monsterSelection.monsterType == "penguin")
 			{
-				GPS.speed = penguin.MovementSpeed;
-				enemyInfo.enemyMaxStamina = penguin.MaxStamina;
-				enemyInfo.enemyStamina = penguin.Stamina;
-				enemyInfo.enemyMaxHealth = penguin.MaxHealth;
-				enemyInfo.enemyHealth = penguin.Health;
-				enemyInfo.enemyMaxExhaustion = penguin.MaxExhaustion;
-				enemyInfo.enemyExhaustion = penguin.ExhaustionAmount;
+				penguin.MovementSpeed = enemyInfo.enemyMovementSpeed;
+				penguin.MaxStamina = enemyInfo.enemyMaxStamina;
+				penguin.Stamina = enemyInfo.enemyStamina;
+				penguin.MaxHealth = enemyInfo.enemyMaxHealth;
+				penguin.Health = enemyInfo.enemyHealth;
+				penguin.MaxExhaustion = enemyInfo.enemyMaxExhaustion;
+				penguin.ExhaustionAmount = enemyInfo.enemyExhaustion;
 			}
 			else if(monsterSelection.monsterType == "slime")
 			{
-				GPS.speed = slime.MovementSpeed;
-				enemyInfo.enemyMaxStamina = slime.MaxStamina;
-				enemyInfo.enemyStamina = slime.Stamina;
-				enemyInfo.enemyMaxHealth = slime.MaxHealth;
-				enemyInfo.enemyHealth = slime.Health;
-				enemyInfo.enemyMaxExhaustion = slime.MaxExhaustion;
-				enemyInfo.enemyExhaustion = slime.ExhaustionAmount;
+				slime.MovementSpeed = enemyInfo.enemyMovementSpeed;
+				slime.MaxStamina = enemyInfo.enemyMaxStamina;
+				slime.Stamina = enemyInfo.enemyStamina;
+				slime.MaxHealth = enemyInfo.enemyMaxHealth;
+				slime.Health = enemyInfo.enemyHealth;
+				slime.MaxExhaustion = enemyInfo.enemyMaxExhaustion;
+				slime.ExhaustionAmount = enemyInfo.enemyExhaustion;
 			}
 			else if(monsterSelection.monsterType == "bird")
 			{
-				GPS.speed = bird.MovementSpeed;
-				enemyInfo.enemyMaxStamina = bird.MaxStamina;
-				enemyInfo.enemyStamina = bird.Stamina;
-				enemyInfo.enemyMaxHealth = bird.MaxHealth;
-				enemyInfo.enemyHealth = bird.Health;
-				enemyInfo.enemyMaxExhaustion = bird.MaxExhaustion;
-				enemyInfo.enemyExhaustion = bird.ExhaustionAmount;
+				bird.MovementSpeed = enemyInfo.enemyMovementSpeed;
+				bird.MaxStamina = enemyInfo.enemyMaxStamina;
+				bird.Stamina = enemyInfo.enemyStamina;
+				bird.MaxHealth = enemyInfo.enemyMaxHealth;
+				bird.Health = enemyInfo.enemyHealth;
+				bird.MaxExhaustion = enemyInfo.enemyMaxExhaustion;
+				bird.ExhaustionAmount = enemyInfo.enemyExhaustion;
 			}
 			else if(monsterSelection.monsterType == "bean")
 			{
-				GPS.speed = bean.MovementSpeed;
-				enemyInfo.enemyMaxStamina = bean.MaxStamina;
-				enemyInfo.enemyStamina = bean.Stamina;
-				enemyInfo.enemyMaxHealth = bean.MaxHealth;
-				enemyInfo.enemyHealth = bean.Health;
-				enemyInfo.enemyMaxExhaustion = bean.MaxExhaustion;
-				enemyInfo.enemyExhaustion = bean.ExhaustionAmount;
+				bean.MovementSpeed = enemyInfo.enemyMovementSpeed;
+				bean.MaxStamina = enemyInfo.enemyMaxStamina;
+				bean.Stamina = enemyInfo.enemyStamina;
+				bean.MaxHealth = enemyInfo.enemyMaxHealth;
+				bean.Health = enemyInfo.enemyHealth;
+				bean.MaxExhaustion = enemyInfo.enemyMaxExhaustion;
+				bean.ExhaustionAmount = enemyInfo.enemyExhaustion;
 			}
 			else if(monsterSelection.monsterType == "disgusting")
 			{
-				GPS.speed = disgustingThing.MovementSpeed;
-				enemyInfo.enemyMaxStamina = disgustingThing.MaxStamina;
-				enemyInfo.enemyStamina = disgustingThing.Stamina;
-				enemyInfo.enemyMaxHealth = disgustingThing.MaxHealth;
-				enemyInfo.enemyHealth = disgustingThing.Health;
-				enemyInfo.enemyMaxExhaustion = disgustingThing.MaxExhaustion;
-				enemyInfo.enemyExhaustion = disgustingThing.ExhaustionAmount;
+				disgustingThing.MovementSpeed = enemyInfo.enemyMovementSpeed;
+				disgustingThing.MaxStamina = enemyInfo.enemyMaxStamina;
+				disgustingThing.Stamina = enemyInfo.enemyStamina;
+				disgustingThing.MaxHealth = enemyInfo.enemyMaxHealth;
+				disgustingThing.Health = enemyInfo.enemyHealth;
+				disgustingThing.MaxExhaustion = enemyInfo.enemyMaxExhaustion;
+				disgustingThing.ExhaustionAmount = enemyInfo.enemyExhaustion;
 			}
 
 		}
@@ -275,13 +277,14 @@ namespace Enemies
 			//rotation.y = this.transform.position.y;
 				
 			//transform.LookAt (rotation);
+
 			if(enemyInfo.enemyExhaustion > 0f)
 			{
 
 				//! First action when face target
 				if(VisibleTarget != null && sawPlayer == false && IsKnockBacking == false)
 				{
-					if(monsterSelection.monsterType != "slime" && monsterSelection.monsterType != "penguin" && monsterSelection.monsterType != "bean")//! luso just temporary in this condition
+					if(monsterSelection.monsterType != "slime")
 					{
 
 						GPS.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
@@ -322,7 +325,7 @@ namespace Enemies
 				//!proceeed Escape cycle action
 				if(sawPlayer == true)
 				{
-					if(monsterSelection.monsterType != "bean")//! temporary luso become slime
+					if(monsterSelection.monsterType != "slime")
 					{
 						//Debug.Log("Escape");
 						if(GPS.remainingDistance < 0.5f)
@@ -341,10 +344,10 @@ namespace Enemies
 								{
 									anim.Play("Walk");
 								}
-								else if(monsterSelection.monsterType == "bean")
+								/*else if(monsterSelection.monsterType == "bean")
 								{
 									anim.Play("Walk");
-								}
+								}*/
 								if(enemyInfo.enemyStamina <= 0.0f)
 								{
 									anim.Play("Tired");
@@ -368,7 +371,7 @@ namespace Enemies
 							timer = 0.0f;
 						}
 					}
-					else if(monsterSelection.monsterType == "bean") //! Split goo
+					else if(monsterSelection.monsterType == "slime") //! Split goo
 					{
 						//Debug.Log("bean");
 						if(VisibleTarget != null)
@@ -420,11 +423,19 @@ namespace Enemies
 							viewAngle = 360.0f;
 						}
 					}
-					else if(monsterSelection.monsterType == "bean")
+					else if(monsterSelection.monsterType == "slime")
 					{
-						anim.Play("Idle");
+						RaycastHit hitInfo;
+
+						if (Physics.Raycast (this.transform.position, Vector3.down, out hitInfo, ground))
+						{
+							if (hitInfo.collider.tag == "Ship" || hitInfo.collider.tag == "Surfboard")
+							{
+								this.transform.position = hitInfo.transform.position;
+							}
+						}
 					}
-					else if(monsterSelection.monsterType != "disgusting" && monsterSelection.monsterType != "bean") //! temporary luso cant move
+					else if(monsterSelection.monsterType != "disgusting" && monsterSelection.monsterType != "slime") //! temporary luso cant move
 					{
 						//Debug.Log("walk");
 						if(GPS.remainingDistance < 0.5f)
@@ -438,11 +449,8 @@ namespace Enemies
 							if(enemyInfo.enemyStamina > 0.0f && recovering == false)
 							{
 								//Debug.Log("stamina: " + Stamina);
-								if(monsterSelection.monsterType == "bean")
-								{
-
-									anim.Play("Walk");
-								}
+								anim.Play("Walk");
+			
 								enemyInfo.enemyStamina -= Time.deltaTime *3.0f;
 
 								//!Monster Tired Condition (after 50% stamina consume)
@@ -535,8 +543,6 @@ namespace Enemies
 			{
 				GPS.Stop();
 			}
-
-
 		}
 
 		/*GameObject FindClosestTarget() {
