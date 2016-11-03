@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 68b68d28e887c7c4cabdfa54ce08a0c9
+timeCreated: 1478172978
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - PiS Coffins and Ghosts
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

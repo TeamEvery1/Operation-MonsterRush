@@ -19,11 +19,14 @@ namespace Enemies
 
 		void Update()
 		{
-			health.fillAmount = enemyPathfindingScript.enemyInfo.enemyExhaustion / enemyPathfindingScript.enemyInfo.enemyMaxExhaustion;
-			if(health.fillAmount == 0)
+			if (enemyPathfindingScript)
 			{
-				guiManager.canCapture = true;
-				guiManager.canDisplay = true;
+				health.fillAmount = enemyPathfindingScript.enemyInfo.enemyExhaustion / enemyPathfindingScript.enemyInfo.enemyMaxExhaustion;
+				if(health.fillAmount == 0)
+				{
+					guiManager.canCapture = true;
+					guiManager.canDisplay = true;
+				}
 			}
 		}
 

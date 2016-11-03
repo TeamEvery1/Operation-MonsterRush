@@ -13,7 +13,7 @@ namespace Enemies
 
 		private Vector3 rotation;
 
-		Enemies.Character penguin, slime, bird, bean, disgustingThing;
+		Enemies.Character penguin, bird, bean, disgustingThing; //slime
 		Enemies.Info monsterSelection;
 
 		public Transform[] desPoint;
@@ -64,8 +64,8 @@ namespace Enemies
 
 		Animator anim;
 
-		public GameObject bullet;
-		public float gooFireRate;
+		//public GameObject bullet;
+		//public float gooFireRate;
 
 
 		[HideInInspector] public Transform VisibleTarget = null;
@@ -83,8 +83,8 @@ namespace Enemies
 			// monster Type					  eA   mE    h   mH    s  rR  mS
 			penguin = new Enemies.Character (enemyInfo.enemyExhaustion, enemyInfo.enemyMaxExhaustion, enemyInfo.enemyHealth, enemyInfo.enemyMaxHealth, 
 				enemyInfo.enemyStamina, enemyInfo.enemyMaxStamina, enemyInfo.staminaRcvrSpeed, enemyInfo.enemyMovementSpeed);
-			slime = new Enemies.Character (enemyInfo.enemyExhaustion, enemyInfo.enemyMaxExhaustion, enemyInfo.enemyHealth, enemyInfo.enemyMaxHealth, 
-				enemyInfo.enemyStamina, enemyInfo.enemyMaxStamina, enemyInfo.staminaRcvrSpeed, enemyInfo.enemyMovementSpeed);
+			/*slime = new Enemies.Character (enemyInfo.enemyExhaustion, enemyInfo.enemyMaxExhaustion, enemyInfo.enemyHealth, enemyInfo.enemyMaxHealth, 
+				enemyInfo.enemyStamina, enemyInfo.enemyMaxStamina, enemyInfo.staminaRcvrSpeed, enemyInfo.enemyMovementSpeed);*/
 			bird = new Enemies.Character (enemyInfo.enemyExhaustion, enemyInfo.enemyMaxExhaustion, enemyInfo.enemyHealth, enemyInfo.enemyMaxHealth, 
 				enemyInfo.enemyStamina, enemyInfo.enemyMaxStamina, enemyInfo.staminaRcvrSpeed, enemyInfo.enemyMovementSpeed);
 			bean = new Enemies.Character (enemyInfo.enemyExhaustion, enemyInfo.enemyMaxExhaustion, enemyInfo.enemyHealth, enemyInfo.enemyMaxHealth, 
@@ -117,10 +117,10 @@ namespace Enemies
 			{
 				Move();
 			}
-			else if(monsterSelection.monsterType == "slime")
+			/*else if(monsterSelection.monsterType == "slime")
 			{
 				GPS.speed = 0.0f;
-			}
+			}*/
 
 			if(monsterSelection.monsterType == "penguin")
 			{
@@ -132,7 +132,7 @@ namespace Enemies
 				penguin.MaxExhaustion = enemyInfo.enemyMaxExhaustion;
 				penguin.ExhaustionAmount = enemyInfo.enemyExhaustion;
 			}
-			else if(monsterSelection.monsterType == "slime")
+			/*else if(monsterSelection.monsterType == "slime")
 			{
 				slime.MovementSpeed = enemyInfo.enemyMovementSpeed;
 				slime.MaxStamina = enemyInfo.enemyMaxStamina;
@@ -141,7 +141,7 @@ namespace Enemies
 				slime.Health = enemyInfo.enemyHealth;
 				slime.MaxExhaustion = enemyInfo.enemyMaxExhaustion;
 				slime.ExhaustionAmount = enemyInfo.enemyExhaustion;
-			}
+			}*/
 			else if(monsterSelection.monsterType == "bird")
 			{
 				bird.MovementSpeed = enemyInfo.enemyMovementSpeed;
@@ -265,10 +265,10 @@ namespace Enemies
 				viewAngle = 120.0f;
 				GPS.baseOffset = -0.26f;
 			}
-			else if(monsterSelection.monsterType == "bean")
+			/*else if(monsterSelection.monsterType == "slime")
 			{
 				timer = gooFireRate;
-			}
+			}*/
 		}
 
 		// Update is called once per frame
@@ -284,14 +284,14 @@ namespace Enemies
 				//! First action when face target
 				if(VisibleTarget != null && sawPlayer == false && IsKnockBacking == false)
 				{
-					if(monsterSelection.monsterType != "slime")
-					{
-
+					//if(monsterSelection.monsterType != "slime")
+					//{
+						
 						GPS.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
 
 						IsKnockBacking = true;
-					}
-					else
+					//}
+					/*else
 					{
 						sawPlayer = true;
 						timer = 0.0f;
@@ -300,7 +300,7 @@ namespace Enemies
 							RandomDes = Random.Range(0,3);
 							GPS.destination = desPoint[RandomDes].position;
 						}
-					}
+					}*/
 
 				}
 
@@ -325,53 +325,53 @@ namespace Enemies
 				//!proceeed Escape cycle action
 				if(sawPlayer == true)
 				{
-					if(monsterSelection.monsterType != "slime")
+					//if(monsterSelection.monsterType != "slime")
+					//{
+					//Debug.Log("Escape");
+					if(GPS.remainingDistance < 0.5f)
 					{
-						//Debug.Log("Escape");
-						if(GPS.remainingDistance < 0.5f)
-						{
-							RandomDes = Random.Range(0,3);
-							GPS.destination = desPoint[RandomDes].position;
-						}
+						RandomDes = Random.Range(0,3);
+						GPS.destination = desPoint[RandomDes].position;
+					}
 
-						if(GPS.remainingDistance > 0.5f)
+					if(GPS.remainingDistance > 0.5f)
+					{
+						if(enemyInfo.enemyStamina > 0.0f && recovering == false)
 						{
-							if(enemyInfo.enemyStamina > 0.0f && recovering == false)
+							//Debug.Log("stamina: " + Stamina);
+							enemyInfo.enemyStamina -= Time.deltaTime;
+							if(monsterSelection.monsterType == "disgusting")
 							{
-								//Debug.Log("stamina: " + Stamina);
-								enemyInfo.enemyStamina -= Time.deltaTime;
-								if(monsterSelection.monsterType == "disgusting")
-								{
-									anim.Play("Walk");
-								}
-								/*else if(monsterSelection.monsterType == "bean")
-								{
-									anim.Play("Walk");
-								}*/
-								if(enemyInfo.enemyStamina <= 0.0f)
-								{
-									anim.Play("Tired");
-
-									recovering = true;
-								}
+								anim.Play("Walk");
 							}
-						}
-
-						if(VisibleTarget == null)
-						{
-							timer += Time.deltaTime;
-							if(timer >= safeToBackTimer)
+							/*else if(monsterSelection.monsterType == "bean")
 							{
-								GPS.SetDestination(new Vector3(startX, startY, startZ));
-								sawPlayer = false;
+								anim.Play("Walk");
+							}*/
+							if(enemyInfo.enemyStamina <= 0.0f)
+							{
+								anim.Play("Tired");
+
+								recovering = true;
 							}
-						}
-						else if(VisibleTarget != null)
-						{
-							timer = 0.0f;
 						}
 					}
-					else if(monsterSelection.monsterType == "slime") //! Split goo
+
+					if(VisibleTarget == null)
+					{
+						timer += Time.deltaTime;
+						if(timer >= safeToBackTimer)
+						{
+							GPS.SetDestination(new Vector3(startX, startY, startZ));
+							sawPlayer = false;
+						}
+					}
+					else if(VisibleTarget != null)
+					{
+						timer = 0.0f;
+					}
+				}
+					/*else if(monsterSelection.monsterType == "slime") //! Split goo
 					{
 						//Debug.Log("bean");
 						if(VisibleTarget != null)
@@ -384,17 +384,14 @@ namespace Enemies
 								GameObject goo = (GameObject)Instantiate (bullet, this.transform.position, bullet.transform.rotation);
 								goo.GetComponent<Bullet> ().targetPos = VisibleTarget.position;
 							}
-
 						}
 						else if(VisibleTarget == null)
 						{
 							//timer = 0.0f;
 							sawPlayer = false;
 						}
-
 					}
-
-				}
+				}*/
 
 				//!When no visible target and wandering
 				if(VisibleTarget == null && sawPlayer == false)
@@ -423,7 +420,7 @@ namespace Enemies
 							viewAngle = 360.0f;
 						}
 					}
-					else if(monsterSelection.monsterType == "slime")
+					/*else if(monsterSelection.monsterType == "slime")
 					{
 						RaycastHit hitInfo;
 
@@ -434,8 +431,8 @@ namespace Enemies
 								this.transform.position = hitInfo.transform.position;
 							}
 						}
-					}
-					else if(monsterSelection.monsterType != "disgusting" && monsterSelection.monsterType != "slime") //! temporary luso cant move
+					}*/
+					else if(monsterSelection.monsterType != "disgusting") //! temporary luso cant move  && monsterSelection.monsterType != "slime"
 					{
 						//Debug.Log("walk");
 						if(GPS.remainingDistance < 0.5f)
@@ -461,13 +458,13 @@ namespace Enemies
 										recovering = true;
 									}
 								}
-								else if(monsterSelection.monsterType == "slime")
+								/*else if(monsterSelection.monsterType == "slime")
 								{
 									if(enemyInfo.enemyStamina  <= slime.MaxStamina * 0.5f)
 									{
 										recovering = true;
 									}
-								}
+								}*/
 								else if(monsterSelection.monsterType == "bird")
 								{
 									if(enemyInfo.enemyStamina  <= bird.MaxStamina * 0.5f)
@@ -505,14 +502,14 @@ namespace Enemies
 							recovering = false;
 						}
 					}
-					else if(monsterSelection.monsterType == "slime")
+					/*else if(monsterSelection.monsterType == "slime")
 					{
 						if(enemyInfo.enemyStamina >= slime.Stamina)
 						{
 							GPS.speed = slime.MovementSpeed;
 							recovering = false;
 						}
-					}
+					}*/
 					else if(monsterSelection.monsterType == "bird")
 					{
 						if(enemyInfo.enemyStamina >= bird.Stamina)

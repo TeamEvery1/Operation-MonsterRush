@@ -54,7 +54,6 @@ public class RowController : MonoBehaviour
 	IEnumerator StopTime (float t)
 	{
 		yield return new WaitForSeconds (t);
-
 		reached = false;
 	}
 }

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: b15f8165492494a4fb32493970784baa
-timeCreated: 1475583649
+guid: a1d81b5a1595cf849a65d29e90d26c81
+timeCreated: 1478182883
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -32,7 +32,7 @@ ModelImporter:
     400022: //RootNode
     400024: Sphere008
     4300000: Sphere008
-    7400000: Idle
+    7400000: Disgusting Idle
     9500000: //RootNode
     13700000: Sphere008
   materials:
@@ -49,7 +49,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -57,8 +57,8 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle
-      takeName: Take 001
+      name: Disgusting Idle
+      takeName: Head (1) (2)
       firstFrame: 0
       lastFrame: 40
       wrapMode: 0
@@ -67,11 +67,11 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
-      loopBlendOrientation: 1
-      loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
@@ -144,7 +144,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    rootMotionBoneName: bodyb
+    rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
