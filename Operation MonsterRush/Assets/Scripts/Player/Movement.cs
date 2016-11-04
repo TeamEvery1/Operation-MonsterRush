@@ -33,6 +33,7 @@ namespace Player
 		private float turnSpeed;
 		private float turnRatio;
 		private float forwardRatio;
+		private float jumpTimer;
 		//private float defGroundCheckDistance;
 		private float runCycleLegOffset = 0.0f;
 
@@ -135,10 +136,12 @@ namespace Player
 
 			if(!onGround)
 			{
-				myAnim.SetFloat("jumpHeight", myRB.velocity.y);
+				jumpTimer += Time.deltaTime;	
+				myAnim.SetFloat("jumpHeight", jumpTimer);
 			}
 			else
 			{
+				jumpTimer = 0.0f;
 				myAnim.SetFloat("jumpPosition", jumpPosition);
 			}
 
