@@ -82,6 +82,14 @@ namespace Player
 			myAnim.SetInteger("attackCounter", playerCombatScript.gauntlet.AttackCounter);
 			myAnim.SetBool ("onCombat", playerCombatScript.onCombat);
 			myAnim.SetBool ("onCatch", playerCombatScript.onCatch);
+
+			if(playerCombatScript.onScan && playerCombatScript.scanCounter == 0)
+			{
+				myAnim.SetBool ("onScan", true);
+				myAnim.SetLayerWeight (1, 1.0f);
+
+				Invoke ("ScanAnimation", 2.0f);
+			}
 		
 			myAnim.applyRootMotion = false;
 		   // direction = Vector3.zero;
@@ -132,6 +140,14 @@ namespace Player
 			}
 
 		}
+
+		void ScanAnimation()
+		{
+			myAnim.SetBool ("onScan", false);
+			myAnim.SetLayerWeight (1, 0.0f);
+			playerCombatScript.scanCounter++;
+		}
+
 		public void Restart()
 		{
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

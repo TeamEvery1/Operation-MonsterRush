@@ -160,12 +160,13 @@ public class GUIManagerScript : MonoBehaviour
 		if(canCapture == true)
 		{
 
-			if(! playerCombatScript.Gauntlet_02.gameObject.activeSelf)
+			if(playerCombatScript.mode != 1)
 			{
+				playerCombatScript.mode = 1;
 				playerCombatScript.radarIndicator.gameObject.SetActive (false);
-				playerCombatScript.Gauntlet_02.gameObject.SetActive (true);
-				playerCombatScript.Gauntlet.gameObject.SetActive (true);
-				playerCombatScript.Radar.gameObject.SetActive (false);
+				//playerCombatScript.Gauntlet_02.gameObject.SetActive (true);
+				//playerCombatScript.Gauntlet.gameObject.SetActive (true);
+				//playerCombatScript.Radar.gameObject.SetActive (false);
 				playerCombatScript.catchDelayed = true;
 			}
 
@@ -186,12 +187,13 @@ public class GUIManagerScript : MonoBehaviour
 
 	public void HitButton()
 	{
-		if(! playerCombatScript.Gauntlet.gameObject.activeSelf)
+		if(playerCombatScript.mode != 0)
 		{
 			playerCombatScript.radarIndicator.gameObject.SetActive (false);
-			playerCombatScript.Gauntlet.gameObject.SetActive (true);
-			playerCombatScript.Gauntlet_02.gameObject.SetActive (true);
-			playerCombatScript.Radar.gameObject.SetActive (false);
+			//playerCombatScript.Gauntlet.gameObject.SetActive (true);
+			//playerCombatScript.Gauntlet_02.gameObject.SetActive (true);
+			//playerCombatScript.Radar.gameObject.SetActive (false);
+			playerCombatScript.mode = 0;
 			playerCombatScript.isDelayed = true;
 		}
 
@@ -203,12 +205,13 @@ public class GUIManagerScript : MonoBehaviour
 
 	public void RadarButton()
 	{
-		if(! playerCombatScript.Radar.gameObject.activeSelf)
+		if(playerCombatScript.mode != 2)
 		{
 			playerCombatScript.radarIndicator.gameObject.SetActive (true);
-			playerCombatScript.Radar.gameObject.SetActive (true);
-			playerCombatScript.Gauntlet.gameObject.SetActive (true);
-			playerCombatScript.Gauntlet_02.gameObject.SetActive (true);
+			//playerCombatScript.Radar.gameObject.SetActive (true);
+			//playerCombatScript.Gauntlet.gameObject.SetActive (true);
+			//playerCombatScript.Gauntlet_02.gameObject.SetActive (true);
+			playerCombatScript.mode = 2;
 		}
 
 		if(playerCombatScript.isDelayed)

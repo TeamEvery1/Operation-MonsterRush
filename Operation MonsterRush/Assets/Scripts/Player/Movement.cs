@@ -213,7 +213,7 @@ namespace Player
 			}
 			else if(!Grounded() && onGround && !isSwimming && !iKSnapScript.isClimbing)
 			{
-				myRB.velocity = new Vector3 (playerControllerScript.direction.x * jumpForce / 1.5f, -fallingMultiplier * gravityMultiplier / 3.45f , playerControllerScript.direction.z * jumpForce / 1.5f);
+				myRB.velocity = new Vector3 (playerControllerScript.direction.x * jumpForce / 1.5f, -fallingMultiplier * gravityMultiplier / 3.35f , playerControllerScript.direction.z * jumpForce / 1.5f);
 			}
 			else if(iKSnapScript.isClimbing)
 			{

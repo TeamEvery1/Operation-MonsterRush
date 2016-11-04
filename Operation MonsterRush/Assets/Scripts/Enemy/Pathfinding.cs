@@ -125,6 +125,7 @@ namespace Enemies
 			if(monsterSelection.monsterType == "penguin")
 			{
 				penguin.MovementSpeed = enemyInfo.enemyMovementSpeed;
+				GPS.speed = enemyInfo.enemyMovementSpeed;
 				penguin.MaxStamina = enemyInfo.enemyMaxStamina;
 				penguin.Stamina = enemyInfo.enemyStamina;
 				penguin.MaxHealth = enemyInfo.enemyMaxHealth;
@@ -145,6 +146,7 @@ namespace Enemies
 			else if(monsterSelection.monsterType == "bird")
 			{
 				bird.MovementSpeed = enemyInfo.enemyMovementSpeed;
+				GPS.speed = enemyInfo.enemyMovementSpeed;
 				bird.MaxStamina = enemyInfo.enemyMaxStamina;
 				bird.Stamina = enemyInfo.enemyStamina;
 				bird.MaxHealth = enemyInfo.enemyMaxHealth;
@@ -155,6 +157,7 @@ namespace Enemies
 			else if(monsterSelection.monsterType == "bean")
 			{
 				bean.MovementSpeed = enemyInfo.enemyMovementSpeed;
+				GPS.speed = enemyInfo.enemyMovementSpeed;
 				bean.MaxStamina = enemyInfo.enemyMaxStamina;
 				bean.Stamina = enemyInfo.enemyStamina;
 				bean.MaxHealth = enemyInfo.enemyMaxHealth;
@@ -165,6 +168,7 @@ namespace Enemies
 			else if(monsterSelection.monsterType == "disgusting")
 			{
 				disgustingThing.MovementSpeed = enemyInfo.enemyMovementSpeed;
+				GPS.speed = enemyInfo.enemyMovementSpeed;
 				disgustingThing.MaxStamina = enemyInfo.enemyMaxStamina;
 				disgustingThing.Stamina = enemyInfo.enemyStamina;
 				disgustingThing.MaxHealth = enemyInfo.enemyMaxHealth;
@@ -277,6 +281,7 @@ namespace Enemies
 			//rotation.y = this.transform.position.y;
 				
 			//transform.LookAt (rotation);
+
 
 			if(enemyInfo.enemyExhaustion > 0f)
 			{
@@ -442,7 +447,6 @@ namespace Enemies
 
 						if(GPS.remainingDistance > 0.5f)
 						{
-
 							if(enemyInfo.enemyStamina > 0.0f && recovering == false)
 							{
 								//Debug.Log("stamina: " + Stamina);
@@ -453,6 +457,7 @@ namespace Enemies
 								//!Monster Tired Condition (after 50% stamina consume)
 								if(monsterSelection.monsterType == "penguin")
 								{
+									GPS.speed = penguin.MovementSpeed;
 									if(enemyInfo.enemyStamina <= penguin.MaxStamina * 0.5f)
 									{
 										recovering = true;
@@ -467,6 +472,7 @@ namespace Enemies
 								}*/
 								else if(monsterSelection.monsterType == "bird")
 								{
+									GPS.speed = bird.MovementSpeed;
 									if(enemyInfo.enemyStamina  <= bird.MaxStamina * 0.5f)
 									{
 										recovering = true;
@@ -474,6 +480,7 @@ namespace Enemies
 								}
 								else if(monsterSelection.monsterType == "bean")
 								{
+									GPS.speed = bean.MovementSpeed;
 									if(enemyInfo.enemyStamina  <= bean.MaxStamina * 0.5f)
 									{
 

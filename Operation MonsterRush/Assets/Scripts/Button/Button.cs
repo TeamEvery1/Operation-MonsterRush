@@ -6,6 +6,7 @@ public class Button : MonoBehaviour
 {
 	Transform mainMenu;
 	private string scene;
+	private GameObject gameObj;
 
 	void Start()
 	{
@@ -15,14 +16,13 @@ public class Button : MonoBehaviour
 	public void ChangeScene (string sceneName)
 	{
 		scene = sceneName;
-		Invoke ("ChangeSceneDelayTimer",1.0f);
+		Invoke ("ChangeSceneDelay",1.0f);
 	}
 
 	public void ChangePosition(GameObject obj)
 	{
-		obj.gameObject.SetActive(true);
-		obj.transform.position = mainMenu.transform.position;
-		this.transform.parent.parent.gameObject.SetActive(false);
+		gameObj = obj;
+		Invoke ("ChangePositionDelay", 1.0f);
 	}
 
 	public void Exit()
@@ -30,8 +30,15 @@ public class Button : MonoBehaviour
 		Application.Quit();
 	}
 
-	void ChangeSceneDelayTimer ()
+	void ChangeSceneDelay ()
 	{
 			SceneManager.LoadScene (scene);
+	}
+
+	void ChangePositionDelay()
+	{
+		gameObj.gameObject.SetActive(true);
+		gameObj.transform.position = mainMenu.transform.position;
+		this.transform.parent.parent.gameObject.SetActive(false);
 	}
 }

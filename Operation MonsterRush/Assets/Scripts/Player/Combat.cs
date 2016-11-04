@@ -17,17 +17,20 @@ namespace Player
 		public bool catchDelayed;
 		//private bool isShoot;
 		public bool onCatch;
-		private bool onScan;
+		public bool onScan;
 
 		//GameObject Equipment;
 		//public GameObject bulletPrefab;
 		public GameObject closest;
+		public  GameObject[] nearestEnemies;
 		private GameObject damageCollider, damageCollider2, damageCollider3;
 		private GameObject catchCollider;
 
-		public Transform Gauntlet;
-		public Transform Gauntlet_02;
-		public Transform Radar;
+		//public Transform Gauntlet;
+		//public Transform Gauntlet_02;
+		//public Transform Radar;
+		public int mode = 0;
+		public int scanCounter = 0;
 		public Transform radarIndicator;
 
 		public float rechargeTime;
@@ -89,8 +92,8 @@ namespace Player
 
 			if (onScan)
 			{
-				GameObject[] nearestEnemies = GameObject.FindGameObjectsWithTag ("Enemy");
-				closest = null;
+				nearestEnemies = GameObject.FindGameObjectsWithTag ("Enemy");
+				//closest = null;
 				float closestDist = 5000; 
 
 				foreach (GameObject nearestEnemy in nearestEnemies)
@@ -116,7 +119,7 @@ namespace Player
 
 		public void Perform()
 		{
-			if(Gauntlet.gameObject.activeSelf)
+			if(mode == 0)
 			{
 				isDelayed = false;
 			
@@ -178,7 +181,7 @@ namespace Player
 					gauntlet.AttackCounter = 0;
 				}
 			}
-			else if(Gauntlet_02.gameObject.activeSelf)
+			else if(mode == 1)
 			{
 				//Instantiate (bulletPrefab, new Vector3 (this.transform.position.x, this.transform.position.y + 0.8f, this.transform.position.z), this.transform.rotation);
 		
@@ -191,12 +194,11 @@ namespace Player
 				StopCoroutine ("disableCatchCollider");
 				StartCoroutine ("disableCatchCollider", 0.8f);
 			}
-			else if(Radar.gameObject.activeSelf)
+			else if(mode == 2)
 			{
 				isDelayed = false;
 				onScan = true;
-
-
+				scanCounter = 0;
 			}
 		}
 
