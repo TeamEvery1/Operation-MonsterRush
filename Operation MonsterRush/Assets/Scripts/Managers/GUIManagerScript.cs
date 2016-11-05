@@ -187,7 +187,7 @@ public class GUIManagerScript : MonoBehaviour
 
 	public void HitButton()
 	{
-		if(playerCombatScript.mode != 0)
+		if(playerCombatScript.mode != 0 && playerMovementScript.isSwimming == false)
 		{
 			playerCombatScript.radarIndicator.gameObject.SetActive (false);
 			//playerCombatScript.Gauntlet.gameObject.SetActive (true);
