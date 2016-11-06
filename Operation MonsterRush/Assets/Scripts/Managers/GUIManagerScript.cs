@@ -58,9 +58,9 @@ public class GUIManagerScript : MonoBehaviour
 	public bool enemyCollided;
 
 	private Image captureImage;
-	public bool canCapture;
+	[HideInInspector] public bool canCapture;
 	public GameObject blackScreen;
-	public bool canDisplay;
+	[HideInInspector] public bool canDisplayTutorialBlackScreen;
 	CatchManager catchManager;
 
 	private RectTransform text;
@@ -68,6 +68,8 @@ public class GUIManagerScript : MonoBehaviour
 	[HideInInspector ]public bool canShowCoinText;
 	private float showTextTimer;
 	private float showTextDuration = 0.5f;
+
+	[HideInInspector]public bool canUseRadar;
 
 	void Awake () 
 	{
@@ -88,7 +90,8 @@ public class GUIManagerScript : MonoBehaviour
 	void Start ()
 	{
 		canCapture = false;
-		canDisplay = false;
+		canDisplayTutorialBlackScreen = false;
+		canUseRadar = false;
 		//fillUpLove.enabled = false;
 	}
 	
@@ -159,11 +162,11 @@ public class GUIManagerScript : MonoBehaviour
 	{
 		if(canCapture == true)
 		{
-
 			if(playerCombatScript.mode != 1)
 			{
 				playerCombatScript.mode = 1;
 				playerCombatScript.radarIndicator.gameObject.SetActive (false);
+				canUseRadar = false;
 				//playerCombatScript.Gauntlet_02.gameObject.SetActive (true);
 				//playerCombatScript.Gauntlet.gameObject.SetActive (true);
 				//playerCombatScript.Radar.gameObject.SetActive (false);
@@ -190,6 +193,7 @@ public class GUIManagerScript : MonoBehaviour
 		if(playerCombatScript.mode != 0 && playerMovementScript.isSwimming == false)
 		{
 			playerCombatScript.radarIndicator.gameObject.SetActive (false);
+			canUseRadar = false;
 			//playerCombatScript.Gauntlet.gameObject.SetActive (true);
 			//playerCombatScript.Gauntlet_02.gameObject.SetActive (true);
 			//playerCombatScript.Radar.gameObject.SetActive (false);
@@ -205,18 +209,29 @@ public class GUIManagerScript : MonoBehaviour
 
 	public void RadarButton()
 	{
-		if(playerCombatScript.mode != 2)
-		{
-			playerCombatScript.radarIndicator.gameObject.SetActive (true);
-			//playerCombatScript.Radar.gameObject.SetActive (true);
-			//playerCombatScript.Gauntlet.gameObject.SetActive (true);
-			//playerCombatScript.Gauntlet_02.gameObject.SetActive (true);
-			playerCombatScript.mode = 2;
-		}
+		canUseRadar = !canUseRadar;
 
-		if(playerCombatScript.isDelayed)
+		if(canUseRadar == true)
 		{
-			playerCombatScript.Perform();
+			if(playerCombatScript.mode != 2)
+			{
+				playerCombatScript.radarIndicator.gameObject.SetActive (true);
+				//playerCombatScript.Radar.gameObject.SetActive (true);
+				//playerCombatScript.Gauntlet.gameObject.SetActive (true);
+				//playerCombatScript.Gauntlet_02.gameObject.SetActive (true);
+				playerCombatScript.mode = 2;
+			}
+
+			if(playerCombatScript.isDelayed)
+			{
+				playerCombatScript.Perform();
+			}
+		}
+		else if(canUseRadar == false)
+		{
+			playerCombatScript.radarIndicator.gameObject.SetActive (false);
+			playerCombatScript.isDelayed = true;
+			playerCombatScript.mode = 0;
 		}
 	}
 
@@ -239,11 +254,11 @@ public class GUIManagerScript : MonoBehaviour
 
 	public void TutorialScene()
 	{
-		if(canDisplay == true)
+		if(canDisplayTutorialBlackScreen == true)
 		{
 			blackScreen.SetActive(true);
 		}
-		else if(canDisplay == false)
+		else if(canDisplayTutorialBlackScreen == false)
 		{
 			blackScreen.SetActive(false);
 		}

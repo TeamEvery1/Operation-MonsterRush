@@ -60,6 +60,7 @@ public class CatchManager : MonoBehaviour {
 	public float timeLimit = 30;
 	public float timeLimitF;
 	public float timeLimitModifier;
+	private GUIManagerScript guiManagerScripts;
 
 
 	void Awake()
@@ -75,6 +76,7 @@ public class CatchManager : MonoBehaviour {
 		teachText.enabled = false;
 		firstTimeCollided = true;
 		enemyCollisionScripts = FindObjectsOfType <Enemies.Collision>();
+		guiManagerScripts = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManagerScript>();
 	}
 	
 	// Update is called once per frame
@@ -174,6 +176,7 @@ public class CatchManager : MonoBehaviour {
 				{
 					failCapture = true;
 					loseImage.enabled = true;
+					guiManagerScripts.canDisplayTutorialBlackScreen = false;
 					//captureScript.timeLimit = 0;
 
 					Debug.Log ("You Lose");

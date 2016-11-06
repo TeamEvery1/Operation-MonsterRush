@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
-		coinCounterText.text = "x " + playerCollision.coinCounter.ToString();
+		coinCounterText.text = playerCollision.coinCounter + " / 10";
 
 		SoundManagerScript.Instance.PlayLoopingBGM (AudioClipID.BGM_MAIN_MENU);
 
@@ -74,13 +74,13 @@ public class GameManager : MonoBehaviour
 	{
 		if(enemyCounter < maxEnemyCounter)
 		{
-			guiManager.canDisplay = false;
+			guiManager.canDisplayTutorialBlackScreen = false;
 		}
 	}
 
 	void FixedUpdate()
 	{
-		coinCounterText.text = "x " + playerCollision.coinCounter.ToString();
+		coinCounterText.text = playerCollision.coinCounter + "/" + playerCollision.maxCoinCounter;
 
 		enemyCounterText.text = enemyCounter.ToString();
 		if (enemyCounter <= 0) 
