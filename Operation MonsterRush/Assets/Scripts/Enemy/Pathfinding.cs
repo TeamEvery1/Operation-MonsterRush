@@ -531,10 +531,15 @@ namespace Enemies
 							recovering = false;
 						}
 					}
+					else if(enemyInfo.enemyStamina > 10.0f && VisibleTarget != null) // found by player when recovering 
+					{
+						recovering = false;
+					}
 				}
 			}
 			else if(enemyInfo.enemyExhaustion <= 0f)
 			{
+				anim.Play("Tired");
 				GPS.Stop();
 			}
 		}

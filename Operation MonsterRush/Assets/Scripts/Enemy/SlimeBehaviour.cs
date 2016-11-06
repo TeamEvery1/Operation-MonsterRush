@@ -45,32 +45,6 @@ namespace Enemies
 				enemyInfo.enemyStamina, enemyInfo.enemyMaxStamina, enemyInfo.staminaRcvrSpeed, enemyInfo.enemyMovementSpeed);
 		}
 
-		void Update()
-		{
-			if (Physics.Raycast (this.transform.position, Vector3.down, out hitInfo, ground))
-			{
-				if (hitInfo.collider.tag == "Ship")
-				{
-					this.transform.position = new Vector3 (hitInfo.transform.GetChild(0).transform.position.x, hitInfo.transform.position.y - 0.2f , hitInfo.transform.GetChild(0).position.z - 0.4f);
-					if (VisibleTarget == null)
-					{
-						Quaternion rotation = Quaternion.LookRotation ( hitInfo.transform.parent.GetComponent <RowController> ().patrolPoint[hitInfo.transform.parent.GetComponent <RowController> ().currentPoint].position - this.transform.position);
-						rotation.x = 0;
-						rotation.z = 0;
-
-						transform.rotation = Quaternion.Slerp (transform.rotation, rotation, 0.5f * Time.deltaTime);
-					}
-				}
-			}
-
-
-		}
-
-		void CloseUp()
-		{
-			timer = gooFireRate;
-		}
-
 		IEnumerator FindTargetsWithDelay(float delay)
 		{
 			while(true)
@@ -109,6 +83,46 @@ namespace Enemies
 			}
 			return new Vector3(Mathf.Sin(AngleInDegree * Mathf.Deg2Rad), 0 , Mathf.Cos(AngleInDegree * Mathf.Deg2Rad));
 		}
+
+		void Update()
+		{
+			if (Physics.Raycast (this.transform.position, Vector3.down, out hitInfo, ground))
+			{
+				if (hitInfo.collider.tag == "Ship")
+				{
+					this.transform.position = new Vector3 (hitInfo.transform.GetChild(0).transform.position.x, hitInfo.transform.position.y - 0.2f , hitInfo.transform.GetChild(0).position.z - 0.4f);
+					if (VisibleTarget == null)
+					{
+						Quaternion rotation = Quaternion.LookRotation ( hitInfo.transform.parent.GetComponent <RowController> ().patrolPoint[hitInfo.transform.parent.GetComponent <RowController> ().currentPoint].position - this.transform.position);
+						rotation.x = 0;
+						rotation.z = 0;
+
+						transform.rotation = Quaternion.Slerp (transform.rotation, rotation, 0.5f * Time.deltaTime);
+					}
+					else if(VisibleTarget != null)
+					{
+						transform.LookAt(VisibleTarget);
+						//timer += Time.deltaTime;
+						//if (timer >= gooFireRate) {
+						//	timer = 0.0f;
+							Debug.Log("as");
+							//Audio.PlayOneShot(ShootSound, 1f);
+							GameObject goo = (GameObject)Instantiate (bullet, this.transform.position, bullet.transform.rotation);
+							goo.GetComponent<Bullet> ().targetPos = VisibleTarget.position;
+						//}
+					}
+				}
+			}
+
+
+		}
+
+		void CloseUp()
+		{
+			timer = gooFireRate;
+		}
+
+
 
 	}
 }

@@ -23,11 +23,12 @@ public class VirtualJoyStickScripts : MonoBehaviour, IDragHandler, IPointerUpHan
 
 	private void Update()
 	{
-		if(canMove ==false)
+		if(canMove == false)
 		{
 			timer += Time.deltaTime;
 			if(timer >= delayTimer)
 			{
+				timer = 0.0f;
 				canMove = true;
 			}
 		}

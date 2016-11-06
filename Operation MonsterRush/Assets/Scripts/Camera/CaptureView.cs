@@ -163,7 +163,7 @@ namespace Cameras
 
 			foreach (Enemies.Pathfinding enemyPathfindingScript in enemyPathfindingScripts)
 			{
-				enemyPathfindingScript.GPS.speed = enemyPathfindingScript.enemyInfo.enemyMovementSpeed;
+				//enemyPathfindingScript.GPS.speed = enemyPathfindingScript.enemyInfo.enemyMovementSpeed;
 			}
 
 			foreach (GameObject obstacle in obstacles)
