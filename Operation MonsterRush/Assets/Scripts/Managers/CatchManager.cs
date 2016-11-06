@@ -57,7 +57,7 @@ public class CatchManager : MonoBehaviour {
 	public float closeImageCounter = 2;
 
 	public bool atStart =true;
-	public float timeLimit = 30;
+	public float timeLimit = 40;
 	public float timeLimitF;
 	public float timeLimitModifier;
 	private GUIManagerScript guiManagerScripts;

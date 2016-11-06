@@ -15,14 +15,24 @@ public class Button : MonoBehaviour
 
 	public void ChangeScene (string sceneName)
 	{
+		SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_BUTTONPRESSED1);
 		scene = sceneName;
 		Invoke ("ChangeSceneDelay",1.0f);
 	}
 
 	public void ChangePosition(GameObject obj)
 	{
+		SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_BUTTONPRESSED2);
 		gameObj = obj;
 		Invoke ("ChangePositionDelay", 1.0f);
+	}
+
+	public void BackspacePosition(GameObject obj)
+	{
+		SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_BACKSPACE);
+		obj.gameObject.SetActive(true);
+		obj.transform.position = mainMenu.transform.position;
+		this.transform.parent.parent.gameObject.SetActive(false);
 	}
 
 	public void Exit()

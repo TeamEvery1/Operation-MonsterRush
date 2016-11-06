@@ -35,6 +35,7 @@ public class GUIManagerScript : MonoBehaviour
 
 	//public CaptureCollider captureScript = null;
 	public Player.Combat playerCombatScript;
+	public Player.Controller playerControllerScript;
 	public Player.Movement playerMovementScript;
 	public Enemies.Collision enemyCollisionScript;
 	GameManager gameManagerScript;
@@ -73,6 +74,7 @@ public class GUIManagerScript : MonoBehaviour
 
 	void Awake () 
 	{
+		playerControllerScript = GameObject.FindObjectOfType <Player.Controller>();
 		//captureScript = GameObject.FindObjectOfType <CaptureCollider>();
 		playerCombatScript = GameObject.FindObjectOfType <Player.Combat>();
 		playerMovementScript = GameObject.FindObjectOfType <Player.Movement>();
@@ -129,6 +131,13 @@ public class GUIManagerScript : MonoBehaviour
 		{
 			loseConImage.gameObject.SetActive(true);
 		}
+
+		if (playerControllerScript.health <= 0) 
+		{
+			SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERDEATH);
+			loseConImage.gameObject.SetActive(true);
+		}
+
 
 		if (loseConImage.gameObject.activeSelf) 
 		{

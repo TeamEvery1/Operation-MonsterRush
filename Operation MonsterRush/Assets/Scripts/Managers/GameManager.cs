@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
 	{
 		coinCounterText.text = playerCollision.coinCounter + " / 10";
 
-		SoundManagerScript.Instance.PlayLoopingBGM (AudioClipID.BGM_MAIN_MENU);
+		SoundManagerScript.Instance.PlayLoopingBGM (AudioClipID.BGM_BATTLE);
 
 
 		enemies = GameObject.FindGameObjectsWithTag ("Enemy");

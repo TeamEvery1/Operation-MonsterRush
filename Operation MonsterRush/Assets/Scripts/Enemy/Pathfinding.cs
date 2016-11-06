@@ -323,6 +323,8 @@ namespace Enemies
 				//!proceeed Escape cycle action
 				if(sawPlayer == true)
 				{
+					SoundManagerScript.Instance.PlayLoopingSFX (AudioClipID.SFX_MONSTERALERT);
+
 					//if(monsterSelection.monsterType != "slime")
 					//{
 					//Debug.Log("Escape");
@@ -359,6 +361,8 @@ namespace Enemies
 						{
 							GPS.SetDestination(new Vector3(startX, startY, startZ));
 							sawPlayer = false;
+							SoundManagerScript.Instance.StopLoopingSFX (AudioClipID.SFX_MONSTERALERT);
+
 						}
 					}
 					else if(VisibleTarget != null)

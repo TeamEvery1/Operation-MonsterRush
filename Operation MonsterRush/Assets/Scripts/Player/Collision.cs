@@ -5,6 +5,7 @@ namespace Player
 {
 	public class Collision : MonoBehaviour 
 	{
+		public Player.Combat playerCombatScript;
 		Player.Controller playerControllerScript;
 		public Player.Health playerHealthScript;
 		public int coinCounter;
@@ -17,6 +18,7 @@ namespace Player
 		{
 			coinCounter = 0;
 			maxCoinCounter = 10;
+			playerCombatScript = GetComponent <Player.Combat> ();
 			playerControllerScript = GetComponent <Player.Controller> ();
 			playerHealthScript = GameObject.FindGameObjectWithTag("GUIManager").transform.FindChild("Player UI").GetComponent <Player.Health> ();
 			guiScript = FindObjectOfType <GUIManagerScript>();
@@ -43,8 +45,30 @@ namespace Player
 				Destroy(other.gameObject);
 			}
 
+			if(other.CompareTag("Enemy"))
+			{
+				if (playerCombatScript.mode==0) {
+					if (playerCombatScript.gauntlet.AttackCounter == 1) {
+						SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERATK1);
+					}
+					if (playerCombatScript.gauntlet.AttackCounter == 2) {
+						SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERATK2);
+					}
+					if (playerCombatScript.gauntlet.AttackCounter == 3) {
+						SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERATK3);
+					}
+				} 
+				else if (playerCombatScript.mode == 1) 
+				{
+					SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERCAPTURE);
+				}
+			}
+
+
 			if(other.CompareTag("Coconut"))
 			{
+				SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_HITTREE);
+
 				if(other.GetComponent<CoconutBehaviors>().coconutName == "Coconut01")
 				{
 					if(other.GetComponent<CoconutBehaviors>().coconut01 == true)

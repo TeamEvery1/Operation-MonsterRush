@@ -78,6 +78,8 @@ namespace Cameras
 			{
 				if(enemyCollisionScript.isCollided)
 				{
+					SoundManagerScript.Instance.PlayLoopingSFX (AudioClipID.SFX_PLAYERCAPTUREDURATION);
+
 					isCollided = true;
 					autoCamScript.enabled = false;
 					target = enemyCollisionScript.gameObject;
@@ -96,13 +98,15 @@ namespace Cameras
 
 					if(catchManagerScript.successCapture||catchManagerScript.failCapture)
 					{
+						SoundManagerScript.Instance.StopLoopingSFX (AudioClipID.SFX_PLAYERCAPTUREDURATION);
 						if (catchManagerScript.successCapture) 
 						{
+							SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERCAPTURESUCCESS);
 							gameManagerScript.enemyCounter --;
 							target.gameObject.SetActive (false);
 						}
 						enemyCollisionScript.isCollided = false;
-						catchManagerScript.timeLimit = 20;
+						catchManagerScript.timeLimit = 40;
 						catchManagerScript.timeLimitModifier = 0;
 						catchManagerScript.enemyCollided = false;
 						catchManagerScript.captureMode = false;

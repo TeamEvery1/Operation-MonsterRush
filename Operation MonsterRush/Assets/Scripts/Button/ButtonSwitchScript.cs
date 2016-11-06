@@ -31,7 +31,7 @@ public class ButtonSwitchScript : MonoBehaviour {
 	public void OnMouseDown()
 	{
 		
-		SoundManagerScript.Instance.PlaySFX(AudioClipID.SFX_BUTTONPRESSED);
+		SoundManagerScript.Instance.PlaySFX(AudioClipID.SFX_BUTTONPRESSED1);
 		//thisImage.sprite = this.spriteList[2];
 	}
 }

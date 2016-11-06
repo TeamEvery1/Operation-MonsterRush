@@ -76,6 +76,7 @@ namespace Player
 			if(movement.magnitude > 1)
 			{
 				movement.Normalize();
+				SoundManagerScript.Instance.PlayLoopingSFX (AudioClipID.SFX_PLAYERWALK);
 			}
 
 			//Changed to local space to make everything literally rotates and moves around character
@@ -200,6 +201,7 @@ namespace Player
 					onGround = false;
 					onHigherGround = false;
 					myRB.velocity = new Vector3 (0, jumpForce, 0);
+					SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERJUMP);
 				}
 				else
 				{

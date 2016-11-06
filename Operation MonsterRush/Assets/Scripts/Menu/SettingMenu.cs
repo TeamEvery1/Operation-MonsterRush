@@ -27,4 +27,10 @@ public class SettingMenu : MonoBehaviour
 		AudioListener.volume = totalSlider.value;
 	}
 
+	public void SlideSound()
+	{
+		SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_SOUNDCHECK);
+	}
+
+
 }

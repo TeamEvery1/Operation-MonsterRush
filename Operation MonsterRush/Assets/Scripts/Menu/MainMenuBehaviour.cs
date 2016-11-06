@@ -15,6 +15,7 @@ public class MainMenuBehaviour : MonoBehaviour
 
 	void Update () 
 	{
+		SoundManagerScript.Instance.PlayLoopingBGM (AudioClipID.BGM_MAIN_MENU);
 		if (delayTimer > delayDuration)
 		{
 			delayTimer = 0f;
