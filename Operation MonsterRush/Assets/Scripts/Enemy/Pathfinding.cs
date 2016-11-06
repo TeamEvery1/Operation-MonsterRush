@@ -250,7 +250,7 @@ namespace Enemies
 				}
 				else
 				{
- 					rotation = new Vector3(wanderPoint[RandomDes].position.x , wanderPoint[RandomDes].position.y , wanderPoint[RandomDes].position.z);
+					rotation = new Vector3(wanderPoint[RandomDes].position.x , wanderPoint[RandomDes].position.y , wanderPoint[RandomDes].position.z);
 					GPS.SetDestination(rotation);
 				}
 			}
@@ -266,7 +266,7 @@ namespace Enemies
 			GPS.destination = desPoint[RandomDes].position;
 			if(monsterSelection.monsterType == "disgusting")
 			{
-				viewAngle = 120.0f;
+				viewAngle = 180.0f;
 				GPS.baseOffset = -0.26f;
 			}
 			/*else if(monsterSelection.monsterType == "slime")
@@ -279,7 +279,7 @@ namespace Enemies
 		void Update () 
 		{
 			//rotation.y = this.transform.position.y;
-				
+
 			//transform.LookAt (rotation);
 
 
@@ -291,10 +291,10 @@ namespace Enemies
 				{
 					//if(monsterSelection.monsterType != "slime")
 					//{
-						
-						GPS.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
 
-						IsKnockBacking = true;
+					GPS.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
+
+					IsKnockBacking = true;
 					//}
 					/*else
 					{
@@ -313,16 +313,9 @@ namespace Enemies
 				if(IsKnockBacking == true)
 				{
 
-					if(GPS.remainingDistance <= 1.5f)
+					if(GPS.remainingDistance <= 1.0f)
 					{
-						if(monsterSelection.monsterType == "bird")
-						{
-							anim.Play("Hit");
-						}
-						else
-						{
-							CloseUp();
-						}
+						anim.Play("Attack");
 					}
 				}
 
@@ -345,10 +338,7 @@ namespace Enemies
 						{
 							//Debug.Log("stamina: " + Stamina);
 							enemyInfo.enemyStamina -= Time.deltaTime;
-							if(monsterSelection.monsterType == "disgusting")
-							{
-								anim.Play("Walk");
-							}
+							anim.Play("Walk");
 							/*else if(monsterSelection.monsterType == "bean")
 							{
 								anim.Play("Walk");
@@ -376,7 +366,7 @@ namespace Enemies
 						timer = 0.0f;
 					}
 				}
-					/*else if(monsterSelection.monsterType == "slime") //! Split goo
+				/*else if(monsterSelection.monsterType == "slime") //! Split goo
 					{
 						//Debug.Log("bean");
 						if(VisibleTarget != null)
@@ -451,8 +441,8 @@ namespace Enemies
 							{
 								//Debug.Log("stamina: " + Stamina);
 								anim.Play("Walk");
-			
-								enemyInfo.enemyStamina -= Time.deltaTime *3.0f;
+
+								enemyInfo.enemyStamina -= Time.deltaTime /*3.0f*/;
 
 								//!Monster Tired Condition (after 50% stamina consume)
 								if(monsterSelection.monsterType == "penguin")
