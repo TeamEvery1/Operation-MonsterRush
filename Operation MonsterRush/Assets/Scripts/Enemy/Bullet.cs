@@ -8,17 +8,19 @@ public class Bullet : MonoBehaviour {
 	public float Speed;
 	public float Delay = 1.0f;
 	float timer;
+	Rigidbody rigid;
 
 	// Use this for initialization
 	void Start () {
+		rigid = this.gameObject.GetComponent<Rigidbody>();
 		Direction = Vector3.Normalize(targetPos - transform.position);
 	}
 
 	// Update is called once per frame
 	void Update () {
 
-		transform.Translate (Direction * Speed, Space.World);
 
+		//Vector3.MoveTowards(transform.position, targetPos, 10.0f);
 		timer += Time.deltaTime;
 
 		if(timer >= Delay) {

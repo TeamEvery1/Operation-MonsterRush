@@ -44,6 +44,10 @@ namespace Enemies
 			slime = new Enemies.Character (enemyInfo.enemyExhaustion, enemyInfo.enemyMaxExhaustion, enemyInfo.enemyHealth, enemyInfo.enemyMaxHealth, 
 				enemyInfo.enemyStamina, enemyInfo.enemyMaxStamina, enemyInfo.staminaRcvrSpeed, enemyInfo.enemyMovementSpeed);
 		}
+		void Start()
+		{
+			StartCoroutine("FindTargetsWithDelay", .2f);
+		}
 
 		IEnumerator FindTargetsWithDelay(float delay)
 		{
@@ -99,21 +103,22 @@ namespace Enemies
 
 						transform.rotation = Quaternion.Slerp (transform.rotation, rotation, 0.5f * Time.deltaTime);
 					}
-					else if(VisibleTarget != null)
-					{
-						transform.LookAt(VisibleTarget);
-						//timer += Time.deltaTime;
-						//if (timer >= gooFireRate) {
-						//	timer = 0.0f;
-							Debug.Log("as");
-							//Audio.PlayOneShot(ShootSound, 1f);
-							GameObject goo = (GameObject)Instantiate (bullet, this.transform.position, bullet.transform.rotation);
-							goo.GetComponent<Bullet> ().targetPos = VisibleTarget.position;
-						//}
-					}
+					//else 
 				}
 			}
 
+			if(VisibleTarget != null)
+			{
+				transform.LookAt(VisibleTarget);
+				//timer += Time.deltaTime;
+				//if (timer >= gooFireRate) {
+				//	timer = 0.0f;
+				//Audio.PlayOneShot(ShootSound, 1f);
+				GameObject goo = (GameObject)Instantiate (bullet, this.transform.position, bullet.transform.rotation);
+				goo.GetComponent<Bullet> ().targetPos = VisibleTarget.position;
+				goo.GetComponent<Rigidbody>().AddForce((VisibleTarget.position- goo.transform.position).normalized * 3.0f);
+				//}
+			}
 
 		}
 
