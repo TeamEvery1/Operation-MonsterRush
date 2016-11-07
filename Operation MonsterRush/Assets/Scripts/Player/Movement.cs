@@ -34,6 +34,7 @@ namespace Player
 		private float turnRatio;
 		private float forwardRatio;
 		private float jumpTimer;
+		public float climbRatio;
 		//private float defGroundCheckDistance;
 		private float runCycleLegOffset = 0.0f;
 
@@ -131,6 +132,7 @@ namespace Player
 			myAnim.SetFloat("turnRatio", turnRatio, 0.1f, Time.deltaTime);
 			myAnim.SetBool("onGround", onGround);
 			myAnim.SetBool("isSwimming", isSwimming);
+			myAnim.SetFloat("climbRatio", climbRatio, 0.1f, Time.deltaTime);
 
 			float runCycle = Mathf.Repeat(myAnim.GetCurrentAnimatorStateInfo(0).normalizedTime + runCycleLegOffset, 1);
 			float jumpPosition = (runCycle < 0.5f ? 1 : -1) * forwardRatio;
@@ -228,17 +230,24 @@ namespace Player
 			}
 			else if(iKSnapScript.isClimbing)
 			{
-				myRB.velocity = new Vector3 (0, 0, 0);
 				myAnim.Play("Climbing");
-
-				myRB.useGravity = false;
+				myRB.velocity = new Vector3 (0, 0, 0);
+				if(iKSnapScript.isClimbing == true && iKSnapScript.isClimbingUp == false)
+				{
+					climbRatio = 0.5f;
+				}
+				else if(iKSnapScript.isClimbing == true && iKSnapScript.isClimbingUp == true)
+				{
+					climbRatio = 1.5f;
+				}
 
 				//Invoke ("ClimbingPosition", 0.5f);
 			}
 			else
 			{
-				myRB.useGravity = false;
 				onGround = true;
+				iKSnapScript.useIK = true;
+				//myAnim.Play("Grounded Movement");
 				v.y = 0;
 			}
 
@@ -275,6 +284,13 @@ namespace Player
 			{
 				isSwimming = false;
 			}
+		}
+
+		void EndAnimation()
+		{
+			iKSnapScript.isClimbing = false;
+			iKSnapScript.isClimbingUp = false;
+			myAnim.Play("Grounded Movement");
 		}
 	}
 }

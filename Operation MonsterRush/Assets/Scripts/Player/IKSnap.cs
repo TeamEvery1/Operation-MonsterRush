@@ -11,6 +11,7 @@ public class IKSnap : MonoBehaviour
 	public bool rightFootIK = false;
 
 	public bool isClimbing = false;
+	public bool isClimbingUp = false;
 
 	public Vector3 leftHandPos;
 	public Vector3 rightHandPos;
@@ -236,7 +237,9 @@ public class IKSnap : MonoBehaviour
 		{
 			if(Input.GetKeyDown(KeyCode.B))
 			{
-				this.transform.position = new Vector3(leftHandtHitInfo.point.x, leftHandtHitInfo.point.y,  leftHandtHitInfo.point.z);
+				useIK = false;
+				isClimbingUp = true;
+				//this.transform.position = new Vector3(leftHandtHitInfo.point.x, leftHandtHitInfo.point.y,  leftHandtHitInfo.point.z);
 			}
 		}
 	}
