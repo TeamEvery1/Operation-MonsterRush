@@ -8,9 +8,9 @@ public class SettingMenu : MonoBehaviour
 
 	void Awake()
 	{
-		totalSlider = this.transform.Find ("Slider").gameObject.GetComponent <Slider>();
-		bgmSlider = this.transform.Find ("Slider (1)").gameObject.GetComponent <Slider>();
-		sfxSlider = this.transform.Find ("Slider (2)").gameObject.GetComponent <Slider>();
+		totalSlider = this.transform.Find ("Master Slider").gameObject.GetComponent <Slider>();
+		bgmSlider = this.transform.Find ("BGM Slider").gameObject.GetComponent <Slider>();
+		sfxSlider = this.transform.Find ("SFX Slider").gameObject.GetComponent <Slider>();
 	}
 
 	void Start()
