@@ -88,7 +88,7 @@ namespace Player
 				myAnim.SetBool ("onScan", true);
 				myAnim.SetLayerWeight (1, 1.0f);
 
-				Invoke ("ScanAnimation", 2.0f);
+				Invoke ("ScanAnimation", 1.5f);
 			}
 		
 			myAnim.applyRootMotion = false;

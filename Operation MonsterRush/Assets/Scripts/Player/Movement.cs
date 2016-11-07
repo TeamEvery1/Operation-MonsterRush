@@ -167,7 +167,7 @@ namespace Player
 				 
 				myRB.velocity = v;
 			}
-			else if(isSwimming)
+			else if(isSwimming && Time.deltaTime > 0)
 			{
 				Vector3 moveForward = transform.forward * myAnim.GetFloat("motionZ") * Time.deltaTime;
 				v = ((myAnim.deltaPosition + moveForward) * movementSpeedMultiplier * 1.3f / Time.deltaTime);
@@ -203,6 +203,7 @@ namespace Player
 					onGround = false;
 					onHigherGround = false;
 					myRB.velocity = new Vector3 (0, jumpForce, 0);
+					myRB.useGravity = false;
 					SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERJUMP);
 				}
 				else
@@ -217,20 +218,26 @@ namespace Player
 				myRB.velocity = new Vector3 (playerControllerScript.direction.x * jumpForce / 1.5f, myRB.velocity.y , playerControllerScript.direction.z * jumpForce / 1.5f);
 
 				myRB.AddForce (extraGravityForce);
+
+				myRB.useGravity = false;
 			}
 			else if(!Grounded() && onGround && !isSwimming && !iKSnapScript.isClimbing)
 			{
-				myRB.velocity = new Vector3 (playerControllerScript.direction.x * jumpForce / 1.5f, -fallingMultiplier * gravityMultiplier / 3.35f , playerControllerScript.direction.z * jumpForce / 1.5f);
+				//myRB.velocity = new Vector3 (playerControllerScript.direction.x * jumpForce / 1.5f, -fallingMultiplier * gravityMultiplier / 3.35f , playerControllerScript.direction.z * jumpForce / 1.5f);
+				myRB.useGravity = true;
 			}
 			else if(iKSnapScript.isClimbing)
 			{
 				myRB.velocity = new Vector3 (0, 0, 0);
 				myAnim.Play("Climbing");
 
+				myRB.useGravity = false;
+
 				//Invoke ("ClimbingPosition", 0.5f);
 			}
 			else
 			{
+				myRB.useGravity = false;
 				onGround = true;
 				v.y = 0;
 			}
