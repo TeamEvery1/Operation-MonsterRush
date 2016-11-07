@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
 	private const float DefaultSpeed = 1.0f;
 	public float? Speed;
 	public float Delay = 10.0f;
+	public float GooDmg = 1.0f;
 	float timer;
 	Rigidbody rigid;
 
@@ -41,5 +42,15 @@ public class Bullet : MonoBehaviour
 			timer = 0;
 			Destroy(this.gameObject);
 		}
+	}
+
+	void OnTriggerEnter(Collider other) 
+	{
+		if(other.CompareTag("Player"))
+		{
+			other.GetComponent<Player.Controller>().health -= GooDmg;
+			Destroy(this.gameObject);
+		}
+
 	}
 }

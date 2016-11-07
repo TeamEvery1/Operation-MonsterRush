@@ -67,10 +67,7 @@ public class VirtualJoyStickScripts : MonoBehaviour, IDragHandler, IPointerUpHan
 
 	public virtual void OnPointerUp(PointerEventData ped)
 	{
-		if(canMove == true)
-		{
 			InputDirection = Vector3.zero;
 			joystickImg.rectTransform.anchoredPosition = Vector3.zero;
-		}
 	}
 }
