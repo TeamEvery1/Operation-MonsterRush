@@ -25,7 +25,7 @@ namespace Enemies
 		public Transform target;
 		[HideInInspector] public Transform VisibleTarget = null;
 	
-		public GameObject bullet;
+		private GameObject bullet;
 		public float gooFireRate;
 
 		public float viewRadius;
@@ -43,6 +43,8 @@ namespace Enemies
 		{
 			slime = new Enemies.Character (enemyInfo.enemyExhaustion, enemyInfo.enemyMaxExhaustion, enemyInfo.enemyHealth, enemyInfo.enemyMaxHealth, 
 				enemyInfo.enemyStamina, enemyInfo.enemyMaxStamina, enemyInfo.staminaRcvrSpeed, enemyInfo.enemyMovementSpeed);
+
+			bullet = (GameObject) Resources.Load ("Prefabs/Monsters/Goo");
 		}
 		void Start()
 		{
@@ -114,7 +116,7 @@ namespace Enemies
 				//if (timer >= gooFireRate) {
 				//	timer = 0.0f;
 				//Audio.PlayOneShot(ShootSound, 1f);
-				GameObject goo = (GameObject)Instantiate (bullet, this.transform.position, bullet.transform.rotation);
+				GameObject goo = (GameObject)Instantiate (bullet, new Vector3 (this.transform.position.x + 0.2f, this.transform.position.y + 0.6f, this.transform.position.z) , Quaternion.identity);
 				goo.GetComponent<Bullet> ().targetPos = VisibleTarget.position;
 				goo.GetComponent<Rigidbody>().AddForce((VisibleTarget.position- goo.transform.position).normalized * 3.0f);
 				//}

@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
+#if UNITY_EDITOR
 [CustomEditor (typeof (LevelEditor))]
+
 public class CustomLevelEditor : Editor 
 {
 	enum displayFieldType {DisplayAsAutomaticFields, DisplayAsCustomizableGUIFields}
@@ -229,3 +233,4 @@ public class CustomLevelEditor : Editor
 		}
 	}
 }
+#endif
