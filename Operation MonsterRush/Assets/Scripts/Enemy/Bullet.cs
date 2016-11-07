@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
 
 	private const float DefaultSpeed = 1.0f;
 	public float? Speed;
-	public float Delay = 1.0f;
+	public float Delay = 10.0f;
 	float timer;
 	Rigidbody rigid;
 
@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		this.transform.position = Vector3.MoveTowards(this.transform.position, targetPos, 3.0f * Time.deltaTime);
+		this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(targetPos.x,targetPos.y + 0.5f, targetPos.z), 3.0f * Time.deltaTime);
 		//rigid.AddForce((targetPos - this.transform.position).normalized * 3.0f);
 		//Vector3.MoveTowards(transform.position, targetPos, 10.0f);*/
 

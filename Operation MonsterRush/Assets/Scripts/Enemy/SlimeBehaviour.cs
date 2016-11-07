@@ -112,14 +112,14 @@ namespace Enemies
 			if(VisibleTarget != null)
 			{
 				transform.LookAt(VisibleTarget);
-				//timer += Time.deltaTime;
-				//if (timer >= gooFireRate) {
-				//	timer = 0.0f;
+				timer += Time.deltaTime;
+				if (timer >= gooFireRate) {
+					timer = 0.0f;
 				//Audio.PlayOneShot(ShootSound, 1f);
 				GameObject goo = (GameObject)Instantiate (bullet, new Vector3 (this.transform.position.x + 0.2f, this.transform.position.y + 0.6f, this.transform.position.z) , Quaternion.identity);
 				goo.GetComponent<Bullet> ().targetPos = VisibleTarget.position;
-				goo.GetComponent<Rigidbody>().AddForce((VisibleTarget.position- goo.transform.position).normalized * 3.0f);
-				//}
+				//goo.GetComponent<Rigidbody>().AddForce((VisibleTarget.position- goo.transform.position).normalized * 3.0f);
+				}
 			}
 
 		}
