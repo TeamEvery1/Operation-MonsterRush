@@ -109,7 +109,7 @@ namespace Enemies
 				}
 			}
 
-			if(VisibleTarget != null)
+			if(VisibleTarget != null && enemyInfo.enemyExhaustion > 0f)
 			{
 				transform.LookAt(VisibleTarget);
 				timer += Time.deltaTime;
