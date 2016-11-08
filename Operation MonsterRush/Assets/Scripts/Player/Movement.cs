@@ -38,7 +38,7 @@ namespace Player
 		//private float defGroundCheckDistance;
 		private float runCycleLegOffset = 0.0f;
 
-		private VirtualJoyStickScripts moveJoyStick;
+		public VirtualJoyStickScripts moveJoyStick;
 		private IKSnap iKSnapScript;
 		private Player.Controller playerControllerScript;
 
@@ -60,11 +60,17 @@ namespace Player
 
 			iKSnapScript = GetComponent <IKSnap> ();
 			playerControllerScript = GetComponent <Player.Controller>();
+
 		}
 
 		private void FixedUpdate()
 		{
 			Jump();
+
+			if(moveJoyStick.canMove == false)
+			{
+				myAnim.Play("DamageDown");
+			}
 
 			/*if(canJump)
 				myRB.velocity = transform.TransformDirection(v);*/
@@ -290,6 +296,12 @@ namespace Player
 		{
 			iKSnapScript.isClimbing = false;
 			iKSnapScript.isClimbingUp = false;
+			myAnim.Play("Grounded Movement");
+		}
+
+		void AnimationEnd()
+		{
+			moveJoyStick.canMove = false;
 			myAnim.Play("Grounded Movement");
 		}
 	}
