@@ -6,6 +6,7 @@ namespace Enemies
 	public class Collision : MonoBehaviour 
 	{
 		Pathfinding enemyPathfindingScript;
+		SlimeBehaviour slimePathfindingScript;
 		Player.Controller playerControllerScript;
 		//CaptureCollider captureScript;
 		//GUIManagerScript guiScript;
@@ -17,6 +18,7 @@ namespace Enemies
 
 		void Awake()
 		{
+			slimePathfindingScript = GetComponent <Enemies.SlimeBehaviour>();
 			enemyPathfindingScript = GetComponent <Enemies.Pathfinding>();
 			playerControllerScript = FindObjectOfType <Player.Controller>();
 			//captureScript = FindObjectOfType <CaptureCollider>();
@@ -38,9 +40,24 @@ namespace Enemies
 		{
 			if (other.CompareTag ("PlayerDamageCollider"))
 			{
-				enemyPathfindingScript.enemyInfo.enemyExhaustion -= playerControllerScript.damage;
+				if (gameObject.tag == "Slime") 
+				{
+					slimePathfindingScript.enemyInfo.enemyExhaustion -= playerControllerScript.damage;
+				} 
+				else 
+				{
+					enemyPathfindingScript.enemyInfo.enemyExhaustion -= playerControllerScript.damage;
+				}
 
-				if(enemyPathfindingScript.enemyInfo.enemyExhaustion <= 0)
+
+				if (gameObject.tag == "Slime") 
+				{
+					if (slimePathfindingScript.enemyInfo.enemyExhaustion <= 0) 
+					{
+						slimePathfindingScript.enemyInfo.enemyExhaustion = 0;
+					}
+				}
+				else if(enemyPathfindingScript.enemyInfo.enemyExhaustion <= 0)
 				{
 					enemyPathfindingScript.enemyInfo.enemyExhaustion = 0;
 				}
@@ -49,10 +66,17 @@ namespace Enemies
 			else if (other.CompareTag ("PlayerCatchCollider")) 
 			{
 				//if (enemyPathfindingScript.enemyExhaustion <= 0) 
-
+				if (gameObject.tag == "Slime") 
+				{
+					enemyExhaustInfo = slimePathfindingScript.enemyInfo.enemyExhaustion;
+					slimePathfindingScript.enemyInfo.enemyMovementSpeed = 0;
+				} 
+				else 
+				{
+					enemyExhaustInfo = enemyPathfindingScript.enemyInfo.enemyExhaustion;
+					enemyPathfindingScript.GPS.speed = 0;
+				}
 				isCollided = true;
-				enemyExhaustInfo = enemyPathfindingScript.enemyInfo.enemyExhaustion;
-				enemyPathfindingScript.GPS.speed = 0;
 				catchScript.fillUpMetre += 1;
 
 			} 
