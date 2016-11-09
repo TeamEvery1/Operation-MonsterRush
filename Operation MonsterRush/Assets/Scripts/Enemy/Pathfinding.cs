@@ -60,6 +60,7 @@ namespace Enemies
 
 		GameObject player;
 		float Dist;
+		bool InsideRange = false;
 		bool IsKnockBacking;
 
 		Animator anim;
@@ -264,15 +265,52 @@ namespace Enemies
 			timer = 0.0f;
 			RandomDes = Random.Range(0,3);
 			GPS.destination = desPoint[RandomDes].position;
-			if(monsterSelection.monsterType == "disgusting")
-			{
-				viewAngle = 180.0f;
-				GPS.baseOffset = -0.26f;
-			}
+
 			/*else if(monsterSelection.monsterType == "slime")
 			{
 				timer = gooFireRate;
 			}*/
+		}
+
+		public void Alert()
+		{
+			//if(monsterSelection.monsterType != "slime")
+			//{
+			if(monsterSelection.monsterType == "penguin")
+			{
+				GPS.speed = enemyInfo.enemyMovementSpeed;
+			}
+			else if(monsterSelection.monsterType == "bird")
+			{
+				GPS.speed = enemyInfo.enemyMovementSpeed;
+			}
+			else if(monsterSelection.monsterType == "bean")
+			{
+				GPS.speed = enemyInfo.enemyMovementSpeed;
+			}
+			else if(monsterSelection.monsterType == "disgusting")
+			{
+				GPS.speed = enemyInfo.enemyMovementSpeed;
+			}
+
+
+
+			GPS.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
+
+			IsKnockBacking = true;
+
+			anim.speed = 1.0f;
+			//}
+			/*else
+					{
+						sawPlayer = true;
+						timer = 0.0f;
+						if(monsterSelection.monsterType == "penguin")
+						{
+							RandomDes = Random.Range(0,3);
+							GPS.destination = desPoint[RandomDes].position;
+						}
+					}*/
 		}
 
 		// Update is called once per frame
@@ -283,29 +321,18 @@ namespace Enemies
 			//transform.LookAt (rotation);
 
 
-			if(enemyInfo.enemyExhaustion > 0f)
+			if(recovering == false)
 			{
 
 				//! First action when face target
 				if(VisibleTarget != null && sawPlayer == false && IsKnockBacking == false)
 				{
-					//if(monsterSelection.monsterType != "slime")
-					//{
-
-					GPS.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
-
-					IsKnockBacking = true;
-					//}
-					/*else
+					if(monsterSelection.monsterType == "disgusting")
 					{
-						sawPlayer = true;
-						timer = 0.0f;
-						if(monsterSelection.monsterType == "penguin")
-						{
-							RandomDes = Random.Range(0,3);
-							GPS.destination = desPoint[RandomDes].position;
-						}
-					}*/
+						GPS.baseOffset = -0.26f;
+					}
+					anim.speed = 1.5f;
+					anim.Play("Alert");
 
 				}
 
@@ -324,7 +351,7 @@ namespace Enemies
 				if(sawPlayer == true)
 				{
 					SoundManagerScript.Instance.PlayLoopingSFX (AudioClipID.SFX_MONSTERALERT);
-
+					viewAngle = 360.0f;
 					//if(monsterSelection.monsterType != "slime")
 					//{
 					//Debug.Log("Escape");
@@ -359,8 +386,10 @@ namespace Enemies
 						timer += Time.deltaTime;
 						if(timer >= safeToBackTimer)
 						{
+							timer = 0.0f;
 							GPS.SetDestination(new Vector3(startX, startY, startZ));
 							sawPlayer = false;
+							viewAngle = 200.0f;
 							SoundManagerScript.Instance.StopLoopingSFX (AudioClipID.SFX_MONSTERALERT);
 
 						}
@@ -397,17 +426,18 @@ namespace Enemies
 				{
 					Dist = Vector3.Distance(new Vector3(startX, startY, startZ), new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
 
-					if(Dist <= viewRadius)
+					if(Dist <= viewRadius && InsideRange == false)
 					{
-						timer += Time.deltaTime;
-						if(timer >= 5.0f)
+						InsideRange = true;
+						if(Random.Range(0.0f, 1.0f) >= 0.7f)
 						{
-							timer = 0.0f;
-							if(Random.Range(0.0f, 1.0f) > 0.9f)
-							{
-								transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
-							}
+							GPS.speed = 0.0f;
+							transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
 						}
+					}
+					else if( Dist > viewRadius)
+					{
+						InsideRange = false;
 					}
 
 					if(monsterSelection.monsterType == "disgusting")
@@ -416,7 +446,6 @@ namespace Enemies
 						{
 							anim.Play("Idle");
 							GPS.baseOffset = -1.46f;
-							viewAngle = 360.0f;
 						}
 					}
 					/*else if(monsterSelection.monsterType == "slime")
@@ -487,7 +516,7 @@ namespace Enemies
 
 
 				}
-
+			}
 				//! Recovering stamina
 				if(recovering == true)
 				{
@@ -540,7 +569,7 @@ namespace Enemies
 						recovering = false;
 					}
 				}
-			}
+			
 			else if(enemyInfo.enemyExhaustion <= 0f)
 			{
 				anim.Play("Tired");
