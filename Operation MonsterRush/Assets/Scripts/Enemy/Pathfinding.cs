@@ -204,7 +204,16 @@ namespace Enemies
 
 					if(!Physics.Raycast(transform.position, dirToTarget, DstToTarget, ObstacleLayer))
 					{
-						VisibleTarget = target;
+						if( transform.position.y <= target.transform.position.y )
+						{
+							VisibleTarget = null;
+
+						}
+						else
+						{
+							VisibleTarget = target;
+						}
+
 					}
 				}
 			}
@@ -297,14 +306,8 @@ namespace Enemies
 
 			GPS.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
 
-			if(GPS.transform.position.y  <= player.transform.position.y)
-			{
-				IsKnockBacking = false;
-			}
-			else
-			{
-				IsKnockBacking = true;
-			}
+
+			IsKnockBacking = true;
 
 			anim.speed = 1.0f;
 			//}
