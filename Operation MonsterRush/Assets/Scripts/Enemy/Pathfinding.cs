@@ -61,7 +61,7 @@ namespace Enemies
 		GameObject player;
 		float Dist;
 		bool InsideRange = false;
-		bool IsKnockBacking;
+		public bool IsKnockBacking;
 
 		Animator anim;
 
@@ -297,7 +297,14 @@ namespace Enemies
 
 			GPS.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
 
-			IsKnockBacking = true;
+			if(GPS.transform.position.y  <= player.transform.position.y)
+			{
+				IsKnockBacking = false;
+			}
+			else
+			{
+				IsKnockBacking = true;
+			}
 
 			anim.speed = 1.0f;
 			//}
@@ -339,7 +346,6 @@ namespace Enemies
 				//!proceed Close-Up action
 				if(IsKnockBacking == true)
 				{
-
 					if(GPS.remainingDistance <= 1.0f)
 					{
 						anim.Play("Attack");
