@@ -168,19 +168,22 @@ namespace Player
 
 		public void OnAnimatorMove()
 		{
-			if((Grounded() || UpperGrounded()) && Time.deltaTime > 0 && !isSwimming)
+			if(moveJoyStick.canMove)
 			{
-				Vector3 moveForward = transform.forward * myAnim.GetFloat("motionZ") * objectVelocity * Time.deltaTime;
-				v = ((myAnim.deltaPosition + moveForward) * movementSpeedMultiplier * 1.3f / Time.deltaTime);
-				 
-				myRB.velocity = v;
-			}
-			else if(isSwimming && Time.deltaTime > 0)
-			{
-				Vector3 moveForward = transform.forward * myAnim.GetFloat("motionZ") * Time.deltaTime;
-				v = ((myAnim.deltaPosition + moveForward) * movementSpeedMultiplier * 1.3f / Time.deltaTime);
+				if((Grounded() || UpperGrounded()) && Time.deltaTime > 0 && !isSwimming)
+				{
+					Vector3 moveForward = transform.forward * myAnim.GetFloat("motionZ") * objectVelocity * Time.deltaTime;
+					v = ((myAnim.deltaPosition + moveForward) * movementSpeedMultiplier * 1.3f / Time.deltaTime);
+					 
+					myRB.velocity = v;
+				}
+				else if(isSwimming && Time.deltaTime > 0)
+				{
+					Vector3 moveForward = transform.forward * myAnim.GetFloat("motionZ") * Time.deltaTime;
+					v = ((myAnim.deltaPosition + moveForward) * movementSpeedMultiplier * 1.3f / Time.deltaTime);
 
-				myRB.velocity = v;
+					myRB.velocity = v;
+				}
 			}
 		}
 
@@ -210,6 +213,7 @@ namespace Player
 					canJump = false;
 					onGround = false;
 					onHigherGround = false;
+					GetComponent <Player.Combat> ().targetLock = false;
 					myRB.velocity = new Vector3 (0, jumpForce, 0);
 					myRB.useGravity = false;
 					SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERJUMP);
@@ -238,6 +242,7 @@ namespace Player
 			{
 				myAnim.Play("Climbing");
 				myRB.velocity = new Vector3 (0, 0, 0);
+				myRB.useGravity = false;
 				if(iKSnapScript.isClimbing == true && iKSnapScript.isClimbingUp == false)
 				{
 					climbRatio = 0.5f;
@@ -281,6 +286,7 @@ namespace Player
 				isSwimming = true;
 				this.transform.position = new Vector3 (this.transform.position.x , 6.825f, this.transform.position.z);
 				onHigherGround = false;
+				myRB.useGravity = false;
 			}
 		}
 
@@ -299,10 +305,10 @@ namespace Player
 			myAnim.Play("Grounded Movement");
 		}
 
-		void AnimationEnd()
+		/*void AnimationEnd()
 		{
 			moveJoyStick.canMove = false;
 			myAnim.Play("Grounded Movement");
-		}
+		}*/
 	}
 }

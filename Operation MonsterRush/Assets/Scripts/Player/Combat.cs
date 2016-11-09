@@ -18,6 +18,7 @@ namespace Player
 		//private bool isShoot;
 		public bool onCatch;
 		public bool onScan;
+		public bool targetLock;
 
 		//GameObject Equipment;
 		//public GameObject bulletPrefab;
@@ -34,6 +35,7 @@ namespace Player
 		public Transform radarIndicator;
 
 		public float rechargeTime;
+		public float distance;
 
 	
 		void Awake()
@@ -64,6 +66,8 @@ namespace Player
 			//bulletPrefab = (GameObject) Resources.Load ("Prefabs/Bullets");
 			//bulletMovementScript = bulletPrefab.GetComponent <PlayerBullet.Movement> ();
 			playerControllerScript = GetComponent <Player.Controller>();
+
+			targetLock = false;
 			//LeftHandPos = transform.Find("Character/Character1_Reference/Character1_Hips/Character1_Spine/Character1_Spine1/Character1_Spine2/Character1_LeftShoulder/Character1_LeftArm/Character1_LeftForeArm/Character1_LeftHand");
 			//RightHandPos = transform.Find("Character/Character1_Reference/Character1_Hips/Character1_Spine/Character1_Spine1/Character1_Spine2/Character1_RightShoulder/Character1_RightArm/Character1_RightForeArm/Character1_RightHand/Gauntlet");
 		}
@@ -105,7 +109,7 @@ namespace Player
 					}
 					else
 					{
-						float distance = (nearestEnemy.transform.position - this.transform.position).magnitude;
+						distance = (nearestEnemy.transform.position - this.transform.position).magnitude;
 
 						if(distance < closestDist)
 						{
@@ -113,6 +117,44 @@ namespace Player
 							closestDist = distance;
 						}
 					}
+				}
+			}
+
+			if (targetLock)
+			{
+				nearestEnemies = GameObject.FindGameObjectsWithTag ("Enemy");
+				//closest = null;
+				float closestDist = 10; 
+
+				foreach (GameObject nearestEnemy in nearestEnemies)
+				{
+					if(nearestEnemy == null)
+					{
+						closest = null;
+						closestDist = (nearestEnemy.transform.position - this.transform.position).magnitude;
+					}
+					else
+					{
+						distance = (nearestEnemy.transform.position - this.transform.position).magnitude;
+
+						if(distance < closestDist)
+						{
+							closest = nearestEnemy;
+							closestDist = distance;
+						}
+					}
+				}
+
+				if (closest != null)
+				distance = (closest.transform.position - this.transform.position).magnitude;
+
+				if (distance < 10.0f)
+				{
+					targetLock = true;
+				}
+				else
+				{
+					targetLock = false;
 				}
 			}
 		}
@@ -123,6 +165,8 @@ namespace Player
 			{
 				isDelayed = false;
 			
+				targetLock = true;
+
 				if(gauntlet.AttackCounter < gauntlet.TotalAttackCounter)
 				{
 					onCombat = true;

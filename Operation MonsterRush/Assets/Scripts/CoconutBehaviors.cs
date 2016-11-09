@@ -18,6 +18,5 @@ public class CoconutBehaviors : MonoBehaviour
 		coconutC01 = true;
 		coconutC02 = true;
 		coconutC03 = true;
-
 	}
 }

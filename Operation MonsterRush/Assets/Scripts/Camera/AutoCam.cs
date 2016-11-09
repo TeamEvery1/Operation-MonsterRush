@@ -23,6 +23,15 @@ namespace Cameras
         private float m_TurnSpeedVelocityChange; // The change in the turn speed velocity
         private Vector3 m_RollUp = Vector3.up;// The roll of the camera around the z axis ( generally this will always just be up )
 
+		private Quaternion targetRotation;
+		private Quaternion interpolatedRotation;
+
+		Player.Combat playerCombatScript;
+
+		void Awake()
+		{
+			playerCombatScript = Target.gameObject.GetComponent <Player.Combat> ();
+		}
 
         protected override void FollowTarget(float deltaTime)
         {
@@ -97,11 +106,40 @@ namespace Cameras
                     targetForward = transform.forward;
                 }
             }
-            var rollRotation = Quaternion.LookRotation(targetForward, m_RollUp);
 
-            // and aligning with the target object's up direction (i.e. its 'roll')
-            m_RollUp = m_RollSpeed >= 0 ? Vector3.Slerp(m_RollUp, targetUp, m_RollSpeed * Time.deltaTime) : Vector3.up;
-            transform.rotation = Quaternion.Lerp(transform.rotation, rollRotation, m_TurnSpeed*m_CurrentTurnAmount*deltaTime);
-        }
+			if (!playerCombatScript.targetLock)
+			{
+	            var rollRotation = Quaternion.LookRotation(targetForward, m_RollUp);
+
+	            // and aligning with the target object's up direction (i.e. its 'roll')
+	            m_RollUp = m_RollSpeed >= 0 ? Vector3.Slerp(m_RollUp, targetUp, m_RollSpeed * Time.deltaTime) : Vector3.up;
+
+	            transform.rotation = Quaternion.Lerp(transform.rotation, rollRotation, m_TurnSpeed*m_CurrentTurnAmount*deltaTime);
+			}
+			else if (playerCombatScript.targetLock && playerCombatScript.closest == null)
+			{
+				var rollRotation = Quaternion.LookRotation(targetForward, m_RollUp);
+
+				// and aligning with the target object's up direction (i.e. its 'roll')
+				m_RollUp = m_RollSpeed >= 0 ? Vector3.Slerp(m_RollUp, targetUp, m_RollSpeed * Time.deltaTime) : Vector3.up;
+
+				transform.rotation = Quaternion.Lerp(transform.rotation, rollRotation, m_TurnSpeed*m_CurrentTurnAmount*deltaTime);
+			}
+			else
+			{
+
+				//var rollRotation = Quaternion.LookRotation(this.transform.forward , m_RollUp);
+
+				//m_RollUp = m_RollSpeed >= 0 ? Vector3.Slerp(m_RollUp, playerCombatScript.closest.transform.up , m_RollSpeed / 8 * Time.deltaTime) : playerCombatScript.closest.transform.up;
+
+				//transform.rotation = Quaternion.Lerp(transform.rotation, rollRotation, m_TurnSpeed / 8 * m_CurrentTurnAmount * deltaTime);
+
+				//transform.LookAt (playerCombatScript.closest.transform.position);
+
+				targetRotation = Quaternion.LookRotation (playerCombatScript.closest.transform.position - this.transform.position);
+
+				transform.rotation = Quaternion.Slerp (this.transform.rotation, targetRotation, Time.deltaTime * m_TurnSpeed);
+			}
+	    }
     }
 }

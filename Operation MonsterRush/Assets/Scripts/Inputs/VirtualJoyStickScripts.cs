@@ -10,7 +10,7 @@ public class VirtualJoyStickScripts : MonoBehaviour, IDragHandler, IPointerUpHan
 
 	public bool canMove;
 	private float timer = 0.0f;
-	private float delayTimer = 2.0f;
+	private float delayTimer = 2.2f;
 	public Vector3 InputDirection{ set; get; }
 
 	private void Start()

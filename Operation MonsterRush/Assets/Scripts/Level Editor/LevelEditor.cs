@@ -14,6 +14,7 @@ public class LevelEditor : MonoBehaviour
 			Bird = 2,
 			Bean = 3,
 			Disgusting_Thing = 4,
+			Fake = 5,
 
 			TOTAL
 		}

@@ -69,6 +69,8 @@ namespace Player
 			{
 				SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_HITTREE);
 
+				other.GetComponent <Animation> ().Play();
+
 				if(other.GetComponent<CoconutBehaviors>().coconutName == "Coconut01")
 				{
 					if(other.GetComponent<CoconutBehaviors>().coconut01 == true)
@@ -140,6 +142,14 @@ namespace Player
 						Instantiate(coin, new Vector3(other.transform.position.x + 1.0f, this.transform.position.y + 2.5f, other.transform.position.z + 3.0f), Quaternion.identity);
 						other.GetComponent<CoconutBehaviors>().coconutC03 = true;
 					}
+				}
+
+				if (other.CompareTag ("Crates"))
+				{
+					SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_HITCRATE);
+
+					other.GetComponent <Animation> ().Play();
+					other.GetComponent <BoxCollider> ().enabled = false;
 				}
 			}
 		}

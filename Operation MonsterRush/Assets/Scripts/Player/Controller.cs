@@ -83,49 +83,52 @@ namespace Player
 			myAnim.SetBool ("onCombat", playerCombatScript.onCombat);
 			myAnim.SetBool ("onCatch", playerCombatScript.onCatch);
 
-			if(playerCombatScript.onScan && playerCombatScript.scanCounter == 0)
+			if (moveJoyStick.canMove)
 			{
-				myAnim.SetBool ("onScan", true);
-				myAnim.SetLayerWeight (1, 1.0f);
+				if(playerCombatScript.onScan && playerCombatScript.scanCounter == 0)
+				{
+					myAnim.SetBool ("onScan", true);
+					myAnim.SetLayerWeight (1, 1.0f);
 
-				Invoke ("ScanAnimation", 1.5f);
-			}
-		
-			myAnim.applyRootMotion = false;
-		   // direction = Vector3.zero;
+					Invoke ("ScanAnimation", 1.5f);
+				}
+			
+				myAnim.applyRootMotion = false;
+			   // direction = Vector3.zero;
 
-			direction.x = Input.GetAxis("Horizontal");
-			direction.z = Input.GetAxis("Vertical");
+				direction.x = Input.GetAxis("Horizontal");
+				direction.z = Input.GetAxis("Vertical");
 
-			if(mainCam != null)
-			{
-				cameraForward = Vector3.Scale (mainCam.forward, new Vector3(1, 0, 1)).normalized;
-				direction = direction.z * cameraForward + direction.x * mainCam.right ;
-			}
-			else
-			{
-				direction = direction.z * Vector3.forward + direction.x * Vector3.right;
-			}
-
-			if(direction.magnitude > 1)
-			{
-				direction.Normalize();
-				isMoving = true;
-			}
-			else
-				isMoving = false;
-
-			//Phone Input
-			if(moveJoyStick.InputDirection != Vector3.zero)
-			{
 				if(mainCam != null)
 				{
 					cameraForward = Vector3.Scale (mainCam.forward, new Vector3(1, 0, 1)).normalized;
-					direction = moveJoyStick.InputDirection.z * cameraForward + moveJoyStick.InputDirection.x * mainCam.right ;
+					direction = direction.z * cameraForward + direction.x * mainCam.right ;
 				}
 				else
 				{
-					direction = moveJoyStick.InputDirection.z * Vector3.forward + moveJoyStick.InputDirection.x * Vector3.right;
+					direction = direction.z * Vector3.forward + direction.x * Vector3.right;
+				}
+
+				if(direction.magnitude > 1)
+				{
+					direction.Normalize();
+					isMoving = true;
+				}
+				else
+					isMoving = false;
+
+				//Phone Input
+				if(moveJoyStick.InputDirection != Vector3.zero)
+				{
+					if(mainCam != null)
+					{
+						cameraForward = Vector3.Scale (mainCam.forward, new Vector3(1, 0, 1)).normalized;
+						direction = moveJoyStick.InputDirection.z * cameraForward + moveJoyStick.InputDirection.x * mainCam.right ;
+					}
+					else
+					{
+						direction = moveJoyStick.InputDirection.z * Vector3.forward + moveJoyStick.InputDirection.x * Vector3.right;
+					}
 				}
 			}
 

@@ -24,20 +24,31 @@ public class Initialization : MonoBehaviour
 	void SpawnEnemies()
 	{
 		GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
+		GameObject[] fakes = GameObject.FindGameObjectsWithTag ("Fake");
 
 		foreach (GameObject enemy in enemies)
 		{
 			SafeDestroy (enemy.gameObject);
 		}
 
+		foreach  (GameObject fake in fakes)
+		{
+			SafeDestroy (fake.gameObject);
+		}
+
 		for (int i = 0; i < LevelEditorScript.monsterList.Count; i++)
 		{
 			if(Application.isEditor && !Application.isPlaying)
 			{
-				GameObject clone = (GameObject) Instantiate (LevelEditorScript.monsterList[i].monsterPrefab, LevelEditorScript.monsterList[i].monsterPosition, Quaternion.identity);
+				GameObject clone = (GameObject) Instantiate (LevelEditorScript.monsterList[i].monsterPrefab, LevelEditorScript.monsterList[i].monsterPosition, this.transform.rotation);
 				clone.transform.parent = GameObject.Find ("Monsters").transform;
 
-				clone.GetComponent <Enemies.Info>().monsterName = LevelEditorScript.monsterList[i].monsterName[Random.Range (0, LevelEditorScript.monsterList[i].monsterName.Length - 1)];
+				if (LevelEditorScript.monsterList[i].monsterName.Length > 0)
+				{
+					clone.GetComponent <Enemies.Info>().monsterName = LevelEditorScript.monsterList[i].monsterName[Random.Range (0, LevelEditorScript.monsterList[i].monsterName.Length - 1)];
+				}
+				else
+					continue;
 
 				Debug.Log (LevelEditorScript.monsterList[i].wanderPoint.Length);
 
