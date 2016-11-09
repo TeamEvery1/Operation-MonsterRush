@@ -32,7 +32,7 @@ namespace Player
 		public float objectVelocity = 1.0f;
 		private float turnSpeed;
 		private float turnRatio;
-		private float forwardRatio;
+		[HideInInspector] public float forwardRatio;
 		private float jumpTimer;
 		public float climbRatio;
 		//private float defGroundCheckDistance;
@@ -242,7 +242,6 @@ namespace Player
 			{
 				myAnim.Play("Climbing");
 				myRB.velocity = new Vector3 (0, 0, 0);
-				myRB.useGravity = false;
 				if(iKSnapScript.isClimbing == true && iKSnapScript.isClimbingUp == false)
 				{
 					climbRatio = 0.5f;
@@ -251,14 +250,26 @@ namespace Player
 				{
 					climbRatio = 1.5f;
 				}
+				/*else if(iKSnapScript.isClimbing == true && iKSnapScript.isClimbingUp == false && iKSnapScript.isClimbingRight == true && iKSnapScript.isClimbingLeft == false)
+				{
+					climbRatio = 1.0f;
+				}
+				else if(iKSnapScript.isClimbing == true && iKSnapScript.isClimbingUp == false && iKSnapScript.isClimbingRight == false && iKSnapScript.isClimbingLeft == true)
+				{
+					climbRatio = 0.0f;
+				}*/
 
 				//Invoke ("ClimbingPosition", 0.5f);
+			}
+			else if(isSwimming)
+			{
+				myAnim.Play("Swim");
 			}
 			else
 			{
 				onGround = true;
-				iKSnapScript.useIK = true;
-				//myAnim.Play("Grounded Movement");
+				iKSnapScript.useIK = false;
+				myAnim.Play("Grounded Movement");
 				v.y = 0;
 			}
 
@@ -303,6 +314,7 @@ namespace Player
 			iKSnapScript.isClimbing = false;
 			iKSnapScript.isClimbingUp = false;
 			myAnim.Play("Grounded Movement");
+			this.transform.position = new Vector3(iKSnapScript.leftHandtHitInfo.point.x, iKSnapScript.leftHandtHitInfo.point.y,  iKSnapScript.leftHandtHitInfo.point.z);
 		}
 
 		/*void AnimationEnd()

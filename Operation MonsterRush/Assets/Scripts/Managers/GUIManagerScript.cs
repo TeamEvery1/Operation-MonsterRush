@@ -71,6 +71,7 @@ public class GUIManagerScript : MonoBehaviour
 	private float showTextDuration = 0.5f;
 
 	[HideInInspector]public bool canUseRadar;
+	private IKSnap iKSnapScript;
 
 	void Awake () 
 	{
@@ -94,6 +95,7 @@ public class GUIManagerScript : MonoBehaviour
 		canCapture = false;
 		canDisplayTutorialBlackScreen = false;
 		canUseRadar = false;
+		iKSnapScript = GameObject.FindGameObjectWithTag("Player").GetComponent<IKSnap>();
 		//fillUpLove.enabled = false;
 	}
 	
@@ -194,7 +196,10 @@ public class GUIManagerScript : MonoBehaviour
 	public void JumpButton()
 	{
 		if(!playerMovementScript.canJump && (playerMovementScript.Grounded() || playerMovementScript.UpperGrounded()) && playerMovementScript.myAnim.GetCurrentAnimatorStateInfo(0).IsName("Grounded Movement"))
-		playerMovementScript.canJump = true;
+		{
+			playerMovementScript.canJump = true;
+			iKSnapScript.useIK = true;
+		}
 	}
 
 	public void HitButton()

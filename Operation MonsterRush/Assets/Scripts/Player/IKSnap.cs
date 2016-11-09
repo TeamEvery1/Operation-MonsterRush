@@ -42,7 +42,7 @@ public class IKSnap : MonoBehaviour
 	public float leftHandWeight = 1.0f;
 	public float rightHandWeight = 1.0f;
 
-	RaycastHit leftHandtHitInfo;
+	[HideInInspector] public RaycastHit leftHandtHitInfo;
 	RaycastHit rightHandHitInfo;
 	RaycastHit leftFootHitInfo;
 	RaycastHit rightFootHitInfo;
@@ -214,8 +214,6 @@ public class IKSnap : MonoBehaviour
 				myAnim.SetIKRotationWeight (AvatarIKGoal.LeftFoot, 1.0f);
 				myAnim.SetIKRotation (AvatarIKGoal.LeftFoot, leftFootRotation);
 			}
-			else
-				isClimbing = false;
 
 			if(rightFootIK)
 			{
@@ -226,8 +224,6 @@ public class IKSnap : MonoBehaviour
 				myAnim.SetIKRotationWeight (AvatarIKGoal.RightFoot, 1.0f);
 				myAnim.SetIKRotation (AvatarIKGoal.RightFoot, rightFootRotation);
 			}
-			else 
-				isClimbing = false;
 		}
 	}
 
@@ -235,12 +231,28 @@ public class IKSnap : MonoBehaviour
 	{
 		if(isClimbing == true)
 		{
-			if(Input.GetKeyDown(KeyCode.B))
+			if(playerMovement.forwardRatio > 0.9f)
 			{
 				useIK = false;
 				isClimbingUp = true;
+				//isClimbingLeft = false;
+				//isClimbingRight = false;
 				//this.transform.position = new Vector3(leftHandtHitInfo.point.x, leftHandtHitInfo.point.y,  leftHandtHitInfo.point.z);
 			}
+			/*if(playerMovement.turnRatio > 0.2f)
+			{
+				useIK = false;
+				isClimbingLeft = true;
+				isClimbingUp = false;
+				isClimbingRight =false;
+			}
+			if(playerMovement.turnRatio < -0.2f)
+			{
+				useIK = false;
+				isClimbingRight = true;
+				isClimbingUp = false;
+				isClimbingLeft = false;
+			}*/
 		}
 	}
 }
