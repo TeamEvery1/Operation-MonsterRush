@@ -76,7 +76,7 @@ namespace Player
 					if(other.GetComponent<CoconutBehaviors>().coconut01 == true)
 					{
 						Instantiate(potion, new Vector3(other.transform.position.x - 3.0f, this.transform.position.y + 3.5f, other.transform.position.z - 2.0f), Quaternion.identity);
-						other.GetComponent<CoconutBehaviors>().coconut01 = true;
+						other.GetComponent<CoconutBehaviors>().coconut01 = false;
 					}
 				}
 				if(other.GetComponent<CoconutBehaviors>().coconutName == "Coconut02")
@@ -84,7 +84,7 @@ namespace Player
 					if(other.GetComponent<CoconutBehaviors>().coconut02 == true)
 					{
 						Instantiate(potion, new Vector3(other.transform.position.x + 1.5f, this.transform.position.y + 3.5f, other.transform.position.z - 3.0f), Quaternion.identity);
-						other.GetComponent<CoconutBehaviors>().coconut02 = true;
+						other.GetComponent<CoconutBehaviors>().coconut02 = false;
 					}
 				}
 				if(other.GetComponent<CoconutBehaviors>().coconutName == "Coconut03")
@@ -92,7 +92,7 @@ namespace Player
 					if(other.GetComponent<CoconutBehaviors>().coconut03 == true)
 					{
 						Instantiate(potion, new Vector3(other.transform.position.x + 1.0f, this.transform.position.y + 3.5f, other.transform.position.z + 2.5f), Quaternion.identity);
-						other.GetComponent<CoconutBehaviors>().coconut03 = true;
+						other.GetComponent<CoconutBehaviors>().coconut03 = false;
 					}
 				}
 				if(other.GetComponent<CoconutBehaviors>().coconutName == "Coconut04")
@@ -100,7 +100,7 @@ namespace Player
 					if(other.GetComponent<CoconutBehaviors>().coconut04 == true)
 					{
 						Instantiate(potion, new Vector3(other.transform.position.x - 3.0f, this.transform.position.y + 3.5f, other.transform.position.z - 3.0f), Quaternion.identity);
-						other.GetComponent<CoconutBehaviors>().coconut04 = true;
+						other.GetComponent<CoconutBehaviors>().coconut04 = false;
 					}
 				}
 				if(other.GetComponent<CoconutBehaviors>().coconutName == "Coconut05")
@@ -108,7 +108,7 @@ namespace Player
 					if(other.GetComponent<CoconutBehaviors>().coconut05 == true)
 					{
 						Instantiate(potion, new Vector3(other.transform.position.x + 3.5f, this.transform.position.y + 3.5f, other.transform.position.z), Quaternion.identity);
-						other.GetComponent<CoconutBehaviors>().coconut05 = true;
+						other.GetComponent<CoconutBehaviors>().coconut05 = false;
 					}
 				}
 				if(other.GetComponent<CoconutBehaviors>().coconutName == "Coconut06")
@@ -116,7 +116,7 @@ namespace Player
 					if(other.GetComponent<CoconutBehaviors>().coconut06 == true)
 					{
 						Instantiate(potion, new Vector3(other.transform.position.x + 2.5f, this.transform.position.y + 3.5f, other.transform.position.z + 1.5f), Quaternion.identity);
-						other.GetComponent<CoconutBehaviors>().coconut06 = true;
+						other.GetComponent<CoconutBehaviors>().coconut06 = false;
 					}
 				}
 				if(other.GetComponent<CoconutBehaviors>().coconutName == "CoconutC01")
@@ -124,7 +124,7 @@ namespace Player
 					if(other.GetComponent<CoconutBehaviors>().coconutC01 == true)
 					{
 						Instantiate(coin, new Vector3(other.transform.position.x + 1.0f, this.transform.position.y + 3.5f, other.transform.position.z + 2.0f), Quaternion.identity);
-						other.GetComponent<CoconutBehaviors>().coconutC01 = true;
+						other.GetComponent<CoconutBehaviors>().coconutC01 = false;
 					}
 				}
 				if(other.GetComponent<CoconutBehaviors>().coconutName == "CoconutC02")
@@ -132,7 +132,7 @@ namespace Player
 					if(other.GetComponent<CoconutBehaviors>().coconutC02 == true)
 					{
 						Instantiate(coin, new Vector3(other.transform.position.x + 3.0f, this.transform.position.y + 3.5f, other.transform.position.z), Quaternion.identity);
-						other.GetComponent<CoconutBehaviors>().coconutC02 = true;
+						other.GetComponent<CoconutBehaviors>().coconutC02 = false;
 					}
 				}
 				if(other.GetComponent<CoconutBehaviors>().coconutName == "CoconutC03")
@@ -140,7 +140,7 @@ namespace Player
 					if(other.GetComponent<CoconutBehaviors>().coconutC03 == true)
 					{
 						Instantiate(coin, new Vector3(other.transform.position.x + 1.0f, this.transform.position.y + 3.5f, other.transform.position.z + 3.0f), Quaternion.identity);
-						other.GetComponent<CoconutBehaviors>().coconutC03 = true;
+						other.GetComponent<CoconutBehaviors>().coconutC03 = false;
 					}
 				}
 
