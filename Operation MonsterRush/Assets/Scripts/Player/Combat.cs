@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 namespace Player
@@ -36,7 +37,7 @@ namespace Player
 
 		public float rechargeTime;
 		public float distance;
-
+		private Image targetLockCursor;
 	
 		void Awake()
 		{
@@ -58,6 +59,8 @@ namespace Player
 			isDelayed = true;
 			catchDelayed = true;
 			rechargeTime = 0;
+
+			targetLockCursor = GameObject.Find ("Manager/GUIManager/TargetLock").GetComponent <Image> ();
 		}
 
 		void Start()
@@ -122,6 +125,7 @@ namespace Player
 
 			if (targetLock)
 			{
+				//targetLockCursor.gameObject.SetActive (true);
 				nearestEnemies = GameObject.FindGameObjectsWithTag ("Enemy");
 				//closest = null;
 				float closestDist = 10; 
@@ -146,14 +150,18 @@ namespace Player
 				}
 
 				if (closest != null)
-				distance = (closest.transform.position - this.transform.position).magnitude;
+				{
+					distance = (closest.transform.position - this.transform.position).magnitude;
+				}
 
-				if (distance < 10.0f)
+				if (distance <= 10.0f)
 				{
 					targetLock = true;
+
 				}
 				else
 				{
+					//targetLockCursor.gameObject.SetActive (false);
 					targetLock = false;
 				}
 			}

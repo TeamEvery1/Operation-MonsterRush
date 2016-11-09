@@ -25,6 +25,7 @@ public class Initialization : MonoBehaviour
 	{
 		GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
 		GameObject[] fakes = GameObject.FindGameObjectsWithTag ("Fake");
+		GameObject[] slimes = GameObject.FindGameObjectsWithTag ("Slime");
 
 		foreach (GameObject enemy in enemies)
 		{
@@ -34,6 +35,11 @@ public class Initialization : MonoBehaviour
 		foreach  (GameObject fake in fakes)
 		{
 			SafeDestroy (fake.gameObject);
+		}
+
+		foreach (GameObject slime in slimes)
+		{
+			SafeDestroy (slime.gameObject);
 		}
 
 		for (int i = 0; i < LevelEditorScript.monsterList.Count; i++)

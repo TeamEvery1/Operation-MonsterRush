@@ -359,7 +359,7 @@ namespace Enemies
 				//!proceeed Escape cycle action
 				if(sawPlayer == true)
 				{
-					SoundManagerScript.Instance.PlayLoopingSFX (AudioClipID.SFX_MONSTERALERT);
+					//SoundManagerScript.Instance.PlayLoopingSFX (AudioClipID.SFX_MONSTERALERT);
 					viewAngle = 360.0f;
 					//if(monsterSelection.monsterType != "slime")
 					//{
@@ -454,6 +454,7 @@ namespace Enemies
 						if(GPS.remainingDistance <= 0.5f)
 						{
 							anim.Play("Idle");
+							anim.speed = 1.3f;
 							GPS.baseOffset = -1.46f;
 						}
 					}
@@ -490,6 +491,7 @@ namespace Enemies
 								if(monsterSelection.monsterType == "penguin")
 								{
 									GPS.speed = penguin.MovementSpeed;
+									anim.speed = 1.5f;
 									if(enemyInfo.enemyStamina <= penguin.MaxStamina * 0.5f)
 									{
 										recovering = true;
@@ -505,6 +507,7 @@ namespace Enemies
 								else if(monsterSelection.monsterType == "bird")
 								{
 									GPS.speed = bird.MovementSpeed;
+									anim.speed = 1.5f;
 									if(enemyInfo.enemyStamina  <= bird.MaxStamina * 0.5f)
 									{
 										recovering = true;

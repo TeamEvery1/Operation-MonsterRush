@@ -199,41 +199,23 @@ public class GUIManagerScript : MonoBehaviour
 		{
 			playerMovementScript.canJump = true;
 			iKSnapScript.useIK = true;
+			playerCombatScript.targetLock = false;
 		}
 	}
 
 	public void HitButton()
 	{
-		if(playerCombatScript.mode != 0 && playerMovementScript.isSwimming == false)
+		if (playerControllerScript.moveJoyStick.canMove)
 		{
-			playerCombatScript.radarIndicator.gameObject.SetActive (false);
-			canUseRadar = false;
-			//playerCombatScript.Gauntlet.gameObject.SetActive (true);
-			//playerCombatScript.Gauntlet_02.gameObject.SetActive (true);
-			//playerCombatScript.Radar.gameObject.SetActive (false);
-			playerCombatScript.mode = 0;
-			playerCombatScript.isDelayed = true;
-		}
-
-		if(playerCombatScript.isDelayed)
-		{
-			playerCombatScript.Perform();
-		}
-	}
-
-	public void RadarButton()
-	{
-		canUseRadar = !canUseRadar;
-
-		if(canUseRadar == true)
-		{
-			if(playerCombatScript.mode != 2)
+			if(playerCombatScript.mode != 0 && playerMovementScript.isSwimming == false)
 			{
-				playerCombatScript.radarIndicator.gameObject.SetActive (true);
-				//playerCombatScript.Radar.gameObject.SetActive (true);
+				playerCombatScript.radarIndicator.gameObject.SetActive (false);
+				canUseRadar = false;
 				//playerCombatScript.Gauntlet.gameObject.SetActive (true);
 				//playerCombatScript.Gauntlet_02.gameObject.SetActive (true);
-				playerCombatScript.mode = 2;
+				//playerCombatScript.Radar.gameObject.SetActive (false);
+				playerCombatScript.mode = 0;
+				playerCombatScript.isDelayed = true;
 			}
 
 			if(playerCombatScript.isDelayed)
@@ -241,11 +223,36 @@ public class GUIManagerScript : MonoBehaviour
 				playerCombatScript.Perform();
 			}
 		}
-		else if(canUseRadar == false)
+	}
+
+	public void RadarButton()
+	{
+		if (playerControllerScript.moveJoyStick.canMove)
 		{
-			playerCombatScript.radarIndicator.gameObject.SetActive (false);
-			playerCombatScript.isDelayed = true;
-			playerCombatScript.mode = 0;
+			canUseRadar = !canUseRadar;
+
+			if(canUseRadar == true)
+			{
+				if(playerCombatScript.mode != 2)
+				{
+					playerCombatScript.radarIndicator.gameObject.SetActive (true);
+					//playerCombatScript.Radar.gameObject.SetActive (true);
+					//playerCombatScript.Gauntlet.gameObject.SetActive (true);
+					//playerCombatScript.Gauntlet_02.gameObject.SetActive (true);
+					playerCombatScript.mode = 2;
+				}
+
+				if(playerCombatScript.isDelayed)
+				{
+					playerCombatScript.Perform();
+				}
+			}
+			else if(canUseRadar == false)
+			{
+				playerCombatScript.radarIndicator.gameObject.SetActive (false);
+				playerCombatScript.isDelayed = true;
+				playerCombatScript.mode = 0;
+			}
 		}
 	}
 
