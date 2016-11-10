@@ -195,11 +195,14 @@ public class GUIManagerScript : MonoBehaviour
 
 	public void JumpButton()
 	{
-		if(!playerMovementScript.canJump && (playerMovementScript.Grounded() || playerMovementScript.UpperGrounded()) && playerMovementScript.myAnim.GetCurrentAnimatorStateInfo(0).IsName("Grounded Movement"))
+		if (playerMovementScript.myAnim.GetCurrentAnimatorStateInfo(0).IsName("Grounded Movement"))
 		{
-			playerMovementScript.canJump = true;
-			iKSnapScript.useIK = true;
-			playerCombatScript.targetLock = false;
+			if(!playerMovementScript.canJump && (playerMovementScript.Grounded() || playerMovementScript.UpperGrounded()) && playerControllerScript.moveJoyStick.canMove)
+			{
+				playerMovementScript.canJump = true;
+				iKSnapScript.useIK = true;
+				playerCombatScript.targetLock = false;
+			}
 		}
 	}
 

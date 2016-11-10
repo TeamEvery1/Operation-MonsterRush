@@ -399,7 +399,7 @@ namespace Enemies
 							GPS.SetDestination(new Vector3(startX, startY, startZ));
 							sawPlayer = false;
 							viewAngle = 200.0f;
-							SoundManagerScript.Instance.StopLoopingSFX (AudioClipID.SFX_MONSTERALERT);
+							//SoundManagerScript.Instance.StopLoopingSFX (AudioClipID.SFX_MONSTERALERT);
 
 						}
 					}
@@ -491,7 +491,7 @@ namespace Enemies
 								if(monsterSelection.monsterType == "penguin")
 								{
 									GPS.speed = penguin.MovementSpeed;
-									anim.speed = 1.5f;
+									anim.speed = 2.0f;
 									if(enemyInfo.enemyStamina <= penguin.MaxStamina * 0.5f)
 									{
 										recovering = true;
@@ -507,7 +507,7 @@ namespace Enemies
 								else if(monsterSelection.monsterType == "bird")
 								{
 									GPS.speed = bird.MovementSpeed;
-									anim.speed = 1.5f;
+									anim.speed = 2.0f;
 									if(enemyInfo.enemyStamina  <= bird.MaxStamina * 0.5f)
 									{
 										recovering = true;

@@ -70,6 +70,10 @@ namespace Player
 			{
 				SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_HITTREE);
 
+				if (!other.GetComponent <Animation> ().isPlaying)
+				{
+					other.GetComponent <Animation> ().Play();
+				}
 
 				if(other.GetComponent <CoconutBehaviors>())
 				{
