@@ -27,6 +27,7 @@ namespace Player
 		public bool onGround = false;
 		public bool onHigherGround = false;
 		[HideInInspector] public bool canJump;
+		[HideInInspector] public bool beingKnockBack;
 		public bool isSwimming;
 
 		public float objectVelocity = 1.0f;
@@ -67,9 +68,18 @@ namespace Player
 		{
 			Jump();
 
-			if(moveJoyStick.canMove == false)
+			if(beingKnockBack)
 			{
+				beingKnockBack = false;
 				myAnim.Play("DamageDown");
+			}
+
+			if (isSwimming)
+			{
+				if (this.transform.position.y < 6.825f)
+				{
+					this.transform.position = new Vector3 (this.transform.position.x, 6.825f, this.transform.position.z);
+				}
 			}
 
 			/*if(canJump)
@@ -244,11 +254,11 @@ namespace Player
 				myRB.velocity = new Vector3 (0, 0, 0);
 				if(iKSnapScript.isClimbing == true && iKSnapScript.isClimbingUp == false)
 				{
-					climbRatio = 0.5f;
+					climbRatio = 0.0f;
 				}
 				else if(iKSnapScript.isClimbing == true && iKSnapScript.isClimbingUp == true)
 				{
-					climbRatio = 1.5f;
+					climbRatio = 1.0f;
 				}
 				/*else if(iKSnapScript.isClimbing == true && iKSnapScript.isClimbingUp == false && iKSnapScript.isClimbingRight == true && iKSnapScript.isClimbingLeft == false)
 				{
@@ -269,7 +279,7 @@ namespace Player
 			{
 				onGround = true;
 				iKSnapScript.useIK = false;
-				myAnim.Play("Grounded Movement");
+				//myAnim.Play("Grounded Movement");
 				v.y = 0;
 			}
 

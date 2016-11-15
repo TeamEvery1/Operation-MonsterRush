@@ -83,7 +83,7 @@ namespace Player
 			myAnim.SetBool ("onCombat", playerCombatScript.onCombat);
 			myAnim.SetBool ("onCatch", playerCombatScript.onCatch);
 
-			if (moveJoyStick.canMove)
+			if (moveJoyStick.canMove && !myAnim.GetCurrentAnimatorStateInfo (0).IsName ("DamageDown"))
 			{
 				if(playerCombatScript.onScan && playerCombatScript.scanCounter == 0)
 				{

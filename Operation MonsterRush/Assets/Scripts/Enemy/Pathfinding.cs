@@ -36,8 +36,6 @@ namespace Enemies
 		}
 		public EnemyInfo enemyInfo;
 
-		public bool playerCanMove;
-
 		public float safeToBackTimer;
 
 		public float viewRadius;
@@ -56,7 +54,7 @@ namespace Enemies
 		public LayerMask PlayerLayer;
 		public LayerMask ObstacleLayer;
 
-		private VirtualJoyStickScripts vjs;
+		private Player.Movement playerMovementScript;
 
 		GameObject player;
 		float Dist;
@@ -98,12 +96,12 @@ namespace Enemies
 
 		void Start()
 		{
-			vjs = GameObject.Find("VirtualJoyStickContainer").GetComponent<VirtualJoyStickScripts>();
+			playerMovementScript = FindObjectOfType <Player.Movement> ();
 			anim = this.gameObject.GetComponent <Animator> ();
 			StartCoroutine("FindTargetsWithDelay", .2f);
 			player = GameObject.FindGameObjectWithTag("Player");
 			GPS = this.gameObject.GetComponent <NavMeshAgent> ();
-			GPS.autoBraking = false;
+			GPS.autoBraking = true;
 
 			startX = this.transform.position.x;
 			startY = this.transform.position.y;
@@ -268,7 +266,7 @@ namespace Enemies
 
 		public void CloseUp()
 		{
-			vjs.canMove = false;
+			playerMovementScript.beingKnockBack = true;
 			IsKnockBacking = false;
 			sawPlayer = true;
 			timer = 0.0f;
@@ -341,7 +339,7 @@ namespace Enemies
 					{
 						GPS.baseOffset = -0.26f;
 					}
-					anim.speed = 1.5f;
+					anim.speed = 2.5f;
 					anim.Play("Alert");
 
 				}

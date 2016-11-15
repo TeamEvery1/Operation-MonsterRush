@@ -64,7 +64,8 @@ public class IKSnap : MonoBehaviour
 		if(playerMovement.onGround == false)
 		{
 			// Left Hand IK Check
-			if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.0f, 0.9f, 0.4f)), transform.TransformDirection (new Vector3 (-0.3f, -1.0f, 0.0f)), out leftHandtHitInfo, 0.3f) && leftHandtHitInfo.transform.gameObject.tag == "Jump")
+			if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.0f, 0.9f, 0.4f)), transform.TransformDirection (new Vector3 (-0.3f, -1.0f, 0.0f)), out leftHandtHitInfo, 0.3f)
+				&& (leftHandtHitInfo.transform.gameObject.tag == "Jump" || leftHandtHitInfo.transform.gameObject.tag == "Ship"))
 			{
 				Vector3 lookAt = Vector3.Cross (-leftHandtHitInfo.normal, transform.right);
 				lookAt = lookAt.y < 0 ? -lookAt : lookAt;
@@ -83,7 +84,8 @@ public class IKSnap : MonoBehaviour
 			}
 
 			// Right Hand IK Check
-			if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.0f, 0.9f, 0.4f)), transform.TransformDirection (new Vector3 (0.3f, -1.0f, 0.0f)), out rightHandHitInfo, 0.3f) && rightHandHitInfo.transform.gameObject.tag == "Jump")
+			if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (0.0f, 0.9f, 0.4f)), transform.TransformDirection (new Vector3 (0.3f, -1.0f, 0.0f)), out rightHandHitInfo, 0.3f) 
+				&& (rightHandHitInfo.transform.gameObject.tag == "Jump" || rightHandHitInfo.transform.gameObject.tag == "Ship"))
 			{
 				Vector3 lookAt = Vector3.Cross (-rightHandHitInfo.normal, transform.right);
 				lookAt = lookAt.y < 0 ? -lookAt : lookAt;
@@ -102,6 +104,8 @@ public class IKSnap : MonoBehaviour
 
 			if(leftHandIK == true && rightHandIK == true)
 			{
+				isClimbing = true;
+
 				// Left Foot IK Check
 				if (Physics.Raycast (transform.position + transform.TransformDirection (new Vector3 (-0.35f, 0.5f, 0.0f)), transform.forward, out leftFootHitInfo, 1.0f))
 				{
@@ -130,6 +134,7 @@ public class IKSnap : MonoBehaviour
 			{
 				leftFootIK = false;
 				rightFootIK = false;
+				isClimbing = false;
 			}
 
 			normalizedTime = myAnim.GetCurrentAnimatorStateInfo (0).normalizedTime % 1;
@@ -183,31 +188,24 @@ public class IKSnap : MonoBehaviour
 
 			if(leftHandIK)
 			{
-				isClimbing = true;
 				myAnim.SetIKPositionWeight (AvatarIKGoal.LeftHand,1.0f);
 				myAnim.SetIKPosition (AvatarIKGoal.LeftHand, leftHandPos);
 
 				myAnim.SetIKRotationWeight (AvatarIKGoal.LeftHand, 1.0f);
 				myAnim.SetIKRotation (AvatarIKGoal.LeftHand, leftHandRotation);
 			}
-			else
-				isClimbing = false;
 
 			if(rightHandIK)
 			{
-				isClimbing = true;
 				myAnim.SetIKPositionWeight (AvatarIKGoal.RightHand , 1.0f);
 				myAnim.SetIKPosition (AvatarIKGoal.RightHand, rightHandPos);
 
 				myAnim.SetIKRotationWeight (AvatarIKGoal.RightHand, 1.0f);
 				myAnim.SetIKRotation (AvatarIKGoal.RightHand, rightHandRotation);
 			}
-			else
-				isClimbing = false;
 
 			if(leftFootIK)
 			{
-				isClimbing = true;
 				myAnim.SetIKPositionWeight (AvatarIKGoal.LeftFoot, 1.0f);
 				myAnim.SetIKPosition (AvatarIKGoal.LeftFoot, leftFootPos);
 
@@ -217,7 +215,6 @@ public class IKSnap : MonoBehaviour
 
 			if(rightFootIK)
 			{
-				isClimbing = true;
 				myAnim.SetIKPositionWeight (AvatarIKGoal.RightFoot, 1.0f);
 				myAnim.SetIKPosition (AvatarIKGoal.RightFoot, rightFootPos);
 
