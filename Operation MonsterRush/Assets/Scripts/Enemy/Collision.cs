@@ -46,6 +46,7 @@ namespace Enemies
 				} 
 				else 
 				{
+					enemyPathfindingScript.sawPlayer = true;
 					enemyPathfindingScript.enemyInfo.enemyExhaustion -= playerControllerScript.damage;
 				}
 

@@ -46,7 +46,7 @@ namespace Enemies
 		float startY;
 		float startZ;
 
-		bool sawPlayer = false;
+		[HideInInspector] public bool sawPlayer = false;
 		bool isWander = false;
 		bool recovering = false;
 		public bool isShit = false;
@@ -98,7 +98,7 @@ namespace Enemies
 		{
 			playerMovementScript = FindObjectOfType <Player.Movement> ();
 			anim = this.gameObject.GetComponent <Animator> ();
-			StartCoroutine("FindTargetsWithDelay", .02f);
+			StartCoroutine("FindTargetsWithDelay", .06f);
 			player = GameObject.FindGameObjectWithTag("Player");
 			GPS = this.gameObject.GetComponent <NavMeshAgent> ();
 			GPS.autoBraking = true;
@@ -202,7 +202,7 @@ namespace Enemies
 
 					if(!Physics.Raycast(transform.position, dirToTarget, DstToTarget, ObstacleLayer))
 					{
-						if( transform.position.y <= target.transform.position.y && monsterSelection.monsterType != "disgusting")
+						if( transform.position.y <= target.transform.position.y - 0.5f && monsterSelection.monsterType != "disgusting")
 						{
 							VisibleTarget = null;
 
@@ -302,7 +302,7 @@ namespace Enemies
 
 
 
-			GPS.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
+
 
 
 			IsKnockBacking = true;
@@ -328,6 +328,7 @@ namespace Enemies
 
 			//transform.LookAt (rotation);
 
+
 			if(recovering == false)
 			{
 
@@ -346,10 +347,17 @@ namespace Enemies
 				//!proceed Close-Up action
 				if(IsKnockBacking == true)
 				{
-					if(GPS.remainingDistance <= 1.0f)
+					GPS.speed = enemyInfo.enemyMovementSpeed * 3.5f;
+					anim.speed = 1.0f * 3.5f;
+
+
+					if(GPS.remainingDistance <= 0.8f)
 					{
 						anim.Play("Attack");
-						//Debug.Log(canShowDamageOverlay);
+					}
+					else
+					{
+						GPS.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
 					}
 				}
 
@@ -357,18 +365,20 @@ namespace Enemies
 				//!proceeed Escape cycle action
 				if(sawPlayer == true)
 				{
+					GPS.speed = enemyInfo.enemyMovementSpeed * 2.5f;
+					anim.speed = 1.0f * 2.5f;
 					//SoundManagerScript.Instance.PlayLoopingSFX (AudioClipID.SFX_MONSTERALERT);
 					viewAngle = 360.0f;
 					//if(monsterSelection.monsterType != "slime")
 					//{
 					//Debug.Log("Escape");
-					if(GPS.remainingDistance < 0.5f)
+					if(GPS.remainingDistance < 0.05f)
 					{
 						RandomDes = Random.Range(0,3);
 						GPS.destination = desPoint[RandomDes].position;
 					}
 
-					if(GPS.remainingDistance > 0.5f)
+					if(GPS.remainingDistance > 0.05f)
 					{
 						if(enemyInfo.enemyStamina > 0.0f && recovering == false)
 						{
@@ -431,12 +441,16 @@ namespace Enemies
 				//!When no visible target and wandering
 				if(VisibleTarget == null && sawPlayer == false)
 				{
+
+					GPS.speed = enemyInfo.enemyMovementSpeed;
+					anim.speed = 1.0f;
+
 					Dist = Vector3.Distance(new Vector3(startX, startY, startZ), new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
 
 					if(Dist <= viewRadius && InsideRange == false)
 					{
 						InsideRange = true;
-						if(Random.Range(0.0f, 1.0f) >= 0.7f)
+						if(Random.Range(0.0f, 1.0f) >= 0.55f)
 						{
 							GPS.speed = 0.0f;
 							transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
@@ -449,7 +463,7 @@ namespace Enemies
 
 					if(monsterSelection.monsterType == "disgusting")
 					{
-						if(GPS.remainingDistance <= 0.5f)
+						if(GPS.remainingDistance <= 0.05f)
 						{
 							anim.Play("Idle");
 							anim.speed = 1.3f;
@@ -471,12 +485,12 @@ namespace Enemies
 					else if(monsterSelection.monsterType != "disgusting") //! temporary luso cant move  && monsterSelection.monsterType != "slime"
 					{
 						//Debug.Log("walk");
-						if(GPS.remainingDistance < 0.5f)
+						if(GPS.remainingDistance < 0.05f)
 						{
 							Move();
 						}
 
-						if(GPS.remainingDistance > 0.5f)
+						if(GPS.remainingDistance > 0.05f)
 						{
 							if(enemyInfo.enemyStamina > 0.0f && recovering == false)
 							{
