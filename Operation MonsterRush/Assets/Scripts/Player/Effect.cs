@@ -5,6 +5,8 @@ public class Effect : MonoBehaviour
 {
 	public GameObject Character;
 	public Transform combo1, combo2, combo3;
+	public float combo1Timer, combo2Timer, combo3Timer;
+	float combo1Duration = 0.35f, combo2Duration = 0.35f, combo3Duration = 0.45f;
 
 	public void Start()
 	{
@@ -13,34 +15,44 @@ public class Effect : MonoBehaviour
 		combo2 = Character.transform.Find("Gauntlet_Effect/Combo 2");
 		combo3 = Character.transform.Find("Gauntlet_Effect/Combo 3");
 	}
-	public void Combo1Start()
-	{
-		combo1.gameObject.SetActive(true);
-	}
 
-	public void Combo1End()
+	void Update ()
 	{
-		combo1.gameObject.SetActive(false);
-	}
+		if (combo1.gameObject.activeSelf)
+		{
+			if (combo1Timer > combo1Duration)
+			{
+				combo1.gameObject.SetActive (false);
+			}
+			else
+			{
+				combo1Timer += Time.deltaTime;
+			}
+		}
 
-	public void Combo2Start()
-	{
-		combo2.gameObject.SetActive(true);
-	}
+		if (combo2.gameObject.activeSelf)
+		{
+			if (combo2Timer > combo2Duration)
+			{
+				combo2.gameObject.SetActive (false);
+			}
+			else
+			{
+				combo2Timer += Time.deltaTime;
+			}
+		}
 
-	public void Combo2End()
-	{
-		combo2.gameObject.SetActive(false);
-	}
-
-	public void Combo3Start()
-	{
-		combo3.gameObject.SetActive(true);
-	}
-
-	public void Combo3End()
-	{
-		combo3.gameObject.SetActive(false);
+		if (combo3.gameObject.activeSelf)
+		{
+			if (combo3Timer > combo3Duration)
+			{
+				combo3.gameObject.SetActive (false);
+			}
+			else
+			{
+				combo3Timer += Time.deltaTime;
+			}
+		}
 	}
 
 }

@@ -419,23 +419,7 @@ ModelImporter:
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
-      events:
-      - time: 0
-        functionName: Combo1Start
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 4202476fc4fcb934e91f0e881854955f,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.3435359
-        functionName: Combo1End
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 4202476fc4fcb934e91f0e881854955f,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask:
       - path: 
         weight: 1

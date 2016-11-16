@@ -271,10 +271,6 @@ namespace Player
 
 				//Invoke ("ClimbingPosition", 0.5f);
 			}
-			else if(isSwimming)
-			{
-				myAnim.Play("Swim");
-			}
 			else
 			{
 				onGround = true;

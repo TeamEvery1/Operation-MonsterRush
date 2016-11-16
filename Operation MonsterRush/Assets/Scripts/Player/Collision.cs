@@ -51,12 +51,18 @@ namespace Player
 				if (playerCombatScript.mode==0) {
 					if (playerCombatScript.gauntlet.AttackCounter == 1) {
 						SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERATK1);
+						GetComponent <Effect> ().combo1.gameObject.SetActive (true);
+						GetComponent <Effect> ().combo1Timer = 0.0f;
 					}
 					if (playerCombatScript.gauntlet.AttackCounter == 2) {
 						SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERATK2);
+						GetComponent <Effect> ().combo2.gameObject.SetActive (true);
+						GetComponent <Effect> ().combo2Timer = 0.0f;
 					}
 					if (playerCombatScript.gauntlet.AttackCounter == 3) {
 						SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERATK3);
+						GetComponent <Effect> ().combo3.gameObject.SetActive (true);
+						GetComponent <Effect> ().combo3Timer = 0.0f;
 					}
 				} 
 				else if (playerCombatScript.mode == 1) 

@@ -62,6 +62,7 @@ public class GUIManagerScript : MonoBehaviour
 	[HideInInspector] public bool canCapture;
 	public GameObject blackScreen;
 	[HideInInspector] public bool canDisplayTutorialBlackScreen;
+	public bool firstCapture;
 	CatchManager catchManager;
 
 	private RectTransform text;
@@ -95,6 +96,7 @@ public class GUIManagerScript : MonoBehaviour
 		canCapture = false;
 		canDisplayTutorialBlackScreen = false;
 		canUseRadar = false;
+		firstCapture = false;
 		iKSnapScript = GameObject.FindGameObjectWithTag("Player").GetComponent<IKSnap>();
 		//fillUpLove.enabled = false;
 	}

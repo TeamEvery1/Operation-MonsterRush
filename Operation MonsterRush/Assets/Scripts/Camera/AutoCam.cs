@@ -28,7 +28,7 @@ namespace Cameras
 
 		Player.Combat playerCombatScript;
 
-		void Awake()
+		private void Awake()
 		{
 			playerCombatScript = Target.gameObject.GetComponent <Player.Combat> ();
 		}

@@ -120,6 +120,7 @@ namespace Cameras
 							SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERCAPTURESUCCESS);
 							gameManagerScript.enemyCounter --;
 							target.gameObject.SetActive (false);
+
 						}
 
 						enemyCollisionScript.isCollided = false;
