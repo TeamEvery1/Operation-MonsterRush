@@ -202,7 +202,7 @@ namespace Enemies
 
 					if(!Physics.Raycast(transform.position, dirToTarget, DstToTarget, ObstacleLayer))
 					{
-						if( transform.position.y <= target.transform.position.y - 0.5f && monsterSelection.monsterType != "disgusting")
+						if( transform.position.y <= target.transform.position.y - 1.0f && monsterSelection.monsterType != "disgusting")
 						{
 							VisibleTarget = null;
 
