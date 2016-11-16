@@ -51,6 +51,8 @@ namespace Player
 		private Vector3 jumpMovement;
 		private Vector3 v;
 
+		private GUIManagerScript guiManager;
+
 		private void Start()
 		{
 			//allGround = ~ (( 1 << ground.value) | ( 1 << upperGround.value));
@@ -61,6 +63,8 @@ namespace Player
 
 			iKSnapScript = GetComponent <IKSnap> ();
 			playerControllerScript = GetComponent <Player.Controller>();
+
+			guiManager = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManagerScript>();
 
 		}
 
@@ -271,11 +275,15 @@ namespace Player
 
 				//Invoke ("ClimbingPosition", 0.5f);
 			}
+			else if(isSwimming)
+			{
+				myAnim.Play("Swim");
+			}
 			else
 			{
 				onGround = true;
 				iKSnapScript.useIK = false;
-				//myAnim.Play("Grounded Movement");
+				myAnim.Play("Grounded Movement");
 				v.y = 0;
 			}
 
@@ -321,6 +329,11 @@ namespace Player
 			iKSnapScript.isClimbingUp = false;
 			myAnim.Play("Grounded Movement");
 			this.transform.position = new Vector3(iKSnapScript.leftHandtHitInfo.point.x, iKSnapScript.leftHandtHitInfo.point.y,  iKSnapScript.leftHandtHitInfo.point.z);
+		}
+
+		void ChangeDamageOverlay()
+		{
+			guiManager.canShowDamageOverlay = true;
 		}
 
 		/*void AnimationEnd()

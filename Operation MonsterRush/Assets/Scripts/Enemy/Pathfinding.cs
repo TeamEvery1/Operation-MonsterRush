@@ -98,7 +98,7 @@ namespace Enemies
 		{
 			playerMovementScript = FindObjectOfType <Player.Movement> ();
 			anim = this.gameObject.GetComponent <Animator> ();
-			StartCoroutine("FindTargetsWithDelay", .2f);
+			StartCoroutine("FindTargetsWithDelay", .02f);
 			player = GameObject.FindGameObjectWithTag("Player");
 			GPS = this.gameObject.GetComponent <NavMeshAgent> ();
 			GPS.autoBraking = true;
@@ -328,7 +328,6 @@ namespace Enemies
 
 			//transform.LookAt (rotation);
 
-
 			if(recovering == false)
 			{
 
@@ -350,6 +349,7 @@ namespace Enemies
 					if(GPS.remainingDistance <= 1.0f)
 					{
 						anim.Play("Attack");
+						//Debug.Log(canShowDamageOverlay);
 					}
 				}
 

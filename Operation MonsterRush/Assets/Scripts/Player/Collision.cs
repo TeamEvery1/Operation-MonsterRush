@@ -15,6 +15,8 @@ namespace Player
 		GUIManagerScript guiScript;
 		private Component[] cratesPieces;
 
+		private Enemies.Pathfinding pathFinding;
+
 		void Start()
 		{
 			coinCounter = 0;
@@ -23,6 +25,7 @@ namespace Player
 			playerControllerScript = GetComponent <Player.Controller> ();
 			playerHealthScript = GameObject.FindGameObjectWithTag("GUIManager").transform.FindChild("Player UI").GetComponent <Player.Health> ();
 			guiScript = FindObjectOfType <GUIManagerScript>();
+			pathFinding = GameObject.FindObjectOfType<Enemies.Pathfinding>();
 		}
 
 		void OnTriggerEnter (Collider other)

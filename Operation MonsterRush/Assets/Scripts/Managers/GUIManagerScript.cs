@@ -74,6 +74,11 @@ public class GUIManagerScript : MonoBehaviour
 	[HideInInspector]public bool canUseRadar;
 	private IKSnap iKSnapScript;
 
+	public Image damageOverlay;
+	private float overlayTimer;
+
+	[HideInInspector] public bool canShowDamageOverlay;
+
 	void Awake () 
 	{
 		playerControllerScript = GameObject.FindObjectOfType <Player.Controller>();
@@ -98,6 +103,7 @@ public class GUIManagerScript : MonoBehaviour
 		canUseRadar = false;
 		firstCapture = false;
 		iKSnapScript = GameObject.FindGameObjectWithTag("Player").GetComponent<IKSnap>();
+		canShowDamageOverlay = false;
 		//fillUpLove.enabled = false;
 	}
 	
@@ -107,7 +113,7 @@ public class GUIManagerScript : MonoBehaviour
 		TutorialScene();
 		ChangeUITranparentcy();
 		TextMovingUP();
-
+		ShowDamageOverlay();
 
 		if(Input.GetKeyDown (KeyCode.J))
 		{
@@ -307,5 +313,27 @@ public class GUIManagerScript : MonoBehaviour
 				text.anchoredPosition = new Vector2(101.8f, -5.8f);
 			}
 		}
+	}
+
+	public void ShowDamageOverlay()
+	{
+		if(canShowDamageOverlay == true)
+		{
+			damageOverlay.enabled = true;
+
+			if(damageOverlay.enabled == true)
+			{
+				overlayTimer += Time.deltaTime;
+
+				if(overlayTimer > 0.5f)
+				{
+					overlayTimer = 0.0f;
+					damageOverlay.enabled = false;
+					canShowDamageOverlay = false;
+				}
+			}
+		}
+
+
 	}
 }

@@ -16,12 +16,15 @@ public class Bullet : MonoBehaviour
 
 	float startTime;
 
+	private GUIManagerScript guiManager;
+
 	// Use this for initialization
 	void Start () 
 	{
 		rigid = this.gameObject.GetComponent<Rigidbody>();
 		startTime = Time.time;
 		Speed = Speed ?? DefaultSpeed;
+		guiManager = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManagerScript>();
 	}
 
 	// Update is called once per frame
@@ -49,6 +52,7 @@ public class Bullet : MonoBehaviour
 		if(other.CompareTag("Player"))
 		{
 			other.GetComponent<Player.Controller>().health -= GooDmg;
+			guiManager.canShowDamageOverlay = true;
 			Destroy(this.gameObject);
 		}
 
