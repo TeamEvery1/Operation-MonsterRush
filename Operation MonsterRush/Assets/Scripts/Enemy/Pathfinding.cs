@@ -63,6 +63,8 @@ namespace Enemies
 
 		Animator anim;
 
+		public GameObject alert;
+
 		//public GameObject bullet;
 		//public float gooFireRate;
 
@@ -328,6 +330,10 @@ namespace Enemies
 
 			//transform.LookAt (rotation);
 
+			if(VisibleTarget != null)
+			{
+				this.alert.SetActive(true);
+			}
 
 			if(recovering == false)
 			{
@@ -365,6 +371,7 @@ namespace Enemies
 				//!proceeed Escape cycle action
 				if(sawPlayer == true)
 				{
+					this.alert.SetActive(false);
 					GPS.speed = enemyInfo.enemyMovementSpeed * 2.5f;
 					anim.speed = 1.0f * 2.5f;
 					//SoundManagerScript.Instance.PlayLoopingSFX (AudioClipID.SFX_MONSTERALERT);

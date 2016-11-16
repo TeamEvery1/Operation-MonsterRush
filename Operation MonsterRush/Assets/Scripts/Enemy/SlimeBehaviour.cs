@@ -39,6 +39,8 @@ namespace Enemies
 
 		RaycastHit hitInfo;
 
+		public GameObject alert;
+
 		void Awake()
 		{
 			slime = new Enemies.Character (enemyInfo.enemyExhaustion, enemyInfo.enemyMaxExhaustion, enemyInfo.enemyHealth, enemyInfo.enemyMaxHealth, 
@@ -92,6 +94,11 @@ namespace Enemies
 
 		void Update()
 		{
+			if(VisibleTarget != null)
+			{
+				this.alert.SetActive(true);
+			}
+
 			if (Physics.Raycast (this.transform.position, Vector3.down, out hitInfo, ground))
 			{
 				if (hitInfo.collider.tag == "Ship")
