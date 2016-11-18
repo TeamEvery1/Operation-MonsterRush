@@ -14,11 +14,12 @@ namespace Player
 		public GameObject coin;
 		GUIManagerScript guiScript;
 		private Component[] cratesPieces;
-
+		Timer timerScript;
 		private Enemies.Pathfinding pathFinding;
 
 		void Start()
 		{
+			timerScript = FindObjectOfType<Timer> ();
 			coinCounter = 0;
 			maxCoinCounter = 10;
 			playerCombatScript = GetComponent <Player.Combat> ();
@@ -38,6 +39,7 @@ namespace Player
 			if(other.CompareTag("Coin"))
 			{
 				coinCounter += 1;
+				timerScript.timer += 20;
 				guiScript.canShowCoinText = true;
 				Destroy(other.gameObject);
 			}
