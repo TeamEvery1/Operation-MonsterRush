@@ -94,7 +94,11 @@ namespace Cameras
 
 					playerControllerScript.isMovable = false;
 
-					target.GetComponent <Animator> ().Play ("Idle");
+					target.GetComponent <Animator> ().SetBool ("isAttacking", false);
+					target.GetComponent <Animator> ().SetBool ("isAlerting", false);
+					target.GetComponent <Animator> ().SetBool ("beingHit", false);
+					target.GetComponent <Animator> ().SetBool ("isTiring", false);
+					target.GetComponent <Animator> ().SetBool ("isWalking", false);
 
 					if (!recordPos)
 					{
@@ -114,6 +118,8 @@ namespace Cameras
 
 					if(catchManagerScript.successCapture||catchManagerScript.failCapture)
 					{
+						playerControllerScript.myAnim.SetBool ("onCapture" , false);
+
 						SoundManagerScript.Instance.StopLoopingSFX (AudioClipID.SFX_PLAYERCAPTUREDURATION);
 						if (catchManagerScript.successCapture) 
 						{
@@ -192,8 +198,6 @@ namespace Cameras
 		{
 			if(!changed && enemyCounter >= 1)
 			{
-				playerControllerScript.myAnim.SetBool ("onCapture" , false);
-
 				camera01.transform.position = pivotStartingPoint;
 				camera01.transform.rotation = pivotStartingRotation;
 

@@ -12,6 +12,7 @@ namespace Enemies
 		CatchManager catchScript;
 
 		public bool isCollided;
+		public bool beingHit;
 
 		public float enemyExhaustInfo;
 
@@ -39,6 +40,7 @@ namespace Enemies
 			if (other.CompareTag ("PlayerDamageCollider"))
 			{
 				enemyPathfindingScript.enemyInfo.enemyExhaustion -= playerControllerScript.damage;
+				beingHit = true;
 
 				if(enemyPathfindingScript.enemyInfo.enemyExhaustion <= 0)
 				{

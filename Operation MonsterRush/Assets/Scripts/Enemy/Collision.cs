@@ -13,6 +13,7 @@ namespace Enemies
 		CatchManager catchScript;
 
 		public bool isCollided;
+		public bool beingHit;
 
 		public float enemyExhaustInfo;
 
@@ -24,7 +25,7 @@ namespace Enemies
 			//captureScript = FindObjectOfType <CaptureCollider>();
 			//guiScript = FindObjectOfType <GUIManagerScript>();
 			catchScript = FindObjectOfType <CatchManager>();
-
+			beingHit = false;
 		}
 
 		void Update()
@@ -43,11 +44,13 @@ namespace Enemies
 				if (gameObject.tag == "Slime") 
 				{
 					slimePathfindingScript.enemyInfo.enemyExhaustion -= playerControllerScript.damage;
+					beingHit = true;
 				} 
 				else 
 				{
 					enemyPathfindingScript.sawPlayer = true;
 					enemyPathfindingScript.enemyInfo.enemyExhaustion -= playerControllerScript.damage;
+					beingHit = true;
 				}
 
 

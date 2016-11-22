@@ -12,10 +12,13 @@ namespace Player
 		public int maxCoinCounter;
 		public GameObject potion;
 		public GameObject coin;
+		private GameObject obj;
 		GUIManagerScript guiScript;
 		private Component[] cratesPieces;
 		Timer timerScript;
 		private Enemies.Pathfinding pathFinding;
+
+		public bool coinCollided;
 
 		void Start()
 		{
@@ -27,6 +30,7 @@ namespace Player
 			playerHealthScript = GameObject.FindGameObjectWithTag("GUIManager").transform.FindChild("Player UI").GetComponent <Player.Health> ();
 			guiScript = FindObjectOfType <GUIManagerScript>();
 			pathFinding = GameObject.FindObjectOfType<Enemies.Pathfinding>();
+			coinCollided = false;
 		}
 
 		void OnTriggerEnter (Collider other)
@@ -39,9 +43,12 @@ namespace Player
 			if(other.CompareTag("Coin"))
 			{
 				coinCounter += 1;
-				timerScript.timer += 20;
 				guiScript.canShowCoinText = true;
-				Destroy(other.gameObject);
+				other.GetComponent <Animation> ().Play ("Coin Get");
+				other.GetComponent <Animation> ().PlayQueued ("Coin");
+				obj = other.gameObject;
+
+				Invoke ("Delay", 1.3f);
 			}
 
 			if(other.CompareTag("Potion"))
@@ -176,6 +183,11 @@ namespace Player
 
 				other.GetComponent <BoxCollider> ().enabled = false;
 			}
+		}
+
+		void Delay ()
+		{
+			Destroy (obj.gameObject);
 		}
 	}
 }

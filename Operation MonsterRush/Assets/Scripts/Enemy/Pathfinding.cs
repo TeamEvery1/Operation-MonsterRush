@@ -48,8 +48,12 @@ namespace Enemies
 
 		[HideInInspector] public bool sawPlayer = false;
 		bool isWander = false;
-		bool recovering = false;
+		public bool recovering = false;
 		public bool isShit = false;
+		private bool isAttacking = false;
+		private bool isWalking = false;
+		private bool isAlerting = false;
+		private bool isTiring = false;
 
 		public LayerMask PlayerLayer;
 		public LayerMask ObstacleLayer;
@@ -274,6 +278,7 @@ namespace Enemies
 			timer = 0.0f;
 			RandomDes = Random.Range(0,3);
 			GPS.destination = desPoint[RandomDes].position;
+			isAttacking = false;
 
 			/*else if(monsterSelection.monsterType == "slime")
 			{
@@ -326,6 +331,25 @@ namespace Enemies
 		// Update is called once per frame
 		void Update () 
 		{
+			if(this.gameObject.tag == "Slime")
+			{
+				if (GetComponent <Enemies.SlimeCollision> ())
+				{
+					anim.SetBool ("beingHit", GetComponent<Enemies.SlimeCollision> ().beingHit);
+				}
+			}
+			else
+			{
+				if (GetComponent <Enemies.Collision> ())
+				{
+					anim.SetBool ("beingHit", GetComponent<Enemies.Collision> ().beingHit);
+				}
+			}
+			anim.SetBool ("isAttacking", isAttacking);
+			anim.SetBool ("isWalking", isWalking);
+			anim.SetBool ("isAlerting", isAlerting);
+			anim.SetBool ("isTiring", isTiring);
+
 			//rotation.y = this.transform.position.y;
 
 			//transform.LookAt (rotation);
@@ -333,6 +357,49 @@ namespace Enemies
 			if(VisibleTarget != null)
 			{
 				this.alert.SetActive(true);
+			}
+
+			if (isAlerting)
+			{
+				isWalking = false;
+				if(VisibleTarget = null)
+				{
+					isAlerting = false;
+				}
+			}
+
+			if(this.gameObject.tag == "Slime")
+			{
+				if (GetComponent <Enemies.SlimeCollision> ())
+				{
+					if (GetComponent<Enemies.SlimeCollision> ().beingHit)
+					{
+						GPS.speed = 0.0f;
+						isAttacking = false;
+						isWalking = false;
+						isTiring = false;
+						isAlerting = false;
+					}
+
+				}
+			}
+			else
+			{
+				if (GetComponent <Enemies.Collision> ())
+				{
+					if (GetComponent<Enemies.Collision> ().beingHit)
+					{
+						GPS.speed = 0.0f;
+						isAttacking = false;
+						isWalking = false;
+						isTiring = false;
+						isAlerting = false;
+					}
+					else
+					{
+						GPS.speed = enemyInfo.enemyMovementSpeed;
+					}
+				}
 			}
 
 			if(recovering == false)
@@ -346,8 +413,7 @@ namespace Enemies
 						GPS.baseOffset = -0.26f;
 					}
 					anim.speed = 2.5f;
-					anim.Play("Alert");
-
+					isAlerting = true;
 				}
 
 				//!proceed Close-Up action
@@ -359,7 +425,9 @@ namespace Enemies
 
 					if(GPS.remainingDistance <= 0.8f)
 					{
-						anim.Play("Attack");
+						isAlerting = false;
+						isAttacking = true;
+						isWalking = false;
 					}
 					else
 					{
@@ -369,7 +437,7 @@ namespace Enemies
 
 
 				//!proceeed Escape cycle action
-				if(sawPlayer == true)
+				if(sawPlayer == true && GetComponent <Enemies.Collision> ().beingHit == false)
 				{
 					this.alert.SetActive(false);
 					GPS.speed = enemyInfo.enemyMovementSpeed * 2.5f;
@@ -391,15 +459,16 @@ namespace Enemies
 						{
 							//Debug.Log("stamina: " + Stamina);
 							enemyInfo.enemyStamina -= Time.deltaTime;
-							anim.Play("Walk");
+							isTiring = false;
+							isWalking = true;
 							/*else if(monsterSelection.monsterType == "bean")
 							{
 								anim.Play("Walk");
 							}*/
 							if(enemyInfo.enemyStamina <= 0.0f)
 							{
-								anim.Play("Tired");
-
+								isTiring = true;
+								isWalking = false;
 								recovering = true;
 							}
 						}
@@ -472,7 +541,11 @@ namespace Enemies
 					{
 						if(GPS.remainingDistance <= 0.05f)
 						{
-							anim.Play("Idle");
+							isTiring = false;
+							isWalking = false;
+							isAlerting = false;
+							isAttacking = false;
+
 							anim.speed = 1.3f;
 							GPS.baseOffset = -1.46f;
 						}
@@ -499,12 +572,13 @@ namespace Enemies
 
 						if(GPS.remainingDistance > 0.05f)
 						{
-							if(enemyInfo.enemyStamina > 0.0f && recovering == false)
+							if(enemyInfo.enemyStamina > 0.0f && recovering == false && !isAlerting)
 							{
 								//Debug.Log("stamina: " + Stamina);
-								anim.Play("Walk");
+								isTiring = false;
+								isWalking = true;
 
-								enemyInfo.enemyStamina -= Time.deltaTime /*3.0f*/;
+								enemyInfo.enemyStamina -= Time.deltaTime/*3.0f*/;
 
 								//!Monster Tired Condition (after 50% stamina consume)
 								if(monsterSelection.monsterType == "penguin")
@@ -549,12 +623,15 @@ namespace Enemies
 				}
 			}
 				//! Recovering stamina
-				if(recovering == true)
-				{
-					anim.Play("Tired");
-					GPS.speed = 0.0f;
-					enemyInfo.enemyStamina += Time.deltaTime * enemyInfo.staminaRcvrSpeed ;
+			if(recovering == true)
+			{
+				isWalking = false;
+				isTiring = true;
+				GPS.speed = 0.0f;
+				enemyInfo.enemyStamina += Time.deltaTime * enemyInfo.staminaRcvrSpeed ;
 
+				if(enemyInfo.enemyStamina >= enemyInfo.enemyMaxStamina)
+				{
 					if(monsterSelection.monsterType == "penguin")
 					{
 						if(enemyInfo.enemyStamina >= penguin.Stamina)
@@ -595,15 +672,17 @@ namespace Enemies
 							recovering = false;
 						}
 					}
-					else if(enemyInfo.enemyStamina > 10.0f && VisibleTarget != null) // found by player when recovering 
-					{
-						recovering = false;
-					}
 				}
+				else if(enemyInfo.enemyStamina > 10.0f && VisibleTarget != null) // found by player when recovering 
+				{
+					recovering = false;
+				}
+			}
 			
 			else if(enemyInfo.enemyExhaustion <= 0f)
 			{
-				anim.Play("Tired");
+				isWalking = false;
+				isTiring = true;
 				GPS.Stop();
 			}
 		}
@@ -626,6 +705,23 @@ namespace Enemies
 			}
 			return closest;
 		}*/
+
+		public void EndAnimation()
+		{
+			if(gameObject.tag == "Slime")
+			{
+				GetComponent <Enemies.SlimeCollision> ().beingHit = false;
+			}
+			else
+			{
+				GetComponent <Enemies.Collision> ().beingHit = false;
+			}
+		}
+
+		public void EndAttack()
+		{
+			isAttacking = false;
+		}
 	}
 }
 

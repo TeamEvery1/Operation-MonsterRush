@@ -205,7 +205,7 @@ public class GUIManagerScript : MonoBehaviour
 	{
 		if (playerMovementScript.myAnim.GetCurrentAnimatorStateInfo(0).IsName("Grounded Movement"))
 		{
-			if(!playerMovementScript.canJump && (playerMovementScript.Grounded() || playerMovementScript.UpperGrounded()) && playerControllerScript.moveJoyStick.canMove)
+			if(!playerMovementScript.canJump && (playerMovementScript.Grounded() || playerMovementScript.UpperGrounded() || playerMovementScript.GroundedOnWood()) && playerControllerScript.moveJoyStick.canMove)
 			{
 				playerMovementScript.canJump = true;
 				iKSnapScript.useIK = true;

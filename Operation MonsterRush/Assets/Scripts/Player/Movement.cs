@@ -21,6 +21,7 @@ namespace Player
 
 		public LayerMask ground;
 		public LayerMask upperGround;
+		public LayerMask bridge;
 		//private LayerMask allGround;
 
 
@@ -29,6 +30,7 @@ namespace Player
 		[HideInInspector] public bool canJump;
 		[HideInInspector] public bool beingKnockBack;
 		public bool isSwimming;
+		private bool isJumping;
 
 		public float objectVelocity = 1.0f;
 		private float turnSpeed;
@@ -50,6 +52,7 @@ namespace Player
 		//Vector3 groundNormal;
 		private Vector3 jumpMovement;
 		private Vector3 v;
+		private Vector3 target;
 
 		private GUIManagerScript guiManager;
 
@@ -66,6 +69,7 @@ namespace Player
 
 			guiManager = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManagerScript>();
 
+			isJumping = false;
 		}
 
 		private void FixedUpdate()
@@ -76,6 +80,8 @@ namespace Player
 			{
 				beingKnockBack = false;
 				myAnim.Play("DamageDown");
+				//target = new Vector3 (0.0f, GameManager.Instance.playerCombatScript.closest.transform.position.y, 0.0f);
+				//this.transform.LookAt (target);
 			}
 
 			if (isSwimming)
@@ -86,6 +92,14 @@ namespace Player
 				}
 			}
 
+			if (isJumping)
+			{
+				if (onGround)
+				{
+					isJumping = false;
+					SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERLAND);
+				}
+			}
 			/*if(canJump)
 				myRB.velocity = transform.TransformDirection(v);*/
 			
@@ -168,15 +182,32 @@ namespace Player
 				myAnim.SetFloat("jumpPosition", jumpPosition);
 			}
 
-			if(onGround && movement.magnitude > 0)
+			if(Grounded() && movement.magnitude > 0)
 			{
 				myAnim.speed = animationSpeedMultiplier;
 				SoundManagerScript.Instance.PlayLoopingSFX (AudioClipID.SFX_PLAYERWALK);
+				SoundManagerScript.Instance.StopLoopingSFX (AudioClipID.SFX_PLAYERWALKWOOD);
+				SoundManagerScript.Instance.StopLoopingSFX (AudioClipID.SFX_SWIMMING);
+			}
+			else if(GroundedOnWood() && movement.magnitude > 0)
+			{
+				myAnim.speed = animationSpeedMultiplier;
+				SoundManagerScript.Instance.StopLoopingSFX (AudioClipID.SFX_PLAYERWALK);
+				SoundManagerScript.Instance.PlayLoopingSFX (AudioClipID.SFX_PLAYERWALKWOOD);
+				SoundManagerScript.Instance.StopLoopingSFX (AudioClipID.SFX_SWIMMING);
+			}
+			else if(isSwimming)
+			{
+				SoundManagerScript.Instance.StopLoopingSFX (AudioClipID.SFX_PLAYERWALK);
+				SoundManagerScript.Instance.StopLoopingSFX (AudioClipID.SFX_PLAYERWALKWOOD);
+				SoundManagerScript.Instance.PlayLoopingSFX (AudioClipID.SFX_SWIMMING);
 			}
 			else
 			{
 				myAnim.speed = 1.0f;
 				SoundManagerScript.Instance.StopLoopingSFX (AudioClipID.SFX_PLAYERWALK);
+				SoundManagerScript.Instance.StopLoopingSFX (AudioClipID.SFX_PLAYERWALKWOOD);
+				SoundManagerScript.Instance.StopLoopingSFX (AudioClipID.SFX_SWIMMING);
 			}
 		}
 
@@ -184,7 +215,7 @@ namespace Player
 		{
 			if(moveJoyStick.canMove)
 			{
-				if((Grounded() || UpperGrounded()) && Time.deltaTime > 0 && !isSwimming)
+				if((Grounded() || UpperGrounded() || GroundedOnWood()) && Time.deltaTime > 0 && !isSwimming)
 				{
 					Vector3 moveForward = transform.forward * myAnim.GetFloat("motionZ") * objectVelocity * Time.deltaTime;
 					v = ((myAnim.deltaPosition + moveForward) * movementSpeedMultiplier * 1.3f / Time.deltaTime);
@@ -206,6 +237,11 @@ namespace Player
 			return Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, ground);
 		}
 
+		public bool GroundedOnWood()
+		{
+			return Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, bridge);
+		}
+
 		public bool UpperGrounded()
 		{
 			return Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, upperGround);
@@ -220,7 +256,7 @@ namespace Player
 			}
 
 			//Jump
-			if((Grounded() || UpperGrounded()) && onGround && !isSwimming)
+			if((Grounded() || UpperGrounded() || GroundedOnWood()) && onGround && !isSwimming)
 			{
 				if(canJump)
 				{
@@ -237,7 +273,7 @@ namespace Player
 					onGround = true;
 				}
 			}
-			else if(!Grounded() && !onGround && !isSwimming && !iKSnapScript.isClimbing)
+			else if((!Grounded() && !GroundedOnWood()) && !onGround && !isSwimming && !iKSnapScript.isClimbing)
 			{
 				Vector3 extraGravityForce = new Vector3 (0, -jumpForce * fallingMultiplier * gravityMultiplier * 1.3f , 0);
 
@@ -247,7 +283,7 @@ namespace Player
 
 				myRB.useGravity = false;
 			}
-			else if(!Grounded() && onGround && !isSwimming && !iKSnapScript.isClimbing)
+			else if((!Grounded() && !GroundedOnWood()) && onGround && !isSwimming && !iKSnapScript.isClimbing)
 			{
 				//myRB.velocity = new Vector3 (playerControllerScript.direction.x * jumpForce / 1.5f, -fallingMultiplier * gravityMultiplier / 3.35f , playerControllerScript.direction.z * jumpForce / 1.5f);
 				myRB.useGravity = true;
@@ -275,15 +311,11 @@ namespace Player
 
 				//Invoke ("ClimbingPosition", 0.5f);
 			}
-			else if(isSwimming)
-			{
-				myAnim.Play("Swim");
-			}
 			else
 			{
 				onGround = true;
 				iKSnapScript.useIK = false;
-				myAnim.Play("Grounded Movement");
+				//myAnim.Play("Grounded Movement");
 				v.y = 0;
 			}
 

@@ -10,10 +10,14 @@ public class GameManager : MonoBehaviour
 	{
 		get
 		{
-			if(instance == null)
+			if(GameObject.FindWithTag("GameManager") != null)
 			{
-				GameObject obj = new GameObject("Game Manager");
-				instance = obj.AddComponent <GameManager>();
+				instance = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+			}
+			else 
+			{
+				GameObject obj = new GameObject("GameManager");
+				instance = obj.AddComponent<GameManager>();
 			}
 			return instance;
 		}
@@ -22,6 +26,7 @@ public class GameManager : MonoBehaviour
 	private GameObject player;
 	public Player.Movement playerMovementScript;
 	public Player.Controller playerControllerScript;
+	public Player.Combat playerCombatScript;
 	//Cameras.CaptureView captureViewScript;
 	//GUIManagerScript guiManagerScript;
 	//CatchManager catchManagerScript;
@@ -36,7 +41,7 @@ public class GameManager : MonoBehaviour
 	private int maxEnemyCounter;
 	public Text enemyCounterText;
 	public Text coinCounterText;
-	Player.Collision playerCollision;
+	public Player.Collision playerCollision;
 
 	public GUIManagerScript guiManager;
 
@@ -45,6 +50,7 @@ public class GameManager : MonoBehaviour
 		player = GameObject.Find("Character");
 		playerMovementScript = player.GetComponent <Player.Movement>(); 
 		playerControllerScript = player.GetComponent <Player.Controller>();
+		playerCombatScript = player.GetComponent <Player.Combat> ();
 		//captureViewScript = FindObjectOfType <Cameras.CaptureView> ();
 		//guiManagerScript = FindObjectOfType <GUIManagerScript> ();
 		//catchManagerScript = FindObjectOfType <CatchManager> ();
@@ -55,7 +61,7 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
-		coinCounterText.text = playerCollision.coinCounter + " / 10";
+		//coinCounterText.text = playerCollision.coinCounter + " / 10";
 
 		SoundManagerScript.Instance.PlayLoopingBGM (AudioClipID.BGM_BATTLE);
 

@@ -179,6 +179,8 @@ namespace Player
 				{
 					onCombat = true;
 
+					SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERATKMISS);
+
 					gauntlet.AttackCounter ++;
 					if(gauntlet.AttackCounter == 1)
 					{
