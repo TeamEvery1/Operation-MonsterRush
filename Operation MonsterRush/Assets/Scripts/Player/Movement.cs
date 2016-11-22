@@ -119,7 +119,15 @@ namespace Player
 
 			//movement = Vector3.ProjectOnPlane (movement, groundNormal);
 
-			turnRatio = Mathf.Atan2 (movement.x, movement.z);
+			if(iKSnapScript.isClimbing == false)
+			{
+				turnRatio = Mathf.Atan2 (movement.x, movement.z);
+			}
+			else
+			{
+				turnRatio = 0.0f;
+			}
+
 			forwardRatio = movement.z;
 
 			ApplyExtraRotation();
