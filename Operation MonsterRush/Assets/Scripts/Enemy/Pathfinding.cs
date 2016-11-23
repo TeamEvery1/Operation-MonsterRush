@@ -37,11 +37,13 @@ namespace Enemies
 		public EnemyInfo enemyInfo;
 
 		public float safeToBackTimer;
+		float changeDesTimer = 5.5f;
 
 		public float viewRadius;
 		[Range(0,360)]	public float viewAngle;
 
 		float timer;
+		float timer2 = 0.0f;
 		float startX;
 		float startY;
 		float startZ;
@@ -421,9 +423,22 @@ namespace Enemies
 				{
 					GPS.speed = enemyInfo.enemyMovementSpeed * 3.5f;
 					anim.speed = 1.0f * 3.5f;
+					Dist = Vector3.Distance(new Vector3(startX, startY, startZ), new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
 
-
-					if(GPS.remainingDistance <= 0.8f)
+					// if player too for give up knock back and escape
+					if(GPS.remainingDistance + 20.0f  <  Dist )
+					{
+						Debug.Log("gv up");
+						IsKnockBacking = false;
+						sawPlayer = true;
+						timer = 0.0f;
+						RandomDes = Random.Range(0,3);
+						//GPS.destination = desPoint[RandomDes].position;
+						GPS.SetDestination(desPoint[RandomDes].position);
+						isAttacking = false;
+						isAlerting = false;
+					}
+					else if(GPS.remainingDistance <= 0.8f) // knock back
 					{
 						isAlerting = false;
 						isAttacking = true;
@@ -476,6 +491,7 @@ namespace Enemies
 
 					if(VisibleTarget == null)
 					{
+						timer2 = 0.0f;
 						timer += Time.deltaTime;
 						if(timer >= safeToBackTimer)
 						{
@@ -490,6 +506,15 @@ namespace Enemies
 					else if(VisibleTarget != null)
 					{
 						timer = 0.0f;
+						timer2 += Time.deltaTime;
+						if(timer2 >= changeDesTimer)
+						{
+							timer2 = 0.0f;
+							RandomDes = Random.Range(0,3);
+							GPS.destination = desPoint[RandomDes].position;
+
+						}
+
 					}
 				}
 				/*else if(monsterSelection.monsterType == "slime") //! Split goo

@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
 	public float GooDmg = 1.0f;
 	float timer;
 	Rigidbody rigid;
-
+	Animator anim;
 	float startTime;
 
 	private GUIManagerScript guiManager;
@@ -21,6 +21,7 @@ public class Bullet : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		anim = GetComponent<Animator>();
 		rigid = this.gameObject.GetComponent<Rigidbody>();
 		startTime = Time.time;
 		Speed = Speed ?? DefaultSpeed;
@@ -51,12 +52,24 @@ public class Bullet : MonoBehaviour
 
 	void OnTriggerEnter(Collider other) 
 	{
+		
+	}
+
+	void OnTriggerStay(Collider other) 
+	{
 		if(other.CompareTag("Player"))
 		{
 			other.GetComponent<Player.Controller>().health -= GooDmg;
 			guiManager.canShowDamageOverlay = true;
 			Destroy(this.gameObject);
 		}
+		else if(other.CompareTag("Jump"))
+		{
+			//Debug.Log("Terrain");
+			rigid.constraints = RigidbodyConstraints.FreezePosition;
+			anim.Play("Puddle");
 
+		}
 	}
+
 }
