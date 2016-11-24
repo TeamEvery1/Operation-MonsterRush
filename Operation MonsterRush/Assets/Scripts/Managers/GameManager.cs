@@ -39,9 +39,8 @@ public class GameManager : MonoBehaviour
 	public float timeMax = 900;
 	public int enemyCounter = 0;
 	public int maxEnemyCounter;
-	public Text enemyCounterText;
-	public Text coinText;
-	public Player.Collision playerCollision;
+
+
 
 	public GUIManagerScript guiManager;
 
@@ -55,7 +54,7 @@ public class GameManager : MonoBehaviour
 		//guiManagerScript = FindObjectOfType <GUIManagerScript> ();
 		//catchManagerScript = FindObjectOfType <CatchManager> ();
 		guiManager = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManagerScript>();
-		playerCollision = FindObjectOfType<Player.Collision>();
+
 
 	}
 
@@ -87,8 +86,7 @@ public class GameManager : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		coinText.text = playerCollision.coinCounter + "/" + playerCollision.maxCoinCounter;
-		enemyCounterText.text = enemyCounter.ToString();
+		
 		if (enemyCounter <= 0) 
 		{
 			winCondition = true;

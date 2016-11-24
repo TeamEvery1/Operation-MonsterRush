@@ -11,7 +11,7 @@ public class Timer : MonoBehaviour
 
 	void Awake()
 	{
-		timer = 10.0f;
+		timer = 900.0f;
 		//realTime = 900.0f;
 
 		timerText = this.transform.GetComponent <Text>();

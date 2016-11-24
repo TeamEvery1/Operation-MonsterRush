@@ -83,6 +83,9 @@ public class GUIManagerScript : MonoBehaviour
 	public Canvas gameoverCanvas;
 	public bool gameoverBool = false;
 
+	public Player.Collision playerCollision;
+	public Text enemyCounterText;
+	public Text coinText;
 
 	void Awake () 
 	{
@@ -98,7 +101,7 @@ public class GUIManagerScript : MonoBehaviour
 		text = this.gameObject.transform.Find("Coin/CoinText 2").GetComponent<RectTransform>();
 		textImage = this.gameObject.transform.FindChild("Coin/CoinText 2").GetComponent<Text>();
 		canShowCoinText = false;
-
+		playerCollision = FindObjectOfType<Player.Collision>();
 	}
 	// Use this for initialization
 	void Start ()
@@ -115,6 +118,8 @@ public class GUIManagerScript : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		coinText.text = playerCollision.coinCounter + "/" + playerCollision.maxCoinCounter;
+		enemyCounterText.text = GameManager.Instance.enemyCounter.ToString();
 		TutorialScene();
 		ChangeUITranparentcy();
 		TextMovingUP();
