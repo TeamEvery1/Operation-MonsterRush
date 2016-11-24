@@ -11,6 +11,7 @@ namespace Enemies
 
 		[HideInInspector]public string monsterType;
 		public string monsterName;
+		public int id;
 
 		void Awake()
 		{

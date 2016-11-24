@@ -54,6 +54,8 @@ namespace Player
 		private Vector3 v;
 		private Vector3 target;
 
+		private GameObject speedBoost;
+
 		private GUIManagerScript guiManager;
 
 		private void Start()
@@ -68,6 +70,7 @@ namespace Player
 			playerControllerScript = GetComponent <Player.Controller>();
 
 			guiManager = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManagerScript>();
+			speedBoost = this.transform.Find ("Extra Effect/Eternal Light").gameObject;
 
 			isJumping = false;
 		}
@@ -102,6 +105,16 @@ namespace Player
 			}
 			/*if(canJump)
 				myRB.velocity = transform.TransformDirection(v);*/
+
+			if (objectVelocity >= 1.5f)
+			{
+				speedBoost.SetActive (true);
+				StartCoroutine ("speedBoostTimer", 5.0f);
+			}
+			else
+			{
+				speedBoost.SetActive (false);
+			}
 			
 		}
 
@@ -294,6 +307,12 @@ namespace Player
 			else if((!Grounded() && !GroundedOnWood()) && onGround && !isSwimming && !iKSnapScript.isClimbing)
 			{
 				//myRB.velocity = new Vector3 (playerControllerScript.direction.x * jumpForce / 1.5f, -fallingMultiplier * gravityMultiplier / 3.35f , playerControllerScript.direction.z * jumpForce / 1.5f);
+				Vector3 extraGravityForce = new Vector3 (0, -jumpForce * fallingMultiplier * gravityMultiplier * 1.3f , 0);
+
+				myRB.velocity = new Vector3 (playerControllerScript.direction.x * jumpForce / 1.5f, -fallingMultiplier * gravityMultiplier / 4.0f , playerControllerScript.direction.z * jumpForce / 1.5f);
+
+				myRB.AddForce (extraGravityForce);
+
 				myRB.useGravity = true;
 			}
 			else if(iKSnapScript.isClimbing)
@@ -374,6 +393,12 @@ namespace Player
 		void ChangeDamageOverlay()
 		{
 			guiManager.canShowDamageOverlay = true;
+		}
+
+		IEnumerator speedBoostTimer (float t)
+		{
+			yield return new WaitForSeconds (t);
+			objectVelocity = 1.0f;
 		}
 
 		/*void AnimationEnd()

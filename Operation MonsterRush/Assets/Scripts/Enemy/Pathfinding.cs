@@ -61,6 +61,7 @@ namespace Enemies
 		public LayerMask ObstacleLayer;
 
 		private Player.Movement playerMovementScript;
+		private LevelEditor LevelEditorScript;
 
 		GameObject player;
 		float Dist;
@@ -100,6 +101,7 @@ namespace Enemies
 				enemyInfo.enemyStamina, enemyInfo.enemyMaxStamina, enemyInfo.staminaRcvrSpeed, enemyInfo.enemyMovementSpeed);
 
 			monsterSelection = GetComponent <Enemies.Info> ();
+			LevelEditorScript = GameObject.Find ("Level").GetComponent <LevelEditor>();
 		}
 
 		void Start()
@@ -184,6 +186,22 @@ namespace Enemies
 				disgustingThing.ExhaustionAmount = enemyInfo.enemyExhaustion;
 			}
 
+			for (int i = 0; i < LevelEditorScript.monsterList.Count; i++)
+			{
+				if (LevelEditorScript.monsterList[i].monsterName.Length > 0)
+				{
+					if (LevelEditorScript.monsterList[i].monsterID == this.GetComponent <Enemies.Info> ().id)
+					{
+						this.GetComponent <Enemies.Info>().monsterName = LevelEditorScript.monsterList[i].monsterName[Random.Range (0, LevelEditorScript.monsterList[i].monsterName.Length - 1)];
+					}
+					else
+					{
+						continue;
+					}
+				}
+				else
+					continue;
+			}
 		}
 
 		IEnumerator FindTargetsWithDelay(float delay)
@@ -306,7 +324,7 @@ namespace Enemies
 			}
 			else if(monsterSelection.monsterType == "disgusting")
 			{
-				GPS.speed = enemyInfo.enemyMovementSpeed;
+				GPS.speed = disgustingThing.MovementSpeed;
 			}
 
 
@@ -377,10 +395,12 @@ namespace Enemies
 					if (GetComponent<Enemies.SlimeCollision> ().beingHit)
 					{
 						GPS.speed = 0.0f;
-						isAttacking = false;
+						//isAttacking = false;
 						isWalking = false;
 						isTiring = false;
 						isAlerting = false;
+
+						StartCoroutine ("beingHitTimer", 0.3f);
 					}
 
 				}
@@ -392,10 +412,12 @@ namespace Enemies
 					if (GetComponent<Enemies.Collision> ().beingHit)
 					{
 						GPS.speed = 0.0f;
-						isAttacking = false;
+						//isAttacking = false;
 						isWalking = false;
 						isTiring = false;
 						isAlerting = false;
+
+						StartCoroutine ("beingHitTimer", 0.3f);
 					}
 					else
 					{
@@ -416,6 +438,7 @@ namespace Enemies
 					}
 					anim.speed = 2.5f;
 					isAlerting = true;
+					isWalking = false;
 				}
 
 				//!proceed Close-Up action
@@ -568,9 +591,10 @@ namespace Enemies
 						{
 							isTiring = false;
 							isWalking = false;
-							isAlerting = false;
+							//isAlerting = false;
 							isAttacking = false;
 
+							GPS.speed = 0.0f;
 							anim.speed = 1.3f;
 							GPS.baseOffset = -1.46f;
 						}
@@ -746,6 +770,19 @@ namespace Enemies
 		public void EndAttack()
 		{
 			isAttacking = false;
+		}
+
+		IEnumerator beingHitTimer (float t)
+		{
+			yield return new WaitForSeconds (t);
+			if(this.gameObject.tag == "Slime")
+			{
+				GetComponent<Enemies.SlimeCollision> ().beingHit = false;
+			}
+			else
+			{
+				GetComponent<Enemies.Collision> ().beingHit = false;
+			}
 		}
 	}
 }

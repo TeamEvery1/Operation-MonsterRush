@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: a1d81b5a1595cf849a65d29e90d26c81
-timeCreated: 1478182883
+guid: e5e46ab1706295744b7c916c4c7b2173
+timeCreated: 1479938061
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -13,10 +13,10 @@ ModelImporter:
     100010: d2
     100012: d3
     100014: d4
-    100016: leftb
-    100018: legd
-    100020: legup
-    100022: //RootNode
+    100016: //RootNode
+    100018: leftb
+    100020: legd
+    100022: legup
     100024: Sphere008
     400000: bodyb
     400002: Bone006(mirrored)
@@ -26,10 +26,10 @@ ModelImporter:
     400010: d2
     400012: d3
     400014: d4
-    400016: leftb
-    400018: legd
-    400020: legup
-    400022: //RootNode
+    400016: //RootNode
+    400018: leftb
+    400020: legd
+    400022: legup
     400024: Sphere008
     4300000: Sphere008
     7400000: Disgusting Idle
@@ -67,8 +67,8 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

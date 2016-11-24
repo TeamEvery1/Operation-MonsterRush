@@ -179,7 +179,8 @@ namespace Player
 				{
 					onCombat = true;
 
-					SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERATKMISS);
+					if (!GetComponent <Player.Movement>().isSwimming)
+						SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERATKMISS);
 
 					gauntlet.AttackCounter ++;
 					if(gauntlet.AttackCounter == 1)

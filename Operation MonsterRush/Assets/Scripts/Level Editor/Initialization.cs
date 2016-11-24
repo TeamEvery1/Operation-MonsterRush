@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System.Collections;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -49,12 +50,10 @@ public class Initialization : MonoBehaviour
 				GameObject clone = (GameObject) Instantiate (LevelEditorScript.monsterList[i].monsterPrefab, LevelEditorScript.monsterList[i].monsterPosition, this.transform.rotation);
 				clone.transform.parent = GameObject.Find ("Monsters").transform;
 
-				if (LevelEditorScript.monsterList[i].monsterName.Length > 0)
+				if (clone.GetComponent <Enemies.Info> ())
 				{
-					clone.GetComponent <Enemies.Info>().monsterName = LevelEditorScript.monsterList[i].monsterName[Random.Range (0, LevelEditorScript.monsterList[i].monsterName.Length - 1)];
+					clone.GetComponent <Enemies.Info> ().id = LevelEditorScript.monsterList[i].monsterID;
 				}
-				else
-					continue;
 
 				Debug.Log (LevelEditorScript.monsterList[i].wanderPoint.Length);
 

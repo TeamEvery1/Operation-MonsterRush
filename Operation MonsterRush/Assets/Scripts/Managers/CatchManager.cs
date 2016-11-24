@@ -127,7 +127,6 @@ public class CatchManager : MonoBehaviour {
 		{
 			catchManager.enabled = false;
 			guiManager.enabled = true;
-
 			if(!captureViewScript.isCollided)
 			{
 				foreach (GameObject enemy in enemies)

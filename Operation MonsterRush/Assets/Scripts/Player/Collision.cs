@@ -8,14 +8,22 @@ namespace Player
 		public Player.Combat playerCombatScript;
 		Player.Controller playerControllerScript;
 		public Player.Health playerHealthScript;
+
 		public int coinCounter;
 		public int maxCoinCounter;
+
 		public GameObject potion;
 		public GameObject coin;
+
 		private GameObject obj;
+		private GameObject healingEffect;
+
 		GUIManagerScript guiScript;
+
 		private Component[] cratesPieces;
+
 		Timer timerScript;
+
 		private Enemies.Pathfinding pathFinding;
 
 		public bool coinCollided;
@@ -23,14 +31,27 @@ namespace Player
 		void Start()
 		{
 			timerScript = FindObjectOfType<Timer> ();
+
 			coinCounter = 0;
 			maxCoinCounter = 10;
+
 			playerCombatScript = GetComponent <Player.Combat> ();
 			playerControllerScript = GetComponent <Player.Controller> ();
 			playerHealthScript = GameObject.FindGameObjectWithTag("GUIManager").transform.FindChild("Player UI").GetComponent <Player.Health> ();
 			guiScript = FindObjectOfType <GUIManagerScript>();
 			pathFinding = GameObject.FindObjectOfType<Enemies.Pathfinding>();
+
+			healingEffect = this.transform.Find ("Extra Effect/Healing").gameObject;
+
 			coinCollided = false;
+		}
+
+		void FixedUpdate()
+		{
+			if (healingEffect.activeSelf)
+			{
+				StartCoroutine ("HealingVFXTimer", 1.5f);
+			}
 		}
 
 		void OnTriggerEnter (Collider other)
@@ -55,6 +76,9 @@ namespace Player
 			{
 				playerControllerScript.health += 1;
 				playerHealthScript.canShowText = true;
+
+				healingEffect.SetActive (true);
+	
 				Destroy(other.gameObject);
 			}
 
@@ -188,6 +212,12 @@ namespace Player
 		void Delay ()
 		{
 			Destroy (obj.gameObject);
+		}
+
+		IEnumerator HealingVFXTimer (float t)
+		{
+			yield return new WaitForSeconds (t);
+			healingEffect.SetActive (false);
 		}
 	}
 }

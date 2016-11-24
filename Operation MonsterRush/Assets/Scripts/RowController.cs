@@ -15,11 +15,15 @@ public class RowController : MonoBehaviour
 	public Transform[] patrolPoint;
 	public int currentPoint;
 	public bool reached = true;
+	public float oriMoveSpeed;
+	public float oriRotateSpeed;
 
 	void Start()
 	{
 		transform.position = patrolPoint[0].position;
 		currentPoint = 0;
+		oriMoveSpeed = rowStat.movementSpeed;
+		oriRotateSpeed = rowStat.rotateSpeed;
 	}
 
 	void FixedUpdate()
