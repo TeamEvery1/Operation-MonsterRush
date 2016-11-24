@@ -39,8 +39,7 @@ public class GameManager : MonoBehaviour
 	public float timeMax = 900;
 	public int enemyCounter = 0;
 	public int maxEnemyCounter;
-
-
+	public Player.Collision playerCollision;
 
 	public GUIManagerScript guiManager;
 
@@ -54,7 +53,7 @@ public class GameManager : MonoBehaviour
 		//guiManagerScript = FindObjectOfType <GUIManagerScript> ();
 		//catchManagerScript = FindObjectOfType <CatchManager> ();
 		guiManager = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManagerScript>();
-
+		playerCollision = FindObjectOfType<Player.Collision>();
 
 	}
 
@@ -67,7 +66,7 @@ public class GameManager : MonoBehaviour
 
 		enemies = GameObject.FindGameObjectsWithTag ("Enemy");
 
-		foreach (GameObject enemy in enemies)
+		for (int i = 0; i < enemies.Length; i++)
 		{
 			enemyCounter ++;
 		}
@@ -87,6 +86,7 @@ public class GameManager : MonoBehaviour
 	void FixedUpdate()
 	{
 		
+		//enemyCounterText.text = enemyCounter.ToString();
 		if (enemyCounter <= 0) 
 		{
 			winCondition = true;
@@ -102,4 +102,9 @@ public class GameManager : MonoBehaviour
 		}*/
 	}
 
+	public static float GetSqrDist (Vector3 a, Vector3 b)
+	{
+		Vector3 vector = new Vector3 (a.x - b.x, 0, a.z - b.z);
+		return vector.sqrMagnitude;
+	}
 }

@@ -138,7 +138,7 @@ namespace Cameras
 
 				targetRotation = Quaternion.LookRotation (playerCombatScript.closest.transform.position - this.transform.position);
 
-				transform.rotation = Quaternion.Slerp (this.transform.rotation, targetRotation, Time.deltaTime * m_TurnSpeed);
+				transform.rotation = Quaternion.Slerp (this.transform.rotation, targetRotation, Time.deltaTime * m_TurnSpeed / 2);
 			}
 	    }
     }

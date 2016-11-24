@@ -224,7 +224,7 @@ namespace Enemies
 				Vector3 dirToTarget = (target.position - transform.position).normalized;
 				if(Vector3.Angle (transform.forward, dirToTarget) < viewAngle / 2)
 				{
-					float DstToTarget = Vector3.Distance(transform.position,target.position);
+					float DstToTarget = GameManager.GetSqrDist (this.transform.position, target.position);
 
 					if(!Physics.Raycast(transform.position, dirToTarget, DstToTarget, ObstacleLayer))
 					{
@@ -325,12 +325,7 @@ namespace Enemies
 			else if(monsterSelection.monsterType == "disgusting")
 			{
 				GPS.speed = disgustingThing.MovementSpeed;
-			}
-
-
-
-
-
+			} 	
 
 			IsKnockBacking = true;
 
@@ -446,12 +441,17 @@ namespace Enemies
 				{
 					GPS.speed = enemyInfo.enemyMovementSpeed * 3.5f;
 					anim.speed = 1.0f * 3.5f;
-					Dist = Vector3.Distance(new Vector3(startX, startY, startZ), new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
+					Dist = GameManager.GetSqrDist(new Vector3(startX, startY, startZ), new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
+
+					if(monsterSelection.monsterType == "disgusting")
+					{
+						GPS.baseOffset = -0.26f;
+					} 	
 
 					// if player too for give up knock back and escape
 					if(GPS.remainingDistance + 20.0f  <  Dist )
 					{
-						Debug.Log("gv up");
+						//Debug.Log("gv up");
 						IsKnockBacking = false;
 						sawPlayer = true;
 						timer = 0.0f;
@@ -485,6 +485,10 @@ namespace Enemies
 					//if(monsterSelection.monsterType != "slime")
 					//{
 					//Debug.Log("Escape");
+					if(monsterSelection.monsterType == "disgusting")
+					{
+						GPS.baseOffset = -0.26f;
+					}
 					if(GPS.remainingDistance < 0.05f)
 					{
 						RandomDes = Random.Range(0,3);
@@ -569,7 +573,7 @@ namespace Enemies
 					GPS.speed = enemyInfo.enemyMovementSpeed;
 					anim.speed = 1.0f;
 
-					Dist = Vector3.Distance(new Vector3(startX, startY, startZ), new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
+					Dist = GameManager.GetSqrDist(new Vector3(startX, startY, startZ), new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
 
 					if(Dist <= viewRadius && InsideRange == false)
 					{

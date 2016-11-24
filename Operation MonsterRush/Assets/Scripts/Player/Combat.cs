@@ -103,20 +103,20 @@ namespace Player
 				//closest = null;
 				float closestDist = 5000; 
 
-				foreach (GameObject nearestEnemy in nearestEnemies)
+				for(int i = 0; i < nearestEnemies.Length; i++)
 				{
-					if(nearestEnemy == null)
+					if(nearestEnemies[i] == null)
 					{
-						closest = nearestEnemy;
-						closestDist = (nearestEnemy.transform.position - this.transform.position).magnitude;
+						closest = nearestEnemies[i];
+						closestDist = (nearestEnemies[i].transform.position - this.transform.position).magnitude;
 					}
 					else
 					{
-						distance = (nearestEnemy.transform.position - this.transform.position).magnitude;
+						distance = (nearestEnemies[i].transform.position - this.transform.position).magnitude;
 
 						if(distance < closestDist)
 						{
-							closest = nearestEnemy;
+							closest = nearestEnemies[i];
 							closestDist = distance;
 						}
 					}
@@ -145,6 +145,7 @@ namespace Player
 						{
 							closest = nearestEnemy;
 							closestDist = distance;
+							break;
 						}
 					}
 				}
@@ -154,7 +155,7 @@ namespace Player
 					distance = (closest.transform.position - this.transform.position).magnitude;
 				}
 
-				if (distance <= 10.0f)
+				if (distance <= 7.0f)
 				{
 					targetLock = true;
 

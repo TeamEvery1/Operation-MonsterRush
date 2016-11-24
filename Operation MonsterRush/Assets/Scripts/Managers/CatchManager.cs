@@ -118,9 +118,9 @@ public class CatchManager : MonoBehaviour {
 			}
 
 
-			foreach (GameObject enemy in enemies)
+			for (int i = 0; i < enemies.Length; i++)
 			{
-				enemy.transform.Find ("Canvas").gameObject.SetActive (false);
+				enemies[i].transform.Find ("Canvas").gameObject.SetActive (false);
 			}
 		}
 		else
@@ -129,9 +129,9 @@ public class CatchManager : MonoBehaviour {
 			guiManager.enabled = true;
 			if(!captureViewScript.isCollided)
 			{
-				foreach (GameObject enemy in enemies)
+				for (int i = 0; i < enemies.Length; i++)
 				{
-					enemy.transform.Find ("Canvas").gameObject.SetActive (true);
+					enemies[i].transform.Find ("Canvas").gameObject.SetActive (true);
 				}
 			}
 		}
@@ -168,7 +168,8 @@ public class CatchManager : MonoBehaviour {
 				{
 					successCapture = true;
 					victoryImage.enabled = true;
-					Debug.Log ("Captured");
+					//Debug.Log ("Captured");
+					break;
 				}
 
 				if (timeLimitF <= 0 && faintCounter > 0) 
@@ -178,16 +179,15 @@ public class CatchManager : MonoBehaviour {
 					guiManagerScripts.canDisplayTutorialBlackScreen = false;
 					//captureScript.timeLimit = 0;
 
-					Debug.Log ("You Lose");
-
-
+					//Debug.Log ("You Lose");
+					break;
 				}
 				//fillUpLove.enabled = true;
 				if ((fillUpMetre <= 35) && (fillUpMetre >= 25)) 
 				{
 					faintCounter -= Time.deltaTime;
 				}
-				timeLimitF -= Time.deltaTime*0.5f;
+				timeLimitF -= Time.deltaTime*0.1f;
 			}
 
 			//battle win condition

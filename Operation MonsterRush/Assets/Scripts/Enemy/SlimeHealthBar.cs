@@ -25,7 +25,7 @@ namespace Enemies
 		{
 			if (guiManager.firstCapture)
 			{
-				if (Vector3.Distance (this.transform.position, player.transform.position) < 3.0f)
+				if (GameManager.GetSqrDist (this.transform.position, player.transform.position) < 3.0f)
 				{
 					guiManager.canDisplayTutorialBlackScreen = true;
 				}

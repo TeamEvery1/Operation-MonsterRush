@@ -28,7 +28,7 @@ public class RowController : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		if ( Vector3.Distance (transform.position, patrolPoint[currentPoint].position) < 0.5f)
+		if ( GameManager.GetSqrDist (transform.position, patrolPoint[currentPoint].position) < 0.5f)
 		{
 			reached = true;
 			currentPoint ++;

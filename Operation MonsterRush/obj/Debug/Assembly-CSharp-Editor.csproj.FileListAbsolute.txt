@@ -305,7 +305,6 @@ C:\Users\tyran\Desktop\Tyran Monster Rush\Operation MonsterRush\Temp\bin\Debug\U
 C:\Users\tyran\Desktop\Tyran Monster Rush\Operation MonsterRush\Temp\bin\Debug\Mono.Cecil.Mdb.dll
 C:\Users\tyran\Desktop\Tyran Monster Rush\Operation MonsterRush\Temp\bin\Debug\Unity.CecilTools.dll
 C:\Users\tyran\Desktop\Tyran Monster Rush\Operation MonsterRush\Temp\bin\Debug\Mono.Cecil.Pdb.dll
-C:\Users\tyran\Desktop\Tyran Monster Rush\Operation MonsterRush\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
 C:\Users\tyran\Desktop\Tyran Monster Rush\Operation MonsterRush\Temp\bin\Debug\Assembly-CSharp.pdb
 C:\Users\tyran\Desktop\Tyran Monster Rush\Operation MonsterRush\Temp\bin\Debug\UnityEngine.xml
 C:\Users\tyran\Desktop\Tyran Monster Rush\Operation MonsterRush\Temp\bin\Debug\UnityEditor.xml

@@ -86,7 +86,6 @@ public class GUIManagerScript : MonoBehaviour
 	public Player.Collision playerCollision;
 	public Text enemyCounterText;
 	public Text coinText;
-
 	void Awake () 
 	{
 		playerControllerScript = GameObject.FindObjectOfType <Player.Controller>();

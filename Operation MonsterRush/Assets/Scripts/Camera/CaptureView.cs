@@ -215,15 +215,15 @@ namespace Cameras
 			camera01.transform.rotation = Quaternion.Euler(catchingRotation);
 
 
-			foreach (Enemies.Pathfinding enemyPathfindingScript in enemyPathfindingScripts)
+			for (int i = 0; i < enemyPathfindingScripts.Length; i++)
 			{
-				enemyPathfindingScript.GPS.speed = 0.0f;
+				enemyPathfindingScripts[i].GPS.speed = 0.0f;
 			}
 
-			foreach (RowController rowControllerScript in rowControllerScripts)
+			for (int i = 0; i < rowControllerScripts.Length; i ++)
 			{
-				rowControllerScript.rowStat.movementSpeed = 0.0f;
-				rowControllerScript.rowStat.rotateSpeed = 0.0f;
+				rowControllerScripts[i].rowStat.movementSpeed = 0.0f;
+				rowControllerScripts[i].rowStat.rotateSpeed = 0.0f;
 			}
 
 			catchMode = true;
@@ -250,24 +250,23 @@ namespace Cameras
 
 				autoCamScript.enabled = true;
 
-				foreach (Enemies.Pathfinding enemyPathfindingScript in enemyPathfindingScripts)
+				for (int i = 0; i < enemyPathfindingScripts.Length; i ++)
 				{
-					enemyPathfindingScript.GPS.speed = enemyPathfindingScript.enemyInfo.enemyMovementSpeed;
+					enemyPathfindingScripts[i].GPS.speed = enemyPathfindingScripts[i].enemyInfo.enemyMovementSpeed;
 				}
 
-				foreach (RowController rowControllerScript in rowControllerScripts)
+				for (int i = 0; i < rowControllerScripts.Length; i ++)
 				{
-					rowControllerScript.rowStat.movementSpeed = rowControllerScript.oriMoveSpeed;
-					rowControllerScript.rowStat.rotateSpeed = rowControllerScript.oriRotateSpeed;
+					rowControllerScripts[i].rowStat.movementSpeed = rowControllerScripts[i].oriMoveSpeed;
+					rowControllerScripts[i].rowStat.rotateSpeed = rowControllerScripts[i].oriRotateSpeed;
 				}
 
 				changed = true;
 			}
 
-
-			foreach (GameObject obstacle in obstacles)
+			for (int i = 0; i < obstacles.Length; i ++)
 			{
-				obstacle.SetActive (true);
+				obstacles[i].SetActive (true);
 			}
 
 			catchMode = false;

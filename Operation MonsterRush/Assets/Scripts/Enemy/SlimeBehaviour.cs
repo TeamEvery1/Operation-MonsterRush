@@ -73,7 +73,7 @@ namespace Enemies
 				Vector3 dirToTarget = (target.position - transform.position).normalized;
 				if(Vector3.Angle (transform.forward, dirToTarget) < viewAngle / 2)
 				{
-					float DstToTarget = Vector3.Distance(transform.position,target.position);
+					float DstToTarget = GameManager.GetSqrDist (this.transform.position, target.position); 
 
 					if(!Physics.Raycast(transform.position, dirToTarget, DstToTarget, ObstacleLayer))
 					{

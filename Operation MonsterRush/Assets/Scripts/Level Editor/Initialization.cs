@@ -55,7 +55,7 @@ public class Initialization : MonoBehaviour
 					clone.GetComponent <Enemies.Info> ().id = LevelEditorScript.monsterList[i].monsterID;
 				}
 
-				Debug.Log (LevelEditorScript.monsterList[i].wanderPoint.Length);
+				//Debug.Log (LevelEditorScript.monsterList[i].wanderPoint.Length);
 
 				if (LevelEditorScript.monsterList[i].wanderPoint.Length == 0)
 				{
