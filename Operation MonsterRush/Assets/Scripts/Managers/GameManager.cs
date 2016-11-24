@@ -38,9 +38,9 @@ public class GameManager : MonoBehaviour
 	public bool loseCondition = false;
 	public float timeMax = 900;
 	public int enemyCounter = 0;
-	private int maxEnemyCounter;
+	public int maxEnemyCounter;
 	public Text enemyCounterText;
-	public Text coinCounterText;
+	public Text coinText;
 	public Player.Collision playerCollision;
 
 	public GUIManagerScript guiManager;
@@ -82,17 +82,18 @@ public class GameManager : MonoBehaviour
 		{
 			guiManager.canDisplayTutorialBlackScreen = false;
 		}
+
 	}
 
 	void FixedUpdate()
 	{
-		coinCounterText.text = playerCollision.coinCounter + "/" + playerCollision.maxCoinCounter;
-
+		coinText.text = playerCollision.coinCounter + "/" + playerCollision.maxCoinCounter;
 		enemyCounterText.text = enemyCounter.ToString();
 		if (enemyCounter <= 0) 
 		{
 			winCondition = true;
 		}
+
 
 
 		/*if (guiManagerScript.maxTime <= 0) 

@@ -79,6 +79,11 @@ public class GUIManagerScript : MonoBehaviour
 
 	[HideInInspector] public bool canShowDamageOverlay;
 
+	public Canvas guiCanvas;
+	public Canvas gameoverCanvas;
+	public bool gameoverBool = false;
+
+
 	void Awake () 
 	{
 		playerControllerScript = GameObject.FindObjectOfType <Player.Controller>();
@@ -133,7 +138,8 @@ public class GUIManagerScript : MonoBehaviour
 				loseConImage.gameObject.SetActive(false);
 				closeImageCounter = 2;
 				maxTime = 10.0f;
-				SceneManager.LoadScene("Game Over");
+				//SceneManager.LoadScene("Game Over");
+				gameoverBool = true;
 			}
 		}
 
@@ -157,14 +163,24 @@ public class GUIManagerScript : MonoBehaviour
 				loseConImage.gameObject.SetActive(false);
 				closeImageCounter = 2;
 				maxTime = 10.0f;
-				SceneManager.LoadScene("Game Over");
+				//SceneManager.LoadScene("Game Over");
+				gameoverBool = true;
 			}
 		}
-		/*if (maxTime <= 0.0f) 
+		/*
+		if (maxTime <= 0.0f) 
 		{
 			//loseConImage.gameObject.SetActive(true);
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 		}*/
+
+		if (gameoverBool) 
+		{
+			guiCanvas.enabled = false;
+			gameoverCanvas.enabled = true;
+			Time.timeScale = 0;
+		}
+
 	}
 
 	void Reset()
