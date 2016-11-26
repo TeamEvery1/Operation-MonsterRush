@@ -62,6 +62,16 @@ public class CatchManager : MonoBehaviour {
 	public float timeLimitModifier;
 	private GUIManagerScript guiManagerScripts;
 
+	public GameObject box;
+
+	private Transform target;
+	private Vector3 originalScale;
+	private GameObject player;
+	private RaycastHit hitInfo;
+	private bool gotTarget;
+	private bool useRayCast;
+	private bool resetBox;
+
 
 	void Awake()
 	{
@@ -77,11 +87,17 @@ public class CatchManager : MonoBehaviour {
 		firstTimeCollided = true;
 		enemyCollisionScripts = FindObjectsOfType <Enemies.Collision>();
 		guiManagerScripts = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManagerScript>();
+
+		player = GameObject.FindGameObjectWithTag("Player");
+		gotTarget = false;
+		useRayCast = true;
+		resetBox = false;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		ResetBox();
 		CaptureUI ();
 		if (enemyCollided) 
 		{
@@ -137,6 +153,26 @@ public class CatchManager : MonoBehaviour {
 		}
 	}
 
+	void FixedUpdate()
+	{
+		if(captureMode)
+		{
+			if(useRayCast == true)
+			{
+				if(Physics.Raycast(player.transform.position + player.transform.TransformDirection(new Vector3(-1.7f, 1.0f, 1.0f)), player.transform.forward, out hitInfo, 3.0f))
+				{	
+					if(gotTarget == false)
+					{
+						target = hitInfo.transform;
+						originalScale = target.transform.localScale;
+						useRayCast = false;
+						gotTarget = true;
+					}
+				}
+			}
+		}
+	}
+
 	void Reset()
 	{
 		faintCounter = 10;
@@ -168,6 +204,7 @@ public class CatchManager : MonoBehaviour {
 				{
 					successCapture = true;
 					victoryImage.enabled = true;
+					resetBox = true;
 					//Debug.Log ("Captured");
 					break;
 				}
@@ -178,6 +215,7 @@ public class CatchManager : MonoBehaviour {
 					loseImage.enabled = true;
 					guiManagerScripts.canDisplayTutorialBlackScreen = false;
 					//captureScript.timeLimit = 0;
+					resetBox = true;
 
 					//Debug.Log ("You Lose");
 					break;
@@ -198,6 +236,36 @@ public class CatchManager : MonoBehaviour {
 
 				nextTime =Time.time + oneSecond;
 				fillUpMetre--;
+
+				if(captureMode == true && gotTarget == true)
+				{
+					if(target.transform.localScale.x >= originalScale.x && target.transform.localScale.y >= originalScale.y && target.transform.localScale.z >= originalScale.z)
+					{
+						target.transform.localScale = originalScale;
+					}
+					else
+					{
+						target.transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+					}
+
+					if(box.transform.localScale.x >= 6.0f && box.transform.localScale.y >= 6.0f && box.transform.localScale.z >= 6.0f)
+					{
+						box.transform.localScale = new Vector3(6.0f, 6.0f, 6.0f);
+					}
+					else
+					{
+						box.transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+					}
+
+					if(box.GetComponent<BoxShakeScripts>().alphaValue <= 0.5f)
+					{
+						box.GetComponent<BoxShakeScripts>().alphaValue = 0.5f;
+					}
+					else
+					{
+						box.GetComponent<BoxShakeScripts>().alphaValue -= 0.05f;
+					}
+				}
 			}
 
 			if (fillUpMetre <= 0) 
@@ -210,7 +278,48 @@ public class CatchManager : MonoBehaviour {
 	public void CaptureButton()
 	{
 		fillUpMetre++;
+
+		if(captureMode == true && gotTarget == true)
+		{
+			if(target.transform.localScale.x <= 0.3f && target.transform.localScale.y <= 0.3f && target.transform.localScale.z <= 0.3f)
+			{
+				target.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+			}
+			else
+			{
+				target.transform.localScale -= new Vector3(0.05f, 0.05f, 0.05f);
+			}
+
+			if(box.transform.localScale.x <= 1.0f && box.transform.localScale.y <= 1.0f && box.transform.localScale.z <= 1.0f)
+			{
+				box.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+			}
+			else
+			{
+				box.transform.localScale -= new Vector3(0.1f, 0.1f, 0.1f);
+			}
+
+			if(box.GetComponent<BoxShakeScripts>().alphaValue >= 1.0f)
+			{
+				box.GetComponent<BoxShakeScripts>().alphaValue = 1.0f;
+			}
+			else
+			{
+				box.GetComponent<BoxShakeScripts>().alphaValue += 0.05f;
+			}
+		}
 	}
 
-
+	public void ResetBox()
+	{
+		if(resetBox == true)
+		{
+			box.GetComponent<BoxShakeScripts>().alphaValue = 0.5f;
+			box.transform.localScale = new Vector3(6.0f, 6.0f, 6.0f);
+			target.transform.localScale = originalScale;
+			useRayCast = true;
+			gotTarget = false;
+			resetBox = false;
+		}
+	}
 }

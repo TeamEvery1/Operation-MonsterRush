@@ -203,7 +203,7 @@ namespace Cameras
 			player.transform.rotation = Quaternion.Euler (0.0f, 37.501f, 0.0f);
 
 			target.transform.position = new Vector3 (297.36f, 15.33f, 100.71f);
-			target.transform.LookAt (player.transform.position);
+			target.transform.LookAt (player.transform.position * -90.0f);
 
 			if(target.GetComponent <NavMeshAgent> ())
 			{
