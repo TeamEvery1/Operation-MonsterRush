@@ -1,9 +1,11 @@
 fileFormatVersion: 2
 guid: 4448acafd4e4058448a7e44632547612
-timeCreated: 1475706111
+timeCreated: 1480480786
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Panel_0
+    21300002: Panel_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -38,12 +40,12 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 0, y: 217, z: 0, w: 0}
   spritePixelsToUnits: 0.001
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -56,7 +58,20 @@ TextureImporter:
     allowsAlphaSplitting: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Panel_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 222
+        width: 1500
+        height: 1278
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: GUI
   userData: 
