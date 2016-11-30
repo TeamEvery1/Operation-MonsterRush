@@ -66,11 +66,18 @@ namespace Enemies
 		GameObject player;
 		float Dist;
 		bool InsideRange = false;
-		public bool IsKnockBacking;
+		[HideInInspector] public bool IsKnockBacking;
 
 		Animator anim;
 
 		public GameObject alert;
+
+
+
+		//! Luso
+		public GameObject lusoRock;
+		[HideInInspector] public bool lusoChgMode = false;
+		[HideInInspector] public bool playerInRange = false;
 
 		//public GameObject bullet;
 		//public float gooFireRate;
@@ -122,7 +129,7 @@ namespace Enemies
 				isWander = true;
 			}
 
-			if(monsterSelection.monsterType != "disgusting" && monsterSelection.monsterType != "slime")
+			if(monsterSelection.monsterType != "disgusting" && monsterSelection.monsterType != "bean")
 			{
 				Move();
 			}
@@ -173,6 +180,11 @@ namespace Enemies
 				bean.Health = enemyInfo.enemyHealth;
 				bean.MaxExhaustion = enemyInfo.enemyMaxExhaustion;
 				bean.ExhaustionAmount = enemyInfo.enemyExhaustion;
+
+				timer = 8.0f;
+				lusoChgMode = true;
+				playerInRange = false;
+				transform.Rotate(new Vector3(0.0f, 180.0f,0.0f));
 			}
 			else if(monsterSelection.monsterType == "disgusting")
 			{
@@ -202,6 +214,7 @@ namespace Enemies
 				else
 					continue;
 			}
+
 		}
 
 		IEnumerator FindTargetsWithDelay(float delay)
@@ -275,18 +288,19 @@ namespace Enemies
 
 			if(isWander == true)
 			{
-				RandomDes = Random.Range(0, wanderPoint.Length);
 
-				if(RandomDes == wanderPoint.Length)
-				{
-					rotation = new Vector3(startX, startY, startZ);
-					GPS.SetDestination(rotation);
-				}
-				else
-				{
-					rotation = new Vector3(wanderPoint[RandomDes].position.x , wanderPoint[RandomDes].position.y , wanderPoint[RandomDes].position.z);
-					GPS.SetDestination(rotation);
-				}
+					RandomDes = Random.Range(0, wanderPoint.Length);
+
+					if(RandomDes == wanderPoint.Length)
+					{
+						rotation = new Vector3(startX, startY, startZ);
+						GPS.SetDestination(rotation);
+					}
+					else
+					{
+						rotation = new Vector3(wanderPoint[RandomDes].position.x , wanderPoint[RandomDes].position.y , wanderPoint[RandomDes].position.z);
+						GPS.SetDestination(rotation);
+					}
 			}
 		}
 
@@ -330,6 +344,12 @@ namespace Enemies
 			IsKnockBacking = true;
 
 			anim.speed = 1.0f;
+
+			GPS.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
+
+			isAlerting = false;
+			isAttacking = false;
+			isWalking = true;
 			//}
 			/*else
 					{
@@ -421,7 +441,35 @@ namespace Enemies
 				}
 			}
 
-			if(recovering == false)
+			if(recovering == false && lusoChgMode == true)
+			{
+				
+				if(playerInRange == true && enemyInfo.enemyStamina > enemyInfo.enemyMaxStamina * 0.5f)
+				{
+					//Debug.Log("roll");
+					timer += Time.deltaTime;
+					if(timer >= 8.0f)
+					{
+						timer = 0.0f;
+						enemyInfo.enemyStamina -= enemyInfo.enemyMaxStamina * 0.1f;
+						GameObject gos = Instantiate(lusoRock, new Vector3(transform.position.x, transform.position.y +6.0f , transform.position.z -4.0f), Quaternion.identity) as GameObject;
+						gos.GetComponent<Rigidbody>().AddForce(transform.forward * 50.0f);
+
+						if(enemyInfo.enemyStamina <= enemyInfo.enemyMaxStamina * 0.5f)
+						{
+							recovering = true;
+						}
+					}
+
+				}
+
+				if(VisibleTarget != null)
+				{
+					lusoChgMode = false;
+				}
+			}
+
+			if(recovering == false && lusoChgMode == false)
 			{
 
 				//! First action when face target
@@ -441,15 +489,15 @@ namespace Enemies
 				{
 					GPS.speed = enemyInfo.enemyMovementSpeed * 3.5f;
 					anim.speed = 1.0f * 3.5f;
-					Dist = GameManager.GetSqrDist(new Vector3(startX, startY, startZ), new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
+					Dist = GameManager.GetSqrDist(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
 
 					if(monsterSelection.monsterType == "disgusting")
 					{
 						GPS.baseOffset = -0.26f;
 					} 	
 
-					// if player too for give up knock back and escape
-					if(GPS.remainingDistance + 20.0f  <  Dist )
+					// if player too far give up knock back and escape
+					if(GPS.remainingDistance + 50.0f  <  Dist )
 					{
 						//Debug.Log("gv up");
 						IsKnockBacking = false;
@@ -526,6 +574,10 @@ namespace Enemies
 							GPS.SetDestination(new Vector3(startX, startY, startZ));
 							sawPlayer = false;
 							viewAngle = 200.0f;
+							if(monsterSelection.monsterType == "bean")
+							{
+								lusoChgMode = true;
+							}
 							//SoundManagerScript.Instance.StopLoopingSFX (AudioClipID.SFX_MONSTERALERT);
 
 						}
@@ -573,7 +625,7 @@ namespace Enemies
 					GPS.speed = enemyInfo.enemyMovementSpeed;
 					anim.speed = 1.0f;
 
-					Dist = GameManager.GetSqrDist(new Vector3(startX, startY, startZ), new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
+					Dist = GameManager.GetSqrDist(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
 
 					if(Dist <= viewRadius && InsideRange == false)
 					{
