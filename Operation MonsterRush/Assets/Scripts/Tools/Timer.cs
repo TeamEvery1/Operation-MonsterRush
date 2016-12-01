@@ -19,6 +19,17 @@ public class Timer : MonoBehaviour
 
 	void FixedUpdate()
 	{
+		if (timer <= 10) 
+		{
+
+			SoundManagerScript.Instance.PlayLoopingSFX (AudioClipID.SFX_TIMERALERT);
+		}
+		if (timer == 0) 
+		{
+			SoundManagerScript.Instance.PauseLoopingSFX (AudioClipID.SFX_TIMERALERT);
+
+		}
+
 		timer -= Time.deltaTime;
 		if (timer <= 0) 
 		{

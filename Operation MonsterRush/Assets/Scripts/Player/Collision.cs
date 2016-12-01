@@ -64,6 +64,7 @@ namespace Player
 
 			if(other.CompareTag("Coin"))
 			{
+				SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_COINCOLLECT);
 				coinCounter += 1;
 				guiScript.canShowCoinText = true;
 				other.GetComponent <Animation> ().Play ("Coin Get");

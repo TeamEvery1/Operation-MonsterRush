@@ -156,6 +156,8 @@ namespace Cameras
 
 							playerMovementScript.objectVelocity = 1.5f;
 							playerCombatScript.targetLock = false;
+							SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_MONSTERCOUNTERDECREASE);
+
 						}
 
 						enemyCollisionScript.isCollided = false;
