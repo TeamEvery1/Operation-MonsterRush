@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
 	{
 		if(enemyCounter < maxEnemyCounter)
 		{
-			guiManager.canDisplayTutorialBlackScreen = false;
+			guiManager.canDisplayTutorialHighlight = false;
 		}
 
 	}

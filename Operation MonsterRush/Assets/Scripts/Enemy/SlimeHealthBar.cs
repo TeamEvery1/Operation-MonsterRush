@@ -27,12 +27,12 @@ namespace Enemies
 			{
 				if (GameManager.GetSqrDist (this.transform.position, player.transform.position) < 3.0f)
 				{
-					guiManager.canDisplayTutorialBlackScreen = true;
+					guiManager.canDisplayTutorialHighlight = true;
 				}
-				else
+				/*else
 				{
-					guiManager.canDisplayTutorialBlackScreen = false;
-				}
+					guiManager.canDisplayTutorialHighlight = false;
+				}*/
 			}
 
 			if (enemyPathfindingScript)
@@ -42,7 +42,7 @@ namespace Enemies
 				{
 					firstTimeCapture = 1;
 					guiManager.canCapture = true;
-
+					guiManager.canDisplayTutorialHighlight = true;
 					guiManager.firstCapture = true;
 				}
 			}

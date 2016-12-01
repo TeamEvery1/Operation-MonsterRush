@@ -6,6 +6,7 @@ public class CoconutBehaviors : MonoBehaviour
 	public string coconutName;
 	[HideInInspector] public bool coconut01, coconut02, coconut03, coconut04, coconut05, coconut06;
 	[HideInInspector] public bool coconutC01, coconutC02, coconutC03;
+	public GameObject effect;
 
 	void Start()
 	{

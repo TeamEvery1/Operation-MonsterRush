@@ -60,8 +60,8 @@ public class GUIManagerScript : MonoBehaviour
 
 	private Image captureImage;
 	[HideInInspector] public bool canCapture;
-	public GameObject blackScreen;
-	[HideInInspector] public bool canDisplayTutorialBlackScreen;
+	public GameObject hightLight;
+	[HideInInspector] public bool canDisplayTutorialHighlight;
 	public bool firstCapture;
 	CatchManager catchManager;
 
@@ -106,7 +106,7 @@ public class GUIManagerScript : MonoBehaviour
 	void Start ()
 	{
 		canCapture = false;
-		canDisplayTutorialBlackScreen = false;
+		canDisplayTutorialHighlight = false;
 		canUseRadar = false;
 		firstCapture = false;
 		iKSnapScript = GameObject.FindGameObjectWithTag("Player").GetComponent<IKSnap>();
@@ -292,7 +292,7 @@ public class GUIManagerScript : MonoBehaviour
 		if(canCapture == false)
 		{
 			Color temp = captureImage.color;
-			temp.a = 0.65f;
+			temp.a = 0.1f;
 			captureImage.color = temp;
 		}
 		else
@@ -306,13 +306,13 @@ public class GUIManagerScript : MonoBehaviour
 
 	public void TutorialScene()
 	{
-		if(canDisplayTutorialBlackScreen == true)
+		if(canDisplayTutorialHighlight == true)
 		{
-			blackScreen.SetActive(true);
+			hightLight.SetActive(true);
 		}
-		else if(canDisplayTutorialBlackScreen == false)
+		else if(canDisplayTutorialHighlight == false)
 		{
-			blackScreen.SetActive(false);
+			hightLight.SetActive(false);
 		}
 	}
 

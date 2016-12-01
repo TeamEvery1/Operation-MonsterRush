@@ -213,7 +213,7 @@ public class CatchManager : MonoBehaviour {
 				{
 					failCapture = true;
 					loseImage.enabled = true;
-					guiManagerScripts.canDisplayTutorialBlackScreen = false;
+					guiManagerScripts.canDisplayTutorialHighlight = false;
 					//captureScript.timeLimit = 0;
 					resetBox = true;
 
