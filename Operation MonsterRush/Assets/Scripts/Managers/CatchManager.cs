@@ -159,7 +159,7 @@ public class CatchManager : MonoBehaviour {
 		{
 			if(useRayCast == true)
 			{
-				if(Physics.Raycast(player.transform.position + player.transform.TransformDirection(new Vector3(-1.7f, 1.0f, 1.0f)), player.transform.forward, out hitInfo, 3.0f))
+				if(Physics.Raycast(player.transform.position + player.transform.TransformDirection(new Vector3(-2.0f, 0.2f, 1.0f)), player.transform.forward, out hitInfo, 5.0f))
 				{	
 					if(gotTarget == false)
 					{

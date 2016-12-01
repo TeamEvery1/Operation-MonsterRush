@@ -49,14 +49,12 @@ public class GameOverManager : MonoBehaviour {
 		}
 		if(luso.activeSelf == false)
 		{
-			Debug.Log ("boss");
 			if(bosscountonceBool)
 				starCounter++;
 			bosscountonceBool = false;
 		}
 		if(timer >= 300)
 		{
-			Debug.Log ("time");
 			if(timecountonceBool)
 				starCounter++;
 			timecountonceBool = false;
@@ -101,7 +99,5 @@ public class GameOverManager : MonoBehaviour {
 	public void GoToMainMenu()
 	{
 		SceneManager.LoadScene("Main Menu");
-
-
 	}
 }

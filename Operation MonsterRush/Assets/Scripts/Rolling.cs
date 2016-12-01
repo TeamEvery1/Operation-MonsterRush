@@ -45,6 +45,12 @@ public class Rolling : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		if(isCollided)
+		{
+			myAnim.Play ();
+			StartCoroutine ("BreakDelay", 0.5f);
+		}
+
 		if (currentPoint < boulderPoints.Count)
 		{
 			distance = GameManager.GetSqrDist (this.transform.position, boulderPoints[currentPoint].position);

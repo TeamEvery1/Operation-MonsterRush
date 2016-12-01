@@ -9,7 +9,13 @@ public class LusoRockScirpts : MonoBehaviour
 		{
 			other.transform.position -= new Vector3(0.0f, -50.0f, 50.0f) * Time.deltaTime * 1.0f;
 			other.transform.GetComponent<Player.Controller>().health -= 1;
-		
+			transform.GetComponent<SphereCollider>().enabled = false;
+			GetComponent <Rolling> ().isCollided = true;
+		}
+
+		if(other.gameObject.tag == "Coconut")
+		{
+			transform.GetComponent<SphereCollider>().enabled = false;
 			GetComponent <Rolling> ().isCollided = true;
 		}
 	}
