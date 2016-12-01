@@ -28,9 +28,12 @@ namespace Cameras
 
 		Player.Combat playerCombatScript;
 
+		public bool autoCam;
+
 		private void Awake()
 		{
 			playerCombatScript = Target.gameObject.GetComponent <Player.Combat> ();
+			autoCam = true;
 		}
 
         protected override void FollowTarget(float deltaTime)
@@ -109,12 +112,24 @@ namespace Cameras
 
 			if (!playerCombatScript.targetLock)
 			{
-	            var rollRotation = Quaternion.LookRotation(targetForward, m_RollUp);
+				if(autoCam == true)
+				{
+					var rollRotation = Quaternion.LookRotation(targetForward, m_RollUp);
 
-	            // and aligning with the target object's up direction (i.e. its 'roll')
-	            m_RollUp = m_RollSpeed >= 0 ? Vector3.Slerp(m_RollUp, targetUp, m_RollSpeed * Time.deltaTime) : Vector3.up;
+					// and aligning with the target object's up direction (i.e. its 'roll')
+					m_RollUp = m_RollSpeed >= 0 ? Vector3.Slerp(m_RollUp, targetUp, m_RollSpeed * Time.deltaTime) : Vector3.up;
 
-	            transform.rotation = Quaternion.Lerp(transform.rotation, rollRotation, m_TurnSpeed*m_CurrentTurnAmount*deltaTime);
+					transform.rotation = Quaternion.Lerp(transform.rotation, rollRotation, m_TurnSpeed*m_CurrentTurnAmount*deltaTime);
+				}
+				else
+				{
+					var rollRotation = Quaternion.LookRotation(-targetForward, m_RollUp);
+
+					// and aligning with the target object's up direction (i.e. its 'roll')
+					m_RollUp = m_RollSpeed >= 0 ? Vector3.Slerp(m_RollUp, targetUp, m_RollSpeed * Time.deltaTime) : Vector3.up;
+
+					transform.rotation = Quaternion.Lerp(transform.rotation, rollRotation, m_TurnSpeed*m_CurrentTurnAmount*deltaTime);
+				}
 			}
 			else if (playerCombatScript.targetLock && playerCombatScript.closest == null)
 			{

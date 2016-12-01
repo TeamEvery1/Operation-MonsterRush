@@ -39,6 +39,11 @@ namespace Player
 		private Rigidbody controller;
 		private bool jump = false;
 
+		private Cameras.AutoCam autoCamScripts;
+		private Timer timerScripts;
+		private GUIManagerScript guiManagerScripts;
+		public bool isLose;
+
 		void Awake()
 		{
 			Player.Character playerCharacter = new Player.Character ( movementSpeed, health, maxHealth, damage, name);
@@ -50,6 +55,11 @@ namespace Player
 			//myRB = GetComponent<Rigidbody>();
 			//myCollider = GetComponent<CapsuleCollider>();
 			mainCam = GameObject.FindGameObjectWithTag ("MainCamera").transform;
+
+			autoCamScripts = FindObjectOfType<Cameras.AutoCam>();
+			timerScripts = FindObjectOfType<Timer>();
+			guiManagerScripts = GameObject.FindGameObjectWithTag("GUIManager").GetComponent<GUIManagerScript>();
+			isLose = false;
 		}
 
 		private void Start()
@@ -69,13 +79,20 @@ namespace Player
 			if(health <= 0)
 			{
 				this.transform.position = originalPosition;
-					
+
 				myAnim.Play ("LOSE00");
 				StartCoroutine ("reviveTimer", 1.5f);
 			}
 			else if(health > 5)
 			{
 				health = 5;
+			}
+
+			if(timerScripts.timer <= 0)
+			{
+				autoCamScripts.autoCam = false;
+				myAnim.Play ("LOSE00");
+				guiManagerScripts.loseconImage.gameObject.SetActive(true);
 			}
 
 

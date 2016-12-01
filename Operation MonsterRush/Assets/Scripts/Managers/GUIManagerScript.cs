@@ -155,14 +155,14 @@ public class GUIManagerScript : MonoBehaviour
 		if (playerControllerScript.health <= 0) 
 		{
 			SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERDEATH);
-			loseconImage.gameObject.SetActive(true);
+			//loseconImage.gameObject.SetActive(true);
 		}
 
 
 		if (loseconImage.gameObject.activeSelf) 
 		{
 			closeimageCounter -= Time.deltaTime;
-			if (closeimageCounter <= 0) 
+			if (closeimageCounter <= -2) 
 			{
 				loseconImage.gameObject.SetActive(false);
 				closeimageCounter = 2;
