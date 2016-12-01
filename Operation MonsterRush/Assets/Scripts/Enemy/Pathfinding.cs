@@ -75,7 +75,7 @@ namespace Enemies
 
 
 		//! Luso
-		public GameObject lusoRock;
+		private GameObject lusoRock;
 		[HideInInspector] public bool lusoChgMode = false;
 		[HideInInspector] public bool playerInRange = false;
 		public float rollRockRate = 8.0f;
@@ -95,7 +95,7 @@ namespace Enemies
 			// s = stamina 
 			// rR = recovery rate - Stamina recovery rate after monster exhausted
 			// mS = movement Speed
-
+			lusoRock = (GameObject) Resources.Load ("Prefabs/Monsters/Rock");
 			// monster Type					  eA   mE    h   mH    s  rR  mS
 			penguin = new Enemies.Character (enemyInfo.enemyExhaustion, enemyInfo.enemyMaxExhaustion, enemyInfo.enemyHealth, enemyInfo.enemyMaxHealth, 
 				enemyInfo.enemyStamina, enemyInfo.enemyMaxStamina, enemyInfo.staminaRcvrSpeed, enemyInfo.enemyMovementSpeed);
@@ -398,7 +398,7 @@ namespace Enemies
 			if (isAlerting)
 			{
 				isWalking = false;
-				if(VisibleTarget = null)
+				if(VisibleTarget == null)
 				{
 					isAlerting = false;
 				}

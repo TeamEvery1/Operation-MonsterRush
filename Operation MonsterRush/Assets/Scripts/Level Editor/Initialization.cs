@@ -27,6 +27,7 @@ public class Initialization : MonoBehaviour
 		GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
 		GameObject[] fakes = GameObject.FindGameObjectsWithTag ("Fake");
 		GameObject[] slimes = GameObject.FindGameObjectsWithTag ("Slime");
+		GameObject luso = GameObject.FindGameObjectWithTag ("Luso");
 
 		foreach (GameObject enemy in enemies)
 		{
@@ -43,6 +44,8 @@ public class Initialization : MonoBehaviour
 			SafeDestroy (slime.gameObject);
 		}
 
+		SafeDestroy (luso.gameObject);
+
 		for (int i = 0; i < LevelEditorScript.monsterList.Count; i++)
 		{
 			if(Application.isEditor && !Application.isPlaying)
@@ -56,6 +59,17 @@ public class Initialization : MonoBehaviour
 				}
 
 				//Debug.Log (LevelEditorScript.monsterList[i].wanderPoint.Length);
+				if (LevelEditorScript.monsterList[i].desPoint.Length == 0)
+				{
+					continue;
+				}
+				else
+				{
+					for (int j = 0; j <  LevelEditorScript.monsterList[i].desPoint.Length; j++)
+					{
+						clone.GetComponent <Enemies.Pathfinding>().desPoint[j] = LevelEditorScript.monsterList[i].desPoint[j];
+					}
+				}
 
 				if (LevelEditorScript.monsterList[i].wanderPoint.Length == 0)
 				{
@@ -67,12 +81,9 @@ public class Initialization : MonoBehaviour
 					{
 						clone.GetComponent <Enemies.Pathfinding>().wanderPoint[j] = LevelEditorScript.monsterList[i].wanderPoint[j];
 					}
-
-					for (int j = 0; j <  LevelEditorScript.monsterList[i].desPoint.Length; j++)
-					{
-						clone.GetComponent <Enemies.Pathfinding>().desPoint[j] = LevelEditorScript.monsterList[i].desPoint[j];
-					}
 				}
+
+
 			}
 		}
 	}

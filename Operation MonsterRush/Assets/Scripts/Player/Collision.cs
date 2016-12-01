@@ -35,6 +35,7 @@ namespace Player
 			coinCounter = 0;
 			maxCoinCounter = 10;
 
+			potion = (GameObject) Resources.Load ("Prefabs/Props/Potion");
 			playerCombatScript = GetComponent <Player.Combat> ();
 			playerControllerScript = GetComponent <Player.Controller> ();
 			playerHealthScript = GameObject.FindGameObjectWithTag("GUIManager").transform.FindChild("Player UI").GetComponent <Player.Health> ();

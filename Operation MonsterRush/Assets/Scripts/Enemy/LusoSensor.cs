@@ -9,6 +9,7 @@ public class LusoSensor : MonoBehaviour {
 
 	void Start () {
 
+		pathfinding = GameObject.FindGameObjectWithTag ("Luso").GetComponent <Enemies.Pathfinding> ();
 		/*Luso = GameObject.FindGameObjectsWithTag("Enemy");
 
 		foreach(GameObject luso in Luso)
@@ -23,7 +24,7 @@ public class LusoSensor : MonoBehaviour {
 
 	}
 
-	void OnTriggerEnter(Collider other)
+	void OnTriggerStay(Collider other)
 	{
 		if(other.tag == "Player")
 		{
