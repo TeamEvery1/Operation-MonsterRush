@@ -46,7 +46,7 @@ public class CatchManager : MonoBehaviour {
 	public Image loseImage;
 	public float fillUpMetre;
 	public const float fillUpMetreMax = 45;
-	public float faintCounter = 10;
+	public float faintCounter = 30;
 	float oneSecond = 1f;
 	public float nextTime = 0;
 	public float enemyHealth = 30;
@@ -57,9 +57,9 @@ public class CatchManager : MonoBehaviour {
 	public float closeImageCounter = 2;
 
 	public bool atStart =true;
-	public float timeLimit = 40;
-	public float timeLimitF;
-	public float timeLimitModifier;
+	public float timeLimit = 20;
+	//public float timeLimitF;
+	//public float timeLimitModifier;
 	private GUIManagerScript guiManagerScripts;
 
 	public GameObject box;
@@ -175,7 +175,7 @@ public class CatchManager : MonoBehaviour {
 
 	void Reset()
 	{
-		faintCounter = 10;
+		faintCounter = 30;
 		closeImageCounter = 2;
 		atStart = true;
 		enemyCollided = false;
@@ -190,8 +190,8 @@ public class CatchManager : MonoBehaviour {
 			{
 				if (atStart) 
 				{
-					timeLimitModifier = (100 - enemyCollisionScript.enemyExhaustInfo)/10;
-					timeLimitF = timeLimit + timeLimitModifier;
+					//timeLimitModifier = (100 - enemyCollisionScript.enemyExhaustInfo)/10;
+					//timeLimitF = timeLimit + timeLimitModifier;
 					atStart = false;
 				}
 				//maxTime -= Time.deltaTime;
@@ -209,7 +209,7 @@ public class CatchManager : MonoBehaviour {
 					break;
 				}
 
-				if (timeLimitF <= 0 && faintCounter > 0) 
+				if (timeLimit <= 0 && faintCounter > 0) 
 				{
 					failCapture = true;
 					loseImage.enabled = true;
@@ -225,7 +225,7 @@ public class CatchManager : MonoBehaviour {
 				{
 					faintCounter -= Time.deltaTime;
 				}
-				timeLimitF -= Time.deltaTime*0.1f;
+				timeLimit -= Time.deltaTime*0.1f;
 			}
 
 			//battle win condition

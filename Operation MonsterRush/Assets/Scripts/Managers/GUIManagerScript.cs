@@ -43,16 +43,16 @@ public class GUIManagerScript : MonoBehaviour
 
 	public Image captureBarContent;
 	public Image captureBarBack;
-	public Image winConImage;
-	public Image loseConImage;
+	public Image winconImage;
+	public Image loseconImage;
 	public Image victoryImage;
 	public Image loseImage;
-	public float fillUpMetre;
-	public const float fillUpMetreMax = 45;
-	public float enemyHealth = 30;
+	public float fillupMetre;
+	public const float fillupMetreMax = 45;
+	//public float enemyHealth = 30;
 
-	public float faintCounter = 10;
-	public float closeImageCounter = 2;
+	public float faintCounter = 30;
+	public float closeimageCounter = 2;
 
 	public float nextTime = 0;
 	public float maxTime = 10;
@@ -120,7 +120,7 @@ public class GUIManagerScript : MonoBehaviour
 		coinText.text = playerCollision.coinCounter + "/" + playerCollision.maxCoinCounter;
 		enemyCounterText.text = GameManager.Instance.enemyCounter.ToString();
 		TutorialScene();
-		ChangeUITranparentcy();
+		ChangeUITransparency();
 		TextMovingUP();
 		ShowDamageOverlay();
 
@@ -131,16 +131,16 @@ public class GUIManagerScript : MonoBehaviour
 			
 		if (gameManagerScript.enemyCounter <= 0) 
 		{
-			winConImage.gameObject.SetActive(true);
+			winconImage.gameObject.SetActive(true);
 		}
 			
-		if (winConImage.gameObject.activeSelf) 
+		if (winconImage.gameObject.activeSelf) 
 		{
-			closeImageCounter -= Time.deltaTime;
-			if (closeImageCounter <= 0) 
+			closeimageCounter -= Time.deltaTime;
+			if (closeimageCounter <= 0) 
 			{
-				loseConImage.gameObject.SetActive(false);
-				closeImageCounter = 2;
+				loseconImage.gameObject.SetActive(false);
+				closeimageCounter = 2;
 				maxTime = 10.0f;
 				//SceneManager.LoadScene("Game Over");
 				gameoverBool = true;
@@ -149,23 +149,23 @@ public class GUIManagerScript : MonoBehaviour
 
 		if (timerScript.timer <= 0) 
 		{
-			loseConImage.gameObject.SetActive(true);
+			loseconImage.gameObject.SetActive(true);
 		}
 
 		if (playerControllerScript.health <= 0) 
 		{
 			SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERDEATH);
-			loseConImage.gameObject.SetActive(true);
+			loseconImage.gameObject.SetActive(true);
 		}
 
 
-		if (loseConImage.gameObject.activeSelf) 
+		if (loseconImage.gameObject.activeSelf) 
 		{
-			closeImageCounter -= Time.deltaTime;
-			if (closeImageCounter <= 0) 
+			closeimageCounter -= Time.deltaTime;
+			if (closeimageCounter <= 0) 
 			{
-				loseConImage.gameObject.SetActive(false);
-				closeImageCounter = 2;
+				loseconImage.gameObject.SetActive(false);
+				closeimageCounter = 2;
 				maxTime = 10.0f;
 				//SceneManager.LoadScene("Game Over");
 				gameoverBool = true;
@@ -190,7 +190,7 @@ public class GUIManagerScript : MonoBehaviour
 	void Reset()
 	{
 		
-		closeImageCounter = 2;
+		closeimageCounter = 2;
 		enemyCollided = false;
 		//enemyDestroyed = false;
 	}
@@ -216,7 +216,7 @@ public class GUIManagerScript : MonoBehaviour
 			{
 				playerCombatScript.Perform();
 			}
-			fillUpMetre+=1;
+			fillupMetre+=1;
 			catchManager.teachText.enabled = false;
 		}
 	}
@@ -287,7 +287,7 @@ public class GUIManagerScript : MonoBehaviour
 		}
 	}
 
-	public void ChangeUITranparentcy()
+	public void ChangeUITransparency()
 	{
 		if(canCapture == false)
 		{

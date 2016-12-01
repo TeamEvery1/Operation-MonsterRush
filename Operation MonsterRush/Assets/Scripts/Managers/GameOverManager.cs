@@ -12,9 +12,11 @@ public class GameOverManager : MonoBehaviour {
 	public Text ratingText;
 
 	public int starCounter = 0;
-
+	public GameObject luso;
 	public bool enemycountonceBool = true;
 	public bool coincountonceBool = true;
+	public bool bosscountonceBool = true;
+	public bool timecountonceBool = true;
 	public Player.Collision playerCollision;
 	public float timer;
 	int minutes, seconds;
@@ -45,6 +47,21 @@ public class GameOverManager : MonoBehaviour {
 				starCounter++;
 			coincountonceBool = false;
 		}
+		if(luso.activeSelf == false)
+		{
+			Debug.Log ("boss");
+			if(bosscountonceBool)
+				starCounter++;
+			bosscountonceBool = false;
+		}
+		if(timer >= 300)
+		{
+			Debug.Log ("time");
+			if(timecountonceBool)
+				starCounter++;
+			timecountonceBool = false;
+		}	
+
 		coinText.text = playerCollision.coinCounter + "/" + playerCollision.maxCoinCounter;
 		monsterremainingText.text = GameManager.Instance.enemyCounter  + "/" +GameManager.Instance.maxEnemyCounter;
 		minutes = (int) timer / 60;
@@ -62,7 +79,7 @@ public class GameOverManager : MonoBehaviour {
 		{
 			ratingText.text = "A";
 		} 
-		else if (starCounter == 3 && timer >= 300) 
+		else if (starCounter == 4) 
 		{
 			ratingText.text = "S";
 		} 
@@ -70,6 +87,7 @@ public class GameOverManager : MonoBehaviour {
 		{
 			ratingText.text = "D";
 		}
+
 	}
 
 	public void Restart()

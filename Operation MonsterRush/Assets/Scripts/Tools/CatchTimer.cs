@@ -16,7 +16,7 @@ public class CatchTimer : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () 
 	{
-		catchTimer = GetComponentInParent<CatchManager> ().timeLimitF;
+		catchTimer = GetComponentInParent<CatchManager> ().timeLimit;
 		minutes = (int) catchTimer / 60;
 		seconds = (int) catchTimer % 60;
 		catchTimerText.text = string.Format ( "{0:00} : {1:00}", minutes, seconds);

@@ -160,8 +160,8 @@ namespace Cameras
 
 						enemyCollisionScript.isCollided = false;
 
-						catchManagerScript.timeLimit = 40;
-						catchManagerScript.timeLimitModifier = 0;
+						catchManagerScript.timeLimit = 20;
+						//catchManagerScript.timeLimitModifier = 0;
 						catchManagerScript.enemyCollided = false;
 						catchManagerScript.captureMode = false;
 						catchManagerScript.fillUpMetre = 0;

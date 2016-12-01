@@ -69,21 +69,27 @@ namespace Enemies
 
 			else if (other.CompareTag ("PlayerCatchCollider")) 
 			{
-				//if (enemyPathfindingScript.enemyExhaustion <= 0) 
+				//if (enemyPathfindingScript.enemyExhaustion <= 0)
 				if (gameObject.tag == "Slime") 
 				{
-					enemyExhaustInfo = slimePathfindingScript.enemyInfo.enemyExhaustion;
-					slimePathfindingScript.enemyInfo.enemyMovementSpeed = 0;
-				} 
-				else 
-				{
-					enemyExhaustInfo = enemyPathfindingScript.enemyInfo.enemyExhaustion;
-					enemyPathfindingScript.GPS.speed = 0;
+					if (slimePathfindingScript.enemyInfo.enemyExhaustion <= 0) 
+					{
+						//enemyExhaustInfo = slimePathfindingScript.enemyInfo.enemyExhaustion;
+						slimePathfindingScript.enemyInfo.enemyMovementSpeed = 0;
+						isCollided = true;
+						catchScript.fillUpMetre += 1;
+					} 
 				}
-				isCollided = true;
-				catchScript.fillUpMetre += 1;
+				if (enemyPathfindingScript.enemyInfo.enemyExhaustion <= 0) 
+				{
 
+					//enemyExhaustInfo = enemyPathfindingScript.enemyInfo.enemyExhaustion;
+					enemyPathfindingScript.GPS.speed = 0;
+					isCollided = true;
+					catchScript.fillUpMetre += 1;
+				}
 			} 
+
 			else 
 			{
 				isCollided = false;
