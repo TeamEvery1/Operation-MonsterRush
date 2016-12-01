@@ -78,7 +78,7 @@ namespace Enemies
 		private GameObject lusoRock;
 		[HideInInspector] public bool lusoChgMode = false;
 		[HideInInspector] public bool playerInRange = false;
-		public float rollRockRate = 8.0f;
+		public float rollRockRate = 10.0f;
 
 		//public GameObject bullet;
 		//public float gooFireRate;
@@ -182,7 +182,7 @@ namespace Enemies
 				bean.MaxExhaustion = enemyInfo.enemyMaxExhaustion;
 				bean.ExhaustionAmount = enemyInfo.enemyExhaustion;
 
-				timer = 8.0f;
+				timer = rollRockRate;
 				lusoChgMode = true;
 				playerInRange = false;
 				transform.Rotate(new Vector3(0.0f, 180.0f,0.0f));
