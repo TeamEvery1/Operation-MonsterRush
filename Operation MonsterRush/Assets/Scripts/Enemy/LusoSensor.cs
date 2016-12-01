@@ -5,6 +5,7 @@ public class LusoSensor : MonoBehaviour {
 
 	public Enemies.Pathfinding pathfinding;
 	//GameObject[] Luso;
+	private bool isExit = false;
 
 	void Start () {
 
@@ -41,6 +42,11 @@ public class LusoSensor : MonoBehaviour {
 		if(other.tag == "Rock")
 		{
 			Destroy(other.gameObject);
+		}
+
+		if(pathfinding.playerInRange == true)
+		{
+			pathfinding.playerInRange = false;
 		}
 	}
 }

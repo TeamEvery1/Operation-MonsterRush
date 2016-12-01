@@ -78,6 +78,7 @@ namespace Enemies
 		public GameObject lusoRock;
 		[HideInInspector] public bool lusoChgMode = false;
 		[HideInInspector] public bool playerInRange = false;
+		public float rollRockRate = 8.0f;
 
 		//public GameObject bullet;
 		//public float gooFireRate;
@@ -443,12 +444,16 @@ namespace Enemies
 
 			if(recovering == false && lusoChgMode == true)
 			{
-				
-				if(playerInRange == true && enemyInfo.enemyStamina > enemyInfo.enemyMaxStamina * 0.5f)
+				isAttacking = false;
+				isWalking = false;
+				isTiring = false;
+				isAlerting = false;
+				//Debug.Log("inroll");
+				if(playerInRange == true)
 				{
 					//Debug.Log("roll");
 					timer += Time.deltaTime;
-					if(timer >= 8.0f)
+					if(timer >= rollRockRate )
 					{
 						timer = 0.0f;
 						enemyInfo.enemyStamina -= enemyInfo.enemyMaxStamina * 0.1f;
@@ -457,6 +462,7 @@ namespace Enemies
 
 						if(enemyInfo.enemyStamina <= enemyInfo.enemyMaxStamina * 0.5f)
 						{
+							//Debug.Log("revovery");
 							recovering = true;
 						}
 					}
@@ -497,7 +503,7 @@ namespace Enemies
 					} 	
 
 					// if player too far give up knock back and escape
-					if(GPS.remainingDistance + 50.0f  <  Dist )
+					if(GPS.remainingDistance + 50.0f  <  Dist  || playerMovementScript.isSwimming == true)
 					{
 						//Debug.Log("gv up");
 						IsKnockBacking = false;
@@ -767,6 +773,8 @@ namespace Enemies
 						{
 							GPS.speed = bean.MovementSpeed;
 							recovering = false;
+							timer = 8.0f;
+							playerInRange = true;
 						}
 					}
 					else if(monsterSelection.monsterType == "disgusting")
@@ -784,7 +792,7 @@ namespace Enemies
 				}
 			}
 			
-			else if(enemyInfo.enemyExhaustion <= 0f)
+			if(enemyInfo.enemyExhaustion <= 0f)
 			{
 				isWalking = false;
 				isTiring = true;
