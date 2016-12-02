@@ -47,6 +47,10 @@ public class GUIManagerScript : MonoBehaviour
 	public Image loseconImage;
 	public Image victoryImage;
 	public Image loseImage;
+
+	private Image win;
+	private Image lose;
+
 	public float fillupMetre;
 	public const float fillupMetreMax = 45;
 	//public float enemyHealth = 30;
@@ -99,8 +103,12 @@ public class GUIManagerScript : MonoBehaviour
 		timerScript = FindObjectOfType<Timer> ();
 		text = this.gameObject.transform.Find("Coin/CoinText 2").GetComponent<RectTransform>();
 		textImage = this.gameObject.transform.FindChild("Coin/CoinText 2").GetComponent<Text>();
+		win = GameObject.Find ("Manager").transform.Find ("GameOverManager/Win").GetComponent <Image>();
+		lose = GameObject.Find ("Manager").transform.Find ("GameOverManager/Lose").GetComponent <Image>();
 		canShowCoinText = false;
 		playerCollision = FindObjectOfType<Player.Collision>();
+
+		guiCanvas = GetComponent <Canvas>();
 	}
 	// Use this for initialization
 	void Start ()
@@ -132,6 +140,9 @@ public class GUIManagerScript : MonoBehaviour
 		if (gameManagerScript.enemyCounter <= 0) 
 		{
 			winconImage.gameObject.SetActive(true);
+			win.gameObject.SetActive (true);
+
+			guiCanvas.enabled = false;
 		}
 			
 		if (winconImage.gameObject.activeSelf) 
@@ -142,6 +153,7 @@ public class GUIManagerScript : MonoBehaviour
 				loseconImage.gameObject.SetActive(false);
 				closeimageCounter = 2;
 				maxTime = 10.0f;
+
 				//SceneManager.LoadScene("Game Over");
 				gameoverBool = true;
 			}
@@ -150,6 +162,12 @@ public class GUIManagerScript : MonoBehaviour
 		if (timerScript.timer <= 0) 
 		{
 			loseconImage.gameObject.SetActive(true);
+			lose.gameObject.SetActive (true);
+
+			if (guiCanvas.isActiveAndEnabled)
+			{
+				guiCanvas.enabled = false;
+			}
 		}
 
 		if (playerControllerScript.health <= 0) 
@@ -167,6 +185,7 @@ public class GUIManagerScript : MonoBehaviour
 				loseconImage.gameObject.SetActive(false);
 				closeimageCounter = 2;
 				maxTime = 10.0f;
+			
 				//SceneManager.LoadScene("Game Over");
 				gameoverBool = true;
 			}
@@ -180,7 +199,6 @@ public class GUIManagerScript : MonoBehaviour
 
 		if (gameoverBool) 
 		{
-			guiCanvas.enabled = false;
 			gameoverCanvas.enabled = true;
 			Time.timeScale = 0;
 		}

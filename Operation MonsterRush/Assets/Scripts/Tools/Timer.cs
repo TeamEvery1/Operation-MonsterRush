@@ -5,7 +5,7 @@ using System.Collections;
 public class Timer : MonoBehaviour 
 {
 	public float timer, realTime;
-	int minutes, seconds, fraction;
+	public int minutes, seconds, fraction;
 
 	public Text timerText;
 

@@ -22,7 +22,7 @@ public class Button : MonoBehaviour
 
 	public void ChangePosition(GameObject obj)
 	{
-		SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_BUTTONPRESSED2);
+		SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_BUTTONPRESSED1);
 		gameObj = obj;
 		Invoke ("ChangePositionDelay", 1.0f);
 	}
@@ -37,12 +37,13 @@ public class Button : MonoBehaviour
 
 	public void Exit()
 	{
+		SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_BUTTONPRESSED1);
 		Application.Quit();
 	}
 
 	void ChangeSceneDelay ()
 	{
-			SceneManager.LoadScene (scene);
+		SceneManager.LoadScene (scene);
 	}
 
 	void ChangePositionDelay()
@@ -50,5 +51,17 @@ public class Button : MonoBehaviour
 		gameObj.gameObject.SetActive(true);
 		gameObj.transform.position = mainMenu.transform.position;
 		this.transform.parent.parent.gameObject.SetActive(false);
+	}
+
+	public void Restart()
+	{
+		SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_BUTTONPRESSED1);
+		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
+	}
+
+	public void MainMenu()
+	{
+		SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_BUTTONPRESSED1);
+		SceneManager.LoadScene ("Main Menu");
 	}
 }

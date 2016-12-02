@@ -32,6 +32,7 @@ public class CatchManager : MonoBehaviour {
 	Enemies.Collision[] enemyCollisionScripts;
 	//GUIManagerScript guiScript;
 	Cameras.CaptureView captureViewScript;
+	Timer timerScript;
 	public Canvas guiManager;
 	public Canvas catchManager;
 	public GameObject[] enemies;
@@ -79,6 +80,7 @@ public class CatchManager : MonoBehaviour {
 		//guiScript = FindObjectOfType<GUIManagerScript> ();
 		captureViewScript = FindObjectOfType <Cameras.CaptureView>();
 		enemies = GameObject.FindGameObjectsWithTag ("Enemy");
+		timerScript = GameObject.FindGameObjectWithTag ("GUIManager").transform.Find("Timer").GetComponent <Timer>();
 		monsterText = this.transform.Find ("Monster Name/Monster Text").GetComponent <Text>();
 	}
 	// Use this for initialization
@@ -150,7 +152,7 @@ public class CatchManager : MonoBehaviour {
 				enemies[i].transform.Find ("Canvas").gameObject.SetActive (false);
 			}
 		}
-		else
+		else if (!enemyCollided && timerScript.timer > 0 && GameManager.Instance.enemyCounter != 0)
 		{
 			catchManager.enabled = false;
 			guiManager.enabled = true;

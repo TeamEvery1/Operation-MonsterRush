@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 	public Player.Movement playerMovementScript;
 	public Player.Controller playerControllerScript;
 	public Player.Combat playerCombatScript;
+	public Cameras.AutoCam autoCamScript;
 	//Cameras.CaptureView captureViewScript;
 	//GUIManagerScript guiManagerScript;
 	//CatchManager catchManagerScript;
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
 		playerMovementScript = player.GetComponent <Player.Movement>(); 
 		playerControllerScript = player.GetComponent <Player.Controller>();
 		playerCombatScript = player.GetComponent <Player.Combat> ();
+		autoCamScript = FindObjectOfType<Cameras.AutoCam>();
 		//captureViewScript = FindObjectOfType <Cameras.CaptureView> ();
 		//guiManagerScript = FindObjectOfType <GUIManagerScript> ();
 		//catchManagerScript = FindObjectOfType <CatchManager> ();
@@ -68,7 +70,7 @@ public class GameManager : MonoBehaviour
 
 		for (int i = 0; i < enemies.Length; i++)
 		{
-			enemyCounter ++;
+			enemyCounter++;
 		}
 
 		maxEnemyCounter = enemyCounter;
@@ -90,6 +92,7 @@ public class GameManager : MonoBehaviour
 		if (enemyCounter <= 0) 
 		{
 			winCondition = true;
+			autoCamScript.autoCam = false;
 		}
 
 
