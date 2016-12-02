@@ -36,6 +36,7 @@ public class CatchManager : MonoBehaviour {
 	public Canvas catchManager;
 	public GameObject[] enemies;
 	public Text teachText;
+	private Text monsterText;
 	public bool firstTimeCollided;
 
 	//For Capture
@@ -78,6 +79,7 @@ public class CatchManager : MonoBehaviour {
 		//guiScript = FindObjectOfType<GUIManagerScript> ();
 		captureViewScript = FindObjectOfType <Cameras.CaptureView>();
 		enemies = GameObject.FindGameObjectsWithTag ("Enemy");
+		monsterText = this.transform.Find ("Monster Name/Monster Text").GetComponent <Text>();
 	}
 	// Use this for initialization
 	void Start () 
@@ -99,6 +101,15 @@ public class CatchManager : MonoBehaviour {
 	{
 		ResetBox();
 		CaptureUI ();
+
+		foreach (Enemies.Collision enemyCollisionScript in enemyCollisionScripts) 
+		{
+			if(enemyCollisionScript.isCollided)
+			{
+				monsterText.text = enemyCollisionScript.gameObject.GetComponent <Enemies.Info> ().monsterName;
+			}
+		}
+
 		if (enemyCollided) 
 		{
 			captureMode = true;

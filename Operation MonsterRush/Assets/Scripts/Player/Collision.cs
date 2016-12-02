@@ -80,6 +80,7 @@ namespace Player
 				playerHealthScript.canShowText = true;
 
 				healingEffect.SetActive (true);
+				SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_HEAL);
 	
 				Destroy(other.gameObject);
 			}
