@@ -20,6 +20,7 @@ public class GameOverManager : MonoBehaviour {
 	public Player.Collision playerCollision;
 	public float timer;
 	int minutes, seconds;
+
 	void Awake () 
 	{
 		playerCollision = FindObjectOfType<Player.Collision>();
@@ -34,6 +35,10 @@ public class GameOverManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		/*rotationEuler += new Vector3(0.0f, 2.0f, 0.0f);
+		restart.GetComponent<RectTransform>().rotation = Quaternion.Euler(rotationEuler);*/
+		//restart.GetComponent<RectTransform>().rotation -= new Quaternion(0.0f, -0.5f, 0.0f, 0.0f);
+
 		timer = timerScript.timer;
 		if (GameManager.Instance.enemyCounter == 0) 
 		{

@@ -83,6 +83,7 @@ namespace Player
 			{
 				beingKnockBack = false;
 				myAnim.Play("DamageDown");
+				playerControllerScript.health -= 1.0f;
 				SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERHURT);
 				//target = new Vector3 (0.0f, GameManager.Instance.playerCombatScript.closest.transform.position.y, 0.0f);
 				//this.transform.LookAt (target);

@@ -68,6 +68,7 @@ namespace Player
 				coinCounter += 1;
 				guiScript.canShowCoinText = true;
 				other.GetComponent <Animation> ().Play ("Coin Get");
+				other.GetComponent <Stay>().getCoin = true;
 				other.GetComponent <Animation> ().PlayQueued ("Coin");
 				obj = other.gameObject;
 

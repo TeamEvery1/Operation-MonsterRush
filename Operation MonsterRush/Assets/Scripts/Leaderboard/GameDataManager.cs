@@ -5,25 +5,48 @@ using System.Collections.Generic;
 public class GameDataManager : MonoBehaviour
 {
 	public string name;
-	public int minutes;
-	public int seconds;
+	public int timer_saved;
+	/*public int minutes;
+	public int seconds;*/
 	public List <LeaderboardEntry> entriesList;
 	public Transform leaderboardEntryObject;
 	public Transform contentPanel;
 	Timer timerScript;
 
-	private List <GameObject> tempEntries;
+	private List<GameObject> tempEntries;
 
 	void Start()
 	{
+		timerScript = FindObjectOfType<Timer>();
+		tempEntries = new List<GameObject>();
+		timer_saved = (int)timerScript.timer;
 		/*for (int e = 0; e < 10; e ++)
 		{
 			PlayerPrefs.DeleteKey ("LeaderboardEntry" + e);
 		}*/
-		timerScript = GameObject.FindGameObjectWithTag ("GUIManager").transform.Find ("Timer").GetComponent <Timer>();
-		tempEntries = new List <GameObject> ();
-		SaveEntry();
-		LoadEntry();
+		/*timerScript = GameObject.FindGameObjectWithTag ("GUIManager").transform.Find ("Timer").GetComponent <Timer>();
+		tempEntries = new List <GameObject> ();*/
+		/*SaveEntry();
+		LoadEntry();*/
+	}
+
+	private void Update()
+	{
+		timer_saved = (int)timerScript.timer;
+		if(Input.GetKeyDown(KeyCode.V))
+		{
+			PlayerPrefs.DeleteAll();
+		}
+
+		if(Input.GetKeyDown(KeyCode.B))
+		{
+			SaveEntry();
+		}
+
+		if(Input.GetKeyDown(KeyCode.N))
+		{
+			LoadEntry();
+		}
 	}
 
 	public void SaveEntry()
@@ -35,28 +58,30 @@ public class GameDataManager : MonoBehaviour
 		for (int e = 0; e < 10; e++) 
 		{
 			string name;
-			int minutes;
-			int seconds;
+			int timer;
+			/*int minutes;
+			int seconds;*/
 
 			// Extract the data from Playerprefs
 			if (PlayerPrefs.HasKey ("LeaderboardEntry" + e))
 			{
 				string data = PlayerPrefs.GetString ("LeaderboardEntry" + e);
 				name = data.Substring (0, data.IndexOf ("/"));
-				string remaining = data.Substring (data.IndexOf ("/") + 1);
+				timer = int.Parse(data.Substring(data.IndexOf("/") + 1));
+				/*string remaining = data.Substring (data.IndexOf ("/") + 1);
 				minutes = (int) timerScript.timer / 60;
-				seconds = (int) timerScript.timer % 60;
-			
+				seconds = (int) timerScript.timer % 60;*/
 			}
 			else
 			{
 				name = "ANONYMOUS";
-				minutes = 0;
-				seconds = 0;
+				timer = 0;
+				/*minutes = 0;
+				seconds = 0;*/
 			}
 
 			// Add data to LeaderboardEntry object
-			entriesList.Add (new LeaderboardEntry (name, minutes, seconds));
+			entriesList.Add (new LeaderboardEntry (name, timer));
 		}
 
 		entriesList.Sort ();	
@@ -64,7 +89,12 @@ public class GameDataManager : MonoBehaviour
 		// Save new Leaderboard entry
 		for (int e = 0; e < 10; e ++)
 		{
-			if (minutes > entriesList[e].minutes)
+			if(timer_saved >= entriesList[e].timer)
+			{
+				entriesList.Insert(e, new LeaderboardEntry(name, (int)timer_saved));
+				break;
+			}
+			/*if (minutes > entriesList[e].minutes)
 			{
 				entriesList.Insert (e, new LeaderboardEntry (name, minutes, seconds));
 				break;
@@ -76,18 +106,26 @@ public class GameDataManager : MonoBehaviour
 					entriesList.Insert (e, new LeaderboardEntry (name, minutes, seconds));
 					break;
 				}
-			}
+			}*/
 		}
 
 
 		// Save to playerprefs
 		for (int e = 0; e < 10; e ++)
 		{
-			PlayerPrefs.SetString ("LeaderboardEntry" + e, entriesList [e].name + "/" + entriesList [e].minutes + "." + entriesList [e].seconds);
-			Debug.Log ( entriesList [e].seconds);
+			PlayerPrefs.SetString("LeaderboardEntry" + e, entriesList[e].name + "/" + entriesList[e].timer);
+			//Debug.Log ( entriesList [e].seconds);
 		}
 		// Save player leaderboard entry
 		//PlayerPrefs.SetString ("LeaderboardEntry0", name + "/" + score.ToString());
+
+		//Debug and check sorting
+		string debug = string.Empty;
+		for(int e = 0; e < 10; e++)
+		{
+			debug += entriesList[e].name + " " + entriesList[e].timer + "\n";
+		}
+		Debug.Log(debug);
 	}
 
 	public void LoadEntry()
@@ -113,43 +151,40 @@ public class GameDataManager : MonoBehaviour
 		for (int e = 0; e < 10; e++) 
 		{
 			string name;
-			int minutes;
-			int seconds;
+			int timer;
+			/*int minutes;
+			int seconds;*/
 
 			// Extract the data from Playerprefs
 			if (PlayerPrefs.HasKey ("LeaderboardEntry" + e))
 			{
-				string data = PlayerPrefs.GetString ("LeaderboardEntry" + e);
-				name = data.Substring (0, data.IndexOf ("/"));
-				string remaining = data.Substring (data.IndexOf ("/") + 1);
-				minutes = (int) timerScript.timer / 60;
-				seconds = (int) timerScript.timer % 60;
+				string data = PlayerPrefs.GetString("LeaderboardEntry" + e);
+				name = data.Substring( 0, data.IndexOf("/"));
+				timer = int.Parse(data.Substring(data.IndexOf("/") + 1));
 			}
 			else
 			{
-				name = "ANONYMOUS";
-				minutes = 0;
-				seconds = 0;
+				name = "ANNOYMOUS";
+				timer = 0;
 			}
 
 			// Add data to LeaderboardEntry object
-			entriesList.Add (new LeaderboardEntry (name, minutes, seconds));
+			entriesList.Add(new LeaderboardEntry(name, timer));
 		}
 
 		entriesList.Sort ();
 
 		for (int e = 0; e < 10; e ++)
 		{
-			Transform newLeaderboardEntryObject = Instantiate (leaderboardEntryObject);
-			newLeaderboardEntryObject.SetParent (contentPanel);
+			Transform newLeaderboardEntryobject = Instantiate(leaderboardEntryObject) as Transform;
+			newLeaderboardEntryobject.SetParent (contentPanel);
 
-			string _name = entriesList [e].name;
-			int _min = entriesList [e].minutes;
-			int _sec = entriesList [e].seconds;
+			string _name = entriesList[e].name;
+			int _timer = entriesList[e].timer;
 
-			newLeaderboardEntryObject.GetComponent <LeaderboardEntryRenderer> ().RenderLeaderboard (e + 1, _name, _min, _sec);
+			newLeaderboardEntryobject.GetComponent<LeaderboardEntryRenderer>().RenderLeaderboard(e + 1, _name, _timer);
 
-			tempEntries.Add (newLeaderboardEntryObject.gameObject);
+			tempEntries.Add(newLeaderboardEntryobject.gameObject);
 		}
 	}
 }

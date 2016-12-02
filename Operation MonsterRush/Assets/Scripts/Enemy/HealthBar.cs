@@ -31,6 +31,7 @@ namespace Enemies
 				if (GameManager.GetSqrDist (this.transform.position, player.transform.position)  < 3.0f)
 				{
 					guiManager.canDisplayTutorialHighlight = true;
+					guiManager.firstCapture = false;
 				}
 				/*else
 				{

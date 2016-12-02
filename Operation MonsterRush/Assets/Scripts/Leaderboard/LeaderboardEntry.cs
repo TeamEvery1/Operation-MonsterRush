@@ -5,14 +5,16 @@ using System;
 public class LeaderboardEntry : IComparable <LeaderboardEntry>
 {
 	public string name;
-	public int minutes;
-	public int seconds;
+	public int timer;
+	/*public int minutes;
+	public int seconds;*/
 
-	public LeaderboardEntry (string _name, int _min, int _sec)
+	public LeaderboardEntry (string _name, int _timer)
 	{
 		name = _name;
-		minutes = _min;
-		seconds = _sec;
+		timer = _timer;
+		/*minutes = _min;
+		seconds = _sec;*/
 	}
 
 	public int CompareTo (LeaderboardEntry other)
@@ -22,7 +24,7 @@ public class LeaderboardEntry : IComparable <LeaderboardEntry>
 			return -1;
 		}
 
-		return other.minutes - minutes;
+		return other.timer - timer;
 	}
 
 
