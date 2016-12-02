@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
 	//CatchManager catchManagerScript;
 
 	public GameObject[] enemies;
+	public GameObject[] slimes;
+	public GameObject luso;
 
 
 	public bool winCondition = false;
@@ -67,8 +69,20 @@ public class GameManager : MonoBehaviour
 
 
 		enemies = GameObject.FindGameObjectsWithTag ("Enemy");
+		luso = GameObject.FindGameObjectWithTag ("Luso");
+		slimes = GameObject.FindGameObjectsWithTag ("Slime");
 
 		for (int i = 0; i < enemies.Length; i++)
+		{
+			enemyCounter++;
+		}
+
+		if (luso.activeSelf)
+		{
+			enemyCounter ++;
+		}
+
+		for (int i = 0; i < slimes.Length; i++)
 		{
 			enemyCounter++;
 		}

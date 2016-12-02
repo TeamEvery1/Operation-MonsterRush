@@ -61,7 +61,7 @@ public class GameOverManager : MonoBehaviour {
 		}	
 
 		coinText.text = playerCollision.coinCounter + "/" + playerCollision.maxCoinCounter;
-		monsterremainingText.text = 14-GameManager.Instance.enemyCounter  + "/" +GameManager.Instance.maxEnemyCounter;
+		monsterremainingText.text = GameManager.Instance.maxEnemyCounter - GameManager.Instance.enemyCounter  + "/" + GameManager.Instance.maxEnemyCounter;
 		minutes = (int) timer / 60;
 		seconds = (int) timer % 60;
 		timerText.text = string.Format ( "{0:00} : {1:00}", minutes, seconds);

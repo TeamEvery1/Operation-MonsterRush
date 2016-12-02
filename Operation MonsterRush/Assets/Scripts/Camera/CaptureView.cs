@@ -39,11 +39,13 @@ namespace Cameras
 		private Vector3 catchingRotation;
 		private Vector3 lookAtCamera;
 
+		private GameObject capturingEffect;
+		private GameObject afterCaptureEffect;
+
 		private bool catchMode;
 		public bool isCollided;
 		private bool changed;
 		private bool recordPos;
-		private bool gotName;
 		private int enemyCounter = 0;
 
 		void Awake()
@@ -58,6 +60,8 @@ namespace Cameras
 			}
 
 			monsterName = (GameObject) Resources.Load ("Prefabs/monsterName");
+			capturingEffect = GameObject.FindGameObjectWithTag ("Player").transform.Find ("Catch Effect/Capturing").gameObject;
+			afterCaptureEffect = GameObject.FindGameObjectWithTag ("Player").transform.Find ("Catch Effect/After Catch").gameObject;
 		}
 
 		void Start()
@@ -84,7 +88,8 @@ namespace Cameras
 
 			camera01 = pivotPoint.transform.parent.gameObject;
 
-			gotName = false;
+			capturingEffect.SetActive (false);
+			afterCaptureEffect.SetActive (false);
 		}
 
 		void FixedUpdate()
@@ -108,6 +113,10 @@ namespace Cameras
 					target = enemyCollisionScript.gameObject;
 
 					playerControllerScript.isMovable = false;
+
+					afterCaptureEffect.SetActive (false);
+					capturingEffect.SetActive (true);
+					capturingEffect.transform.position = enemyCollisionScript.transform.position + new Vector3 (0.0f, 0.6f, 0.0f);
 
 					target.GetComponent <Animator> ().SetBool ("isAttacking", false);
 					target.GetComponent <Animator> ().SetBool ("isAlerting", false);
@@ -153,6 +162,8 @@ namespace Cameras
 							SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERCAPTURESUCCESS);
 							gameManagerScript.enemyCounter --;
 							target.gameObject.SetActive (false);
+							capturingEffect.SetActive (false);
+							afterCaptureEffect.SetActive (true);
 
 							playerMovementScript.objectVelocity = 1.5f;
 							playerCombatScript.targetLock = false;
